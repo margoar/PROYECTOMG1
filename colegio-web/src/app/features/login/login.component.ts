@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -10,19 +11,25 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
-  loginData = { email: '', password: '' };
+  loginData = {
+    email: '',
+    password: ''
+  };
   errorMessage: string | null = null;
 
-  constructor(private router: Router) {}
-
+  constructor(private authService: AuthService, private router: Router) {}
   onSubmit() {
-    // Simulación de autenticación
-    if (this.loginData.email === 'admin@test.com' && this.loginData.password === '1234') {
-      this.router.navigate(['/dashboard']); // Aquí rediriges a otra ruta
-    } else {
-      this.errorMessage = 'Credenciales incorrectas. Intenta de nuevo.';
-    }
+    this.authService.login(this.loginData.email, this.loginData.password).subscribe(
+      (response) => {
+        this.authService.setToken(response.token); // Guarda el token en localStorage o donde lo necesites
+        this.router.navigate(['/home']); // Redirige a la página principal o la página deseada
+      },
+      (error) => {
+        this.errorMessage = 'Error de autenticación. Intenta de nuevo.';
+      }
+    );
   }
 }
 
