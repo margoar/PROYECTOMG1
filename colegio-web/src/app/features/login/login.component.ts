@@ -1,35 +1,62 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service'
+import { AuthService } from '../../core/services/auth.service';
+import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
-  standalone: true, // Esto indica que el componente es standalone
-  imports: [CommonModule, FormsModule], // Importamos los módulos necesarios
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrl: './login.component.css'
 })
-
 export class LoginComponent {
-  loginData = {
-    email: '',
-    password: ''
-  };
-  errorMessage: string | null = null;
+  email: string | null = null;
+  password: string | null = null;
+  mensaje : string | null=null;
+  private jwtHelper = new JwtHelperService(); // Instancia del helper de JWT
 
-  constructor(private authService: AuthService, private router: Router) {}
-  onSubmit() {
-    this.authService.login(this.loginData.email, this.loginData.password).subscribe(
-      (response) => {
-        this.authService.setToken(response.token); // Guarda el token en localStorage o donde lo necesites
-        this.router.navigate(['/home']); // Redirige a la página principal o la página deseada
-      },
-      (error) => {
-        this.errorMessage = 'Error de autenticación. Intenta de nuevo.';
-      }
-    );
+
+  constructor (private router:Router,
+    private loginServices : AuthService
+     
+  ){}
+
+
+  ngOnInit(){
+    var token = this.loginServices.getToken();
+    if (token && !this.jwtHelper.isTokenExpired(token)){
+      console.log("token");
+      console.log(token);
+      this.router.navigate(['/']);
+    }else{
+      this.router.navigate(['/login']);
+
+    }
   }
-}
 
+
+  login() {
+    if (this.email && this.password) {
+      this.loginServices.login(this.email, this.password)
+        .subscribe({
+          next: (response) => {
+            this.router.navigate(['/']);
+
+            console.log('Login exitoso', response);
+          },
+          error: (error) => {
+            // Manejo del error con validación de estructura
+            this.mensaje = 'Error al hacer login: ' + (error.error?.message || 'Error desconocido');
+            console.error('Error en login:', error);
+          }
+        });
+    } else {
+      this.mensaje = 'Por favor ingresa un email y password válidos';
+    }
+  }
+
+
+}
