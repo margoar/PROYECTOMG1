@@ -1,0 +1,47 @@
+.panel-heading {
+    cursor: pointer;
+}
+.panel-body {
+    display: none;
+}
+.panel-body.show {
+    display: block;
+}
+
+
+/* Header */
+header {
+    background-color: #4CAF50; /* Verde Claro */
+    color: #FFFFFF; /* Blanco */
+  }
+  
+
+  
+  /* Tabs */
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+
+
+  
+  /* Hover effect */
+  .tab:hover {
+    background-color: #FFFFFF; /* Blanco */
+    color: #000000; /* Negro */
+  }
+  
+  .tab-active {
+    background-color: #FFFFFF; /* Blanco */
+    color: #000000; /* Negro */
+  }
+  

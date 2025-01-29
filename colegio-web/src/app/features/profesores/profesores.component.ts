@@ -13,6 +13,7 @@ import { ProfesoresService } from '../../core/services/profesores.service';
 })
 export class ProfesoresComponent {
   profesores: any[] = [];
+  isPanelOpen = false;
 
   constructor(private profesoresService: ProfesoresService) {}
 
@@ -28,4 +29,9 @@ export class ProfesoresComponent {
       }
     );
   }
+
+  togglePanel() {
+    this.isPanelOpen = !this.isPanelOpen;
+  }
+
 }
