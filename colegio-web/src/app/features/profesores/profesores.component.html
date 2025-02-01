@@ -1,30 +1,136 @@
  <!-- Professors Panel -->
-        <div class="card">
-            <div class="card-header tab-profesores text-white panel-heading" data-target="professorsList">
-                <h3 class="mb-0">
-                    <i class="fas fa-chalkboard-teacher me-2"></i>Profesores
-                    <i [class.fa-chevron-up]="isPanelOpen" [class.fa-chevron-down]="!isPanelOpen" class="fas fa-chevron-down float-end"></i>
-                </h3>
-            </div>
-            <div class="card-body panel-body" id="professorsList" [class.show]="isPanelOpen">
-                <ul class="list-group">
-                    @for(profesor of profesores; track profesor){
-
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{profesor.nombre}} - {{profesor.email}}
-                        <div>
-                            <button class="btn btn-outline-primary btn-sm me-2">
-                                <i class="fas fa-eye"></i> Ver
-                            </button>
-                            <button class="btn btn-outline-secondary btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </button>
-                        </div>
-                    </li>
-                    }        
-                </ul>
-                <button class="btn btn-primary mt-3">
-                    <i class="fas fa-plus me-2"></i>Agregar Profesor
-                </button>
-            </div>
+ <div class="card">
+    <div class="card-header tab-profesores text-white panel-heading" data-target="professorsList">
+        <h3 class="mb-0">
+            <i class="fas fa-chalkboard-teacher me-2"></i>Profesores
+            <i [class.fa-chevron-up]="isPanelOpen" [class.fa-chevron-down]="!isPanelOpen" class="fas fa-chevron-down float-end"></i>
+        </h3>
+    </div>
+    <div class="card-body panel-body" id="professorsList" [class.show]="isPanelOpen">
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="fas fa-search"></i>
+            </span>
         </div>
+        <br>
+        <ul class="list-group">
+            @for(profesor of profesores; track profesor){
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{profesor.nombre}} - {{profesor.email}}
+                <div>
+                    <button class="btn btn-outline-primary btn-sm me-2">
+                        <i class="fas fa-eye"></i> Ver
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                </div>
+            </li>
+            }        
+        </ul>
+        <br>
+        <a href="#" class="btn btn-primary w-100"
+        data-bs-toggle="modal"
+        data-bs-target="#agregarProfesorModal">
+        <i class="bi bi-plus-circle"></i> Agregar Profesor
+    </a>
+    </div>
+</div>        
+
+
+<!-- Modal para Agregar Profesor -->
+<div class="modal fade" id="agregarProfesorModal" tabindex="-1" [attr.inert]="isModalOpen ? true : null">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Encabezado del modal -->
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Agregar Profesor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="cerrarModal()" #botonCerrar></button>
+        </div>
+  
+        <!-- Formulario para agregar el profesor -->
+        <form #profesorForm="ngForm" (ngSubmit)="agregar(profesorForm)">
+          <div class="modal-body">
+            <!-- Campo nombre -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="nombre" class="form-label me-3" style="min-width: 100px">Nombre</label>
+              <div class="col-sm-9">
+                <input type="text" id="nombre" name="nombre" class="form-control" required minlength="2" [(ngModel)]="profesor.nombre" #nombre="ngModel" 
+                 />
+                @if(nombre.invalid && nombre.touched){
+                    <div class="text-danger">
+                        Nombre es requerido y debe tener al menos 2 caracteres
+                    </div>
+                }
+              </div>
+            </div>
+  
+            <!-- Campo email -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="email" class="form-label me-3" style="min-width: 100px">Email</label>
+              <div class="col-sm-9">
+                <input type="email" id="email" name="email" class="form-control" required
+                [(ngModel)]="profesor.email" #email="ngModel"/>
+                @if(email.invalid && email.touched){
+                    <div class="text-danger">
+                        Por favor ingresa un email válido
+                    </div>
+                }
+              </div>
+            </div>
+  
+            <!-- Campo password -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="password" class="form-label me-3" style="min-width: 100px">Contraseña</label>
+              <div class="col-sm-9">
+                <input type="password" id="password" name="password" class="form-control" required minlength="6" [(ngModel)]="profesor.password" #password="ngModel" />
+                <div class="text-danger">
+                  La contraseña es requerida y debe tener al menos 6 caracteres.
+                </div>
+              </div>
+            </div>
+  
+            <!-- Campo RUT -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="rut" class="form-label me-3" style="min-width: 100px">RUT</label>
+              <div class="col-sm-9">
+                <input type="text" id="rut" name="rut" class="form-control"  [(ngModel)]="profesor.rut" #rut="ngModel"/>
+                <div class="text-danger">
+                  Ingresa un RUT válido (ej: 12.345.678-9).
+                </div>
+              </div>
+            </div>
+  
+            <!-- Campo fecha de nacimiento -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="fechaNacimiento" class="form-label me-3" style="min-width: 100px">Fecha de Nacimiento</label>
+              <div class="col-sm-9">
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" required [(ngModel)]="profesor.fechaNacimiento" #fechaNacimiento="ngModel"/>
+              </div>
+            </div>
+  
+            <!-- Campo tipo de contrato -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="tipoContrato" class="form-label me-3" style="min-width: 100px">Tipo de Contrato</label>
+              <div class="col-sm-9">
+                <select id="tipoContrato" name="tipoContrato" class="form-select" [(ngModel)]="profesor.tipoContrato" #tipoContrato="ngModel" required>
+                  <option [value]="1">Indefinido</option>
+                  <option [value]="2">Plazo Fijo</option>
+                  <option [value]="3">Honorarios</option>
+                </select>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Footer del modal con el botón de guardar -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -28,8 +28,6 @@ export class LoginComponent {
   ngOnInit(){
     var token = this.loginServices.getToken();
     if (token && !this.jwtHelper.isTokenExpired(token)){
-      console.log("token");
-      console.log(token);
       this.router.navigate(['/']);
     }else{
       this.router.navigate(['/login']);

@@ -1,5 +1,8 @@
-export interface Profesor{
-    id?:string;
+export interface Profesor {
     nombre?: string;
-    email?:string;
+    email?: string;
+    password?: string;
+    rut?: string;
+    fechaNacimiento:  string;
+    tipoContrato?: number;
 }

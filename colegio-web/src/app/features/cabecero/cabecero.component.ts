@@ -29,7 +29,6 @@ ngOnInit() {
 
   if (token && !this.jwtHelper.isTokenExpired(token)) {
     this.isLoggedIn = true;
-    console.log(this.isLoggedIn);
 
     try {
       const userInfo = this.loginService.getUserInfo();
@@ -37,13 +36,11 @@ ngOnInit() {
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.loggedInUser = userInfo.correoUsuario;
 
-      console.log(this.loggedInUser);
     } catch (error) {
       console.error("Error decodificando el token:", error);
       this.isLoggedIn = false;
     }
   } else {
-    console.log(this.isLoggedIn);
     this.loginService.logout();
     this.isLoggedIn = false;
   }
