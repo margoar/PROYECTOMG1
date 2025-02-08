@@ -55,17 +55,11 @@ export class ProfesoresComponent {
   agregar(profesorForm: NgForm) {
     const {value, valid} = profesorForm;
     if(valid){
-      console.log("validando")
-      // Agregamos la logica para guardar el cliente
       this.profesor.fechaNacimiento = new Date().toISOString();  // Formato ISO
-      console.log("Agregando profesor:", value);
 
-
-      // Llamada al servicio para agregar el profesor
       this.profesoresService.agregarProfesor(value).subscribe({
         next: (response) => {
           console.log("Profesor agregado exitosamente:", response);
-          // Mostrar mensaje de éxito (puedes usar un alert, toastr, etc.)
       // Mostrar mensaje de éxito con SweetAlert
           Swal.fire({
             title: '¡Éxito!',
@@ -73,10 +67,9 @@ export class ProfesoresComponent {
             icon: 'success',
             confirmButtonText: 'Aceptar'
           }).then(() => {
-            // Actualiza el listado de profesores al cerrar el alert
             this.cargarProfesores();
-            profesorForm.resetForm(); // Limpiar el formulario
-            this.cerrarModal(); // Cerrar el modal
+            profesorForm.resetForm(); 
+            this.cerrarModal(); 
           });
         },
         error: (error) => {
@@ -85,13 +78,13 @@ export class ProfesoresComponent {
           alert('Hubo un error al agregar el profesor.');
         }
       });      
-
     }
   }
 
   abrirModal() {
     this.isModalOpen = true;
   }
+  
    cerrarModal(){
     this.isModalOpen = false;
     this.botonCerrar.nativeElement.click();

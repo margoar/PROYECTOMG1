@@ -10,7 +10,6 @@ import { Profesor } from '../../modelo/profesor.modelo';
 })
 export class ProfesoresService {
   private apiUrl = 'https://localhost:7041/api/profesor'; // Reemplaza con la URL de tu API
-  //profesores: Observable<Profesor[]>;
   private profesorRef: any;
   constructor(private http: HttpClient, private loginServices : AuthService
   ) {}
@@ -21,10 +20,15 @@ export class ProfesoresService {
     return this.http.get<Profesor[]>(`${this.apiUrl}/obtener-profesores?tipoUsuarioId=${tipoUsuarioId}`);
   }
   agregarProfesor(profesor: Profesor): Observable<Profesor> {
-
-
     return this.http.post<Profesor>(`${this.apiUrl}/crear-profesor`, profesor);
-
   }
 
+  getProfesorPorId(id:string) :Observable<Profesor | null>{
+    const profesorRef =  this.http.get<Profesor>(`${this.apiUrl}/obtener-profesor/${id}`);
+    return profesorRef;
+  }
+  modificarProfesor(id: number, profesor: Profesor): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/editar-profesor/${id}`, profesor);
+  }
+  
 }
