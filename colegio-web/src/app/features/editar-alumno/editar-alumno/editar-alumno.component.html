@@ -1,10 +1,10 @@
 <header id="main-header" class="py-2 bg-info text-white">
     <div class="container">
-        <h1><i class="bi bi-person"></i> Editar Profesor</h1>
+        <h1><i class="bi bi-person"></i> Editar Alumno</h1>
     </div>
 </header>
 
-<form #profesorForm="ngForm" (ngSubmit)="guardar(profesorForm)">
+<form #alumnoForm="ngForm" (ngSubmit)="guardar(alumnoForm)">
     <!-- Botones -->
     <section id="actions" class="py-4 mb-4">
         <div class="container d-flex justify-content-between">
@@ -16,7 +16,7 @@
             </button>
    
             <button type="button" (click)="eliminar()" class="btn btn-danger">
-                <i class="bi bi-trash"></i>Eliminar Profesor</button>
+                <i class="bi bi-trash"></i>Eliminar Alumno</button>
 
         </div>
     </section>
@@ -25,7 +25,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-header">
-                    <h4>Editar Profesor</h4>
+                    <h4>Editar Alumno</h4>
                 </div>
                 <div class="card-body">
                     <!-- Campo nombre -->
@@ -34,8 +34,8 @@
                             Nombre
                         </label>
                         <div class="col-sm-9">
-                            <input type="text"  name="nombre" class="form-control" 
-                            required minlength="2"  [(ngModel)]="profesor.nombre" #nombre="ngModel" />                         
+                            <input type="text" id="nombre" name="nombre" class="form-control" 
+                            required minlength="2"  [(ngModel)]="alumno.nombre" #nombre="ngModel" />                         
                             <div class="text-danger">
                                 Nombre es requerido y debe tener al menos 2 caracteres
                             </div>                          
@@ -47,8 +47,8 @@
                             Rut
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" name="rut" class="form-control" 
-                            required minlength="2"  [(ngModel)]="profesor.rut" #rut="ngModel"
+                            <input type="text"  name="rut" class="form-control" 
+                            required minlength="2"  [(ngModel)]="alumno.rut" #rut="ngModel"
                             />
                             <div class="text-danger">
                                 rut es requerido y debe tener al menos 2 caracteres.
@@ -58,12 +58,12 @@
                     </div>
                     <!-- Campo email -->
                     <div class="d-flex align-items-center mb-3">
-                        <label for="email" class="form-label me-3" style="min-width: 100px">
+                        <label for="emailA" class="form-label me-3" style="min-width: 100px">
                             Correo
                         </label>
                         <div class="col-sm-9">
-                            <input type="text"  name="email" class="form-control" 
-                            required minlength="2"  [(ngModel)]="profesor.email" #email="ngModel"
+                            <input type="text" name="emailA" class="form-control" 
+                            required minlength="2"  [(ngModel)]="alumno.email" #emailA="ngModel"
                             />
                             <div class="text-danger">
                                 rut es requerido y debe tener al menos 2 caracteres.
@@ -78,32 +78,46 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" 
-                            required  [(ngModel)]="profesor.fechaNacimiento" #fechaNacimiento="ngModel"  />
+                            required  [(ngModel)]="alumno.fechaNacimiento" #fechaNacimiento="ngModel"  />
                         </div>
                     </div>
-                    <!-- Campo Titulo Profesioanl -->
+
+
+
+                    <!-- Campo  Direccion -->
                     <div class="d-flex align-items-center mb-3">
-                        <label for="tituloProfesional" class="form-label me-3" style="min-width: 100px">
-                            Titulo
+                        <label for="direccion" class="form-label me-3" style="min-width: 100px">
+                            Direccion
                         </label>
                         <div class="col-sm-9">
-                            <input type="tituloProfesional" id="tituloProfesional" name="tituloProfesional" class="form-control" 
-                            required  [(ngModel)]="profesor.tituloProfesional" #tituloProfesional="ngModel"  />
+                            <input type="direccion" id="direccion" name="direccion" class="form-control" 
+                            required  [(ngModel)]="alumno.direccion" #direccion="ngModel"  />
                           
                         </div>
                     </div>                                      
-                    <!-- Campo Contrato -->
+                    <!-- Campo Genero -->
                     <div class="d-flex align-items-center mb-3">
-                        <label for="tipoContrato" class="form-label me-3" style="min-width: 100px">
-                            Tipo Contrato
+                        <label for="genero" class="form-label me-3" style="min-width: 100px">
+                            Genero
                         </label>
                         <div class="col-sm-9">
-                            <input type="number" id="tipoContrato" name="tipoContrato" class="form-control" 
+                            <input type="text" id="genero" name="genero" class="form-control" 
                             required min="0.01"
-                                step="0.01"   [(ngModel)]="profesor.tipoContrato" #tipoContrato="ngModel"/>
+                                step="0.01"   [(ngModel)]="alumno.genero" #genero="ngModel"/>
                   
                         </div>
-                    </div>
+                        </div>
+                         <!-- Campo  Telefono -->
+                         <div class="d-flex align-items-center mb-3">
+                            <label for="telefono" class="form-label me-3" style="min-width: 100px">
+                                Telefono
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="telefono" class="form-control" 
+                                required  [(ngModel)]="alumno.telefono" #telefono="ngModel"  />
+                              
+                            </div>
+                        </div>   
 
                 </div>
             </div>

@@ -16,7 +16,7 @@
                   <div class="card-header">
                       <h4>Login</h4>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body">                    
                       <form (submit)="login()">
                           <div class="mb-3">
                               <label for="email" class="form-label">Email</label>
@@ -30,6 +30,9 @@
                           </div>
                           <input type="submit" value="Login" class="btn btn-primary w-100"/>
                       </form>
+                      <div *ngIf="mensaje" class="alert alert-danger">
+                        {{ mensaje }}
+                      </div>
                   </div>
               </div>
           </div>

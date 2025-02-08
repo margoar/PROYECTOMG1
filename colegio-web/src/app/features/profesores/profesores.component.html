@@ -37,7 +37,7 @@
         data-bs-toggle="modal"
         data-bs-target="#agregarProfesorModal">
         <i class="bi bi-plus-circle"></i> Agregar Profesor
-    </a>
+        </a>
     </div>
 </div>        
 
@@ -59,7 +59,7 @@
             <div class="d-flex align-items-center mb-3">
               <label for="nombre" class="form-label me-3" style="min-width: 100px">Nombre</label>
               <div class="col-sm-9">
-                <input type="text" id="nombre" name="nombre" class="form-control" required minlength="2" [(ngModel)]="profesor.nombre" #nombre="ngModel" 
+                <input type="text"  name="nombre" class="form-control" required minlength="2" [(ngModel)]="profesor.nombre" #nombre="ngModel" 
                  />
                 @if(nombre.invalid && nombre.touched){
                     <div class="text-danger">
@@ -73,7 +73,7 @@
             <div class="d-flex align-items-center mb-3">
               <label for="email" class="form-label me-3" style="min-width: 100px">Email</label>
               <div class="col-sm-9">
-                <input type="email" id="email" name="email" class="form-control" required
+                <input type="email" name="email" class="form-control" required
                 [(ngModel)]="profesor.email" #email="ngModel"/>
                 @if(email.invalid && email.touched){
                     <div class="text-danger">
@@ -87,7 +87,7 @@
             <div class="d-flex align-items-center mb-3">
               <label for="password" class="form-label me-3" style="min-width: 100px">Contraseña</label>
               <div class="col-sm-9">
-                <input type="password" id="password" name="password" class="form-control" required minlength="6" [(ngModel)]="profesor.password" #password="ngModel" />
+                <input type="password"  name="password" class="form-control" required minlength="6" [(ngModel)]="profesor.password" #password="ngModel" />
                 <div class="text-danger">
                   La contraseña es requerida y debe tener al menos 6 caracteres.
                 </div>
@@ -98,7 +98,7 @@
             <div class="d-flex align-items-center mb-3">
               <label for="rut" class="form-label me-3" style="min-width: 100px">RUT</label>
               <div class="col-sm-9">
-                <input type="text" id="rut" name="rut" class="form-control"  [(ngModel)]="profesor.rut" #rut="ngModel"/>
+                <input type="text"  name="rut" class="form-control"  [(ngModel)]="profesor.rut" #rut="ngModel"/>
                 <div class="text-danger">
                   Ingresa un RUT válido (ej: 12.345.678-9).
                 </div>
@@ -109,7 +109,7 @@
             <div class="d-flex align-items-center mb-3">
               <label for="fechaNacimiento" class="form-label me-3" style="min-width: 100px">Fecha de Nacimiento</label>
               <div class="col-sm-9">
-                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" required [(ngModel)]="profesor.fechaNacimiento" #fechaNacimiento="ngModel"/>
+                <input type="date"  name="fechaNacimiento" class="form-control" required [(ngModel)]="profesor.fechaNacimiento" #fechaNacimiento="ngModel"/>
               </div>
             </div>
   

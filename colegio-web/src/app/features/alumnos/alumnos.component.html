@@ -1,47 +1,164 @@
 
         <!-- Students Panel -->
- 
-            <div class="card">
-                <div class="card-header tab-alumnos text-white panel-heading" data-target="studentsList">
-                    <h3 class="mb-0">
-                        <i class="fas fa-user-graduate me-2"></i>Alumnos
-                        <i class="fas fa-chevron-down float-end"></i>
-                    </h3>
-                </div>
-                <div class="card-body panel-body" id="studentsList">
-                    <div class="input-group rounded">
-                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                        <span class="input-group-text border-0" id="search-addon">
-                          <i class="fas fa-search"></i>
-                        </span>
-                    </div>
-                    <br>
-                    <ul class="list-group">
-                        <ng-container *ngIf="(alumnos || []).length > 0; else noAlumnos">
-
-                        @for(alumno of alumnos; track alumno){
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{alumno.nombre}} - {{alumno.email}}
-                            <div>
-                                <button class="btn btn-outline-primary btn-sm me-2">
-                                    <i class="fas fa-eye"></i> ver
-                                </button>
-                                <button class="btn btn-outline-secondary btn-sm" routerLink="/alumno/editar/{{alumno.alumnoID}}">
-                                    <i class="fas fa-edit"></i> Editar
-                                </button>
-                            </div>
-                        </li>
-                        }
-                    </ng-container>
-                    <ng-template #noAlumnos>
-                        <div class="alert alert-info" role="alert">
-                        Aún no se han registrado alumnos.
-                        </div>
-                    </ng-template>
-                    </ul>
-
-                    <button class="btn btn-primary mt-3">
-                        <i class="fas fa-plus me-2"></i>Agregar alumno
-                    </button>
-                </div>
+        <div class="card">
+            <div class="card-header tab-alumnos text-white panel-heading" data-target="studentsList">
+                <h3 class="mb-0">
+                    <i class="fas fa-user-graduate me-2"></i>Alumnos
+                    <i class="fas fa-chevron-down float-end"></i>
+                </h3>
             </div>
+            <div class="card-body panel-body" id="studentsList">
+                <div class="input-group rounded">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <span class="input-group-text border-0" id="search-addon">
+                      <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <br>
+                <ul class="list-group">
+                    <ng-container *ngIf="(alumnos || []).length > 0; else noAlumnos">
+
+                    @for(alumno of alumnos; track alumno){
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{alumno.nombre}} - {{alumno.email}}
+                        <div>
+                            <button class="btn btn-outline-primary btn-sm me-2">
+                                <i class="fas fa-eye"></i> ver
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm" routerLink="/alumno/editar/{{alumno.alumnoID}}">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                        </div>
+                    </li>
+                    }
+                </ng-container>
+                <ng-template #noAlumnos>
+                    <div class="alert alert-info" role="alert">
+                    Aún no se han registrado alumnos.
+                    </div>
+                </ng-template>
+                </ul>
+
+                <br>
+                <a href="#" class="btn btn-primary w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#agregarAlumnoModal">
+                <i class="bi bi-plus-circle"></i> Agregar Alumno
+                </a>
+            </div>
+        </div>
+ 
+ <!-- Modal para Agregar Alumno -->
+<div class="modal fade" id="agregarAlumnoModal" tabindex="-1" [attr.inert]="isModalOpen ? true : null">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Encabezado del modal -->
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Agregar Alumno</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="cerrarModal()" #botonCerrar></button>
+        </div>
+  
+        <!-- Formulario para agregar el alumno -->
+        <form #alumnoForm="ngForm" (ngSubmit)="agregar(alumnoForm)">
+          <div class="modal-body">
+            <!-- Campo nombre -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="nombre" class="form-label me-3" style="min-width: 100px">Nombre</label>
+              <div class="col-sm-9">
+                <input type="text"  name="nombre" class="form-control" required minlength="2" [(ngModel)]="alumno.nombre" #nombre="ngModel" 
+                 />
+                @if(nombre.invalid && nombre.touched){
+                    <div class="text-danger">
+                        Nombre es requerido y debe tener al menos 2 caracteres
+                    </div>
+                }
+              </div>
+            </div>
+  
+            <!-- Campo email -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="email" class="form-label me-3" style="min-width: 100px">Email</label>
+              <div class="col-sm-9">
+                <input type="email"  name="email" class="form-control" required
+                [(ngModel)]="alumno.email" #email="ngModel"/>
+                @if(email.invalid && email.touched){
+                    <div class="text-danger">
+                        Por favor ingresa un email válido
+                    </div>
+                }
+              </div>
+            </div>
+  
+            <!-- Campo password -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="password" class="form-label me-3" style="min-width: 100px">Contraseña</label>
+              <div class="col-sm-9">
+                <input type="password"  name="password" class="form-control" required minlength="6" [(ngModel)]="alumno.password" #password="ngModel" />
+                <div class="text-danger">
+                  La contraseña es requerida y debe tener al menos 6 caracteres.
+                </div>
+              </div>
+            </div>
+  
+            <!-- Campo RUT -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="rut" class="form-label me-3" style="min-width: 100px">RUT</label>
+              <div class="col-sm-9">
+                <input type="text" id="rut" name="rut" class="form-control"  [(ngModel)]="alumno.rut" #rut="ngModel"/>
+                <div class="text-danger">
+                  Ingresa un RUT válido (ej: 12.345.678-9).
+                </div>
+              </div>
+            </div>
+  
+            <!-- Campo fecha de nacimiento -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="fechaNacimiento" class="form-label me-3" style="min-width: 100px">Fecha de Nacimiento</label>
+              <div class="col-sm-9">
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" required [(ngModel)]="alumno.fechaNacimiento" #fechaNacimiento="ngModel"/>
+              </div>
+            </div>
+  
+            <!-- Campo Genero -->
+            <div class="d-flex align-items-center mb-3">
+              <label for="genero" class="form-label me-3" style="min-width: 100px">Genero</label>
+              <div class="col-sm-9">
+                <select id="genero" name="genero" class="form-select" [(ngModel)]="alumno.genero" #genero="ngModel" required>
+                  <option [value]="1">Femenino</option>
+                  <option [value]="2">Masculino</option>
+                  <option [value]="3">Profiero no decir</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Campo TELEFONO -->
+            <div class="d-flex align-items-center mb-3">
+                <label for="telefono" class="form-label me-3" style="min-width: 100px">Telefono</label>
+                <div class="col-sm-9">
+                  <input type="text" id="telefono" name="telefono" class="form-control" required
+                  [(ngModel)]="alumno.telefono" #telefono="ngModel"/>
+               
+                </div>
+              </div>
+            <!-- Campo direccion -->
+            <div class="d-flex align-items-center mb-3">
+                <label for="direccion" class="form-label me-3" style="min-width: 100px">Direccion</label>
+                <div class="col-sm-9">
+                  <input type="text" id="direccion" name="direccion" class="form-control" required
+                  [(ngModel)]="alumno.direccion" #direccion="ngModel"/>
+          
+                </div>
+              </div>
+          </div>
+ 
+          
+          <!-- Footer del modal con el botón de guardar -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+         

@@ -10,7 +10,7 @@ import { Alumno } from '../../modelo/alumno.modelo';
 })
 export class AlumnoService {
   private apiUrl = 'https://localhost:7041/api/alumno'; // Reemplaza con la URL de tu API
-  private profesorRef: any;
+  private alumnoRef: any;
   constructor(private http: HttpClient, private loginServices : AuthService
   ) {}
 
@@ -19,8 +19,20 @@ export class AlumnoService {
 
     return this.http.get<Alumno[]>(`${this.apiUrl}/obtener-alumnos?tipoUsuarioId=${tipoUsuarioId}`);
   }
-  agregarAlumno(profesor: Alumno): Observable<Alumno> {
-    return this.http.post<Alumno>(`${this.apiUrl}/crear-alumno`, profesor);
+  agregarAlumno(alumno: Alumno): Observable<Alumno> {
+    return this.http.post<Alumno>(`${this.apiUrl}/crear-alumno`, alumno);
   }
 
+  getAlumnoPorId(id:string) :Observable<Alumno | null>{
+    const alumnoRef =  this.http.get<Alumno>(`${this.apiUrl}/obtener-alumno/${id}`);
+    return alumnoRef;
+  }
+
+  modificarAlumno(id: number, alumno: Alumno): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/editar-alumno/${id}`, alumno);
+  }
+    
+  eliminarAlumno(id: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/eliminar-alumno/${id}`, {});
+  }
 }

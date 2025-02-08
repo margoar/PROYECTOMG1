@@ -46,28 +46,28 @@ export class AlumnosComponent {
     });
   }
 
-  agregar(profesorForm: NgForm) {
-    const {value, valid} = profesorForm;
+  agregar(alumnoForm: NgForm) {
+    const {value, valid} = alumnoForm;
     if(valid){
       this.alumno.fechaNacimiento = new Date().toISOString();  // Formato ISO
 
       this.alumnoService.agregarAlumno(value).subscribe({
         next: (response) => {
-          console.log("Profesor agregado exitosamente:", response);
+          console.log("Alumno agregado exitosamente:", response);
           Swal.fire({
             title: '¡Éxito!',
-            text: 'El profesor ha sido agregado correctamente.',
+            text: 'El Alumno ha sido agregado correctamente.',
             icon: 'success',
             confirmButtonText: 'Aceptar'
           }).then(() => {
             this.cargarAlumnos();
-            profesorForm.resetForm(); 
+            alumnoForm.resetForm(); 
             this.cerrarModal(); 
           });
         },
         error: (error) => {
-          console.error("Error al agregar el profesor:", error);
-          alert('Hubo un error al agregar el profesor.');
+          console.error("Error al agregar el alumno:", error);
+          alert('Hubo un error al agregar el alumno.');
         }
       });      
     }
