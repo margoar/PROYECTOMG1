@@ -43,8 +43,7 @@ export class ProfesoresComponent {
   cargarProfesores(): void {
     this.profesoresService.obtenerProfesores().subscribe({
       next: (response) => {
-        this.profesores = response; // Asigna los profesores obtenidos al array
-        console.log('Profesores cargados:', this.profesores);
+        this.profesores = response; 
       },
       error: (error) => {
         console.error('Error al cargar los profesores:', error);
@@ -60,7 +59,6 @@ export class ProfesoresComponent {
       this.profesoresService.agregarProfesor(value).subscribe({
         next: (response) => {
           console.log("Profesor agregado exitosamente:", response);
-      // Mostrar mensaje de éxito con SweetAlert
           Swal.fire({
             title: '¡Éxito!',
             text: 'El profesor ha sido agregado correctamente.',
@@ -74,7 +72,6 @@ export class ProfesoresComponent {
         },
         error: (error) => {
           console.error("Error al agregar el profesor:", error);
-          // Mostrar mensaje de error
           alert('Hubo un error al agregar el profesor.');
         }
       });      

@@ -69,6 +69,39 @@ export class EditarProfesorComponent {
     }
     
     eliminar(){
-      throw new Error('metodo no implementado');
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción deshabilitará al profesor.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed && this.id) {
+          this.profesorServicio.eliminarProfesor(Number(this.id)).subscribe({
+            next: () => {
+              Swal.fire({
+                icon: 'success',
+                title: '¡Profesor eliminado!',
+                text: 'El profesor ha sido deshabilitado correctamente.',
+                confirmButtonText: 'OK'
+              }).then(() => {
+                this.router.navigate(['/']); 
+              });
+            },
+            error: (err) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al deshabilitar el profesor. Inténtalo nuevamente.',
+                confirmButtonText: 'OK'
+              });
+              console.error(err);
+            }
+          });
+        }
+      });
     }
 }
