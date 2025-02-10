@@ -36,12 +36,10 @@ export class EditarProfesorComponent {
           if(profesor){
             this.profesor = profesor;
           }else{
-            console.log('Cliente no encontrado: ' +this.id);
             this.router.navigate(['/']);
           }
         });
       }else{
-        console.log('ID no proporcionado');
         this.router.navigate(['/']);
       }
     }
