@@ -8,6 +8,7 @@ import { AuthGuard } from './core/guards/auth.guards';
 import { EditarProfesorComponent } from './features/editar-profesor/editar-profesor.component';
 import { EditarAlumnoComponent } from './features/editar-alumno/editar-alumno/editar-alumno.component';
 import { VerProfesorComponent } from './features/ver-profesor/ver-profesor.component';
+import { ResumenCursoComponent } from './features/resumen-curso/resumen-curso.component';
 
 export const routes: Routes = [
     {path: '', component: TableroComponent, canActivate :[AuthGuard]}, //localhost:4200/
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'alumno/editar/:id', component: EditarAlumnoComponent , canActivate :[AuthGuard]},
     { path: 'profesor/ver/:id', component: VerProfesorComponent , canActivate :[AuthGuard]},
     { path: 'alumnos', component: AlumnosComponent, canActivate :[AuthGuard] },
+    { path: 'curso/resumen/:id', component: ResumenCursoComponent , canActivate :[AuthGuard]},
   { path: '**', redirectTo: '' },
 ];

@@ -1,0 +1,65 @@
+<header id="main-header" class="py-2 bg-info text-white">
+    <div class="container">
+        <h1><i class="bi bi-person"></i> Resumen Curso</h1>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Botones -->
+    <section id="actions" class="py-4 mb-4">
+        <div class="container d-flex justify-content-between">
+            <a [routerLink]="['/']" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Regresar al Inicio
+            </a>
+        </div>
+    </section>
+            <nav class="year-selector">
+                <select id="year-select">
+                    <option value="2026">2026 (Current Year)</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                </select>
+            </nav>
+    
+            <main>
+                <section class="levels">
+                    <div class="level">
+                        <h2>First Year</h2>
+                        <div class="course">
+                            <h3>First Year A</h3>
+                            <p class="head-teacher">Head Teacher: Ms. Johnson</p>
+                            <div class="subjects">
+                                <h4>Subjects:</h4>
+                                <div class="subject">
+                                    <p><span>Mathematics</span> <span>Mr. Smith</span></p>
+                                </div>
+                                <div class="subject">
+                                    <p><span>English</span> <span>Ms. Brown</span></p>
+                                </div>
+                                <div class="subject">
+                                    <p><span>Science</span> <span>Dr. Lee</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course">
+                            <h3>First Year B</h3>
+                            <p class="head-teacher">Head Teacher: Mr. Davis</p>
+                            <div class="subjects">
+                                <h4>Subjects:</h4>
+                                <div class="subject">
+                                    <p><span>Mathematics</span> <span>Ms. Wilson</span></p>
+                                </div>
+                                <div class="subject">
+                                    <p><span>English</span> <span>Mr. Taylor</span></p>
+                                </div>
+                                <div class="subject">
+                                    <p><span>Science</span> <span>Mrs. Anderson</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </main>
+</div>
+    
