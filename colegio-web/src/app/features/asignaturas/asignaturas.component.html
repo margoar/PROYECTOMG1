@@ -11,7 +11,7 @@
           <ul class="list-group">
             @for(asignatura of asignaturas; track asignatura){
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{asignatura.nombre}}
+                {{asignatura.nombreAsignatura}}
                   <div>
                       <button type="button" class="btn btn-info" routerLink="/curso/resumen/{{asignatura.asignaturaID}}"><i class="bi bi-journal-text" ></i>
                           Resumen

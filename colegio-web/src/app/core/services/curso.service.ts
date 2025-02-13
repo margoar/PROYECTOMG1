@@ -7,12 +7,18 @@ import { Observable } from "rxjs";
   providedIn: 'root',
 })
 export class CursoService {
-  private apiUrl = 'https://localhost:7041/api/curso'; // Reemplaza con la URL de tu API
+  private apiUrl = 'https://localhost:7041/api/curso';
+  private apiMatriculaUrl = 'https://localhost:7041/api/matricula'; 
+
   constructor(private http: HttpClient
   ) {}
 
   obtenerNiveles(): Observable<Nivel[]> {
     return this.http.get<Nivel[]>(`${this.apiUrl}/obtener-niveles`);
   }
-  
+
+  obtenerAnios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiMatriculaUrl}/obtener-anios`);
+  }
+
 }

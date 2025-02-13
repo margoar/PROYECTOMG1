@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 export class AsignaturasComponent {
 asignaturas: Asignatura[] | null = null;
 asignatura: Asignatura = {
-  nombre: 'rere'
+  nombreAsignatura: ''
   };
 
 constructor(private asignaturaService: AsignaturaService) {}

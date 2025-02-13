@@ -1,4 +1,5 @@
 export interface Asignatura {
     asignaturaID?:number;
-    nombre?: string;
+    nivelID?:number;
+    nombreAsignatura: string;
 }
