@@ -14,12 +14,16 @@ export class ResumenCursoComponent {
   id: string | null = null;
   anios: number[] = [];
   anioSeleccionado: number = new Date().getFullYear();
+  cursos: any[] = [];
+
 
   constructor(
       private route : ActivatedRoute,private cursoService: CursoService){}
 
     ngOnInit() {
+      this.id = this.route.snapshot.paramMap.get('id'); // Obtener nivelId desde la URL
       this.cargarAnios();
+      this.obtenerCursos();
     }
   
     cargarAnios() {
@@ -32,4 +36,20 @@ export class ResumenCursoComponent {
         }
       });
     }
+
+    obtenerCursos() {
+      const nivelId = this.id ? parseInt(this.id, 10) : 0;
+      const anioMatricula = this.anioSeleccionado || 0;
+  
+      this.cursoService.obtenerCursosPorNivel(nivelId, anioMatricula).subscribe({
+        next: (data) => {
+          this.cursos = data;
+          console.log(this.cursos);
+        },
+        error: (err) => {
+          console.error("Error obteniendo cursos:", err);
+        }
+      });
+    }
+  
 }
