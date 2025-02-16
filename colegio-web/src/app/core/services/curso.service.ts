@@ -28,5 +28,10 @@ export class CursoService {
       }
     });
   }
+  agregarCurso(curso: Curso): Observable<Curso> {
+    return this.http.post<Curso>(`${this.apiUrl}/crear-curso`, curso);
+  }
+
+  
   
 }

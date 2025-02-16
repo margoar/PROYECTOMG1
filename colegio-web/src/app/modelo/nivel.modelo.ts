@@ -1,4 +1,4 @@
 export interface Nivel {
-    nivelID?:number;
+    nivelId?:number;
     descripcion?: string;
 }

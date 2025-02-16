@@ -1,6 +1,8 @@
 export interface Curso {
-    nivelID?:number;
-    cursoID?:number;
+    nivelId?:number;
+    cursoId?:number;
     nombreCurso:string;
     nombreNivel:string;
+    profesorId?:number;
+    vacantes?:number;
 }
