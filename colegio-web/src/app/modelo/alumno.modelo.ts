@@ -1,6 +1,8 @@
 export interface Alumno {
     alumnoID?:number;
-    nombre?: string;
+    nombres?: string;
+    apellidoPaterno?:string;
+    apellidoMaterno?:string;
     email?: string;
     password?: string;
     rut?: string;
@@ -8,5 +10,6 @@ export interface Alumno {
     genero?: string;
     direccion? :string;
     telefono? :string;
+    estadoEstudiante:string;
 
 }

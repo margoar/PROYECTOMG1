@@ -14,14 +14,15 @@ import { AlumnoService } from '../../../core/services/alumno.service';
 })
 export class EditarAlumnoComponent {
   alumno :Alumno = {
-    nombre: '',
+    nombres: '',
     email: '',
     password: '',
     rut: '',
     fechaNacimiento:  '',
     genero: '',
     telefono:'',
-    direccion:''
+    direccion:'',
+    estadoEstudiante:''
   }
   id: string | null = null;
 

@@ -20,7 +20,8 @@
 
                     @for(alumno of alumnos; track alumno){
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{alumno.nombre}} - {{alumno.email}}
+                        {{alumno.nombres}} - {{alumno.email}}  <span class="badge bg-dark">{{alumno.estadoEstudiante}}</span>
+
                         <div>
                             <button class="btn btn-outline-primary btn-sm me-2">
                                 <i class="fas fa-eye"></i> ver
@@ -48,117 +49,89 @@
             </div>
         </div>
  
- <!-- Modal para Agregar Alumno -->
+ <!-- Modal para Agregar Alumno con Stepper -->
 <div class="modal fade" id="agregarAlumnoModal" tabindex="-1" [attr.inert]="isModalOpen ? true : null">
-    <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <!-- Encabezado del modal -->
-        <div class="modal-header bg-info text-white">
-          <h5 class="modal-title">Agregar Alumno</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="cerrarModal()" #botonCerrar></button>
-        </div>
-  
-        <!-- Formulario para agregar el alumno -->
-        <form #alumnoForm="ngForm" (ngSubmit)="agregar(alumnoForm)">
-          <div class="modal-body">
-            <!-- Campo nombre -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="nombre" class="form-label me-3" style="min-width: 100px">Nombre</label>
-              <div class="col-sm-9">
-                <input type="text"  name="nombre" class="form-control" required minlength="2" [(ngModel)]="alumno.nombre" #nombre="ngModel" 
-                 />
-                @if(nombre.invalid && nombre.touched){
-                    <div class="text-danger">
-                        Nombre es requerido y debe tener al menos 2 caracteres
-                    </div>
-                }
-              </div>
-            </div>
-  
-            <!-- Campo email -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="email" class="form-label me-3" style="min-width: 100px">Email</label>
-              <div class="col-sm-9">
-                <input type="email"  name="email" class="form-control" required
-                [(ngModel)]="alumno.email" #email="ngModel"/>
-                @if(email.invalid && email.touched){
-                    <div class="text-danger">
-                        Por favor ingresa un email válido
-                    </div>
-                }
-              </div>
-            </div>
-  
-            <!-- Campo password -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="password" class="form-label me-3" style="min-width: 100px">Contraseña</label>
-              <div class="col-sm-9">
-                <input type="password"  name="password" class="form-control" required minlength="6" [(ngModel)]="alumno.password" #password="ngModel" />
-                <div class="text-danger">
-                  La contraseña es requerida y debe tener al menos 6 caracteres.
-                </div>
-              </div>
-            </div>
-  
-            <!-- Campo RUT -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="rut" class="form-label me-3" style="min-width: 100px">RUT</label>
-              <div class="col-sm-9">
-                <input type="text" id="rut" name="rut" class="form-control"  [(ngModel)]="alumno.rut" #rut="ngModel"/>
-                <div class="text-danger">
-                  Ingresa un RUT válido (ej: 12.345.678-9).
-                </div>
-              </div>
-            </div>
-  
-            <!-- Campo fecha de nacimiento -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="fechaNacimiento" class="form-label me-3" style="min-width: 100px">Fecha de Nacimiento</label>
-              <div class="col-sm-9">
-                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" required [(ngModel)]="alumno.fechaNacimiento" #fechaNacimiento="ngModel"/>
-              </div>
-            </div>
-  
-            <!-- Campo Genero -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="genero" class="form-label me-3" style="min-width: 100px">Genero</label>
-              <div class="col-sm-9">
-                <select id="genero" name="genero" class="form-select" [(ngModel)]="alumno.genero" #genero="ngModel" required>
-                  <option [value]="1">Femenino</option>
-                  <option [value]="2">Masculino</option>
-                  <option [value]="3">Profiero no decir</option>
-                </select>
-              </div>
-            </div>
+          <!-- Encabezado del modal -->
+          <div class="modal-header bg-info text-white">
+              <h5 class="modal-title">Agregar Alumno</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+          </div>
 
-            <!-- Campo TELEFONO -->
-            <div class="d-flex align-items-center mb-3">
-                <label for="telefono" class="form-label me-3" style="min-width: 100px">Telefono</label>
-                <div class="col-sm-9">
-                  <input type="text" id="telefono" name="telefono" class="form-control" required
-                  [(ngModel)]="alumno.telefono" #telefono="ngModel"/>
-               
-                </div>
+          <!-- Formulario con Stepper -->
+          <form #alumnoForm="ngForm" (ngSubmit)="agregar(alumnoForm)">
+              <div class="modal-body">
+                  <!-- Stepper -->
+                  <ul class="nav nav-pills mb-3">
+                      <li class="nav-item">
+                          <button type="button" class="nav-link" [class.active]="currentStep === 1" (click)="setStep(1)">Datos Personales</button>
+                      </li>
+                      <li class="nav-item">
+                          <button type="button" class="nav-link" [class.active]="currentStep === 2" (click)="setStep(2)" [disabled]="!alumno.nombres">Apoderado</button>
+                      </li>
+                      <li class="nav-item">
+                          <button type="button" class="nav-link" [class.active]="currentStep === 3" (click)="setStep(3)" [disabled]="!apoderado.nombre">Documentos</button>
+                      </li>
+                  </ul>
+                  
+                  <!-- Paso 1: Datos Personales -->
+                  <div *ngIf="currentStep === 1">
+                      <div class="mb-3">
+                          <label for="nombres" class="form-label">Nombres</label>
+                          <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="nombres" class="form-label">Apellido Paterno</label>
+                        <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="nombres" class="form-label">Apellido Materno</label>
+                      <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
+                  </div>
+                      <div class="mb-3">
+                          <label for="email" class="form-label">Email</label>
+                          <input type="email" name="email" class="form-control" [(ngModel)]="alumno.email" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                          <input type="date" name="fechaNacimiento" class="form-control" [(ngModel)]="alumno.fechaNacimiento" required>
+                      </div>
+                  </div>
+                  
+                  <!-- Paso 2: Apoderado -->
+                  <div *ngIf="currentStep === 2">
+                      <div class="mb-3">
+                          <label for="apoderadoNombre" class="form-label">Nombre Apoderado</label>
+                          <input type="text" name="apoderadoNombre" class="form-control" [(ngModel)]="apoderado.nombre" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="apoderadoTelefono" class="form-label">Teléfono</label>
+                          <input type="text" name="apoderadoTelefono" class="form-control" [(ngModel)]="apoderado.telefono" required>
+                      </div>
+                  </div>
+                  
+                  <!-- Paso 3: Documentos -->
+                  <div *ngIf="currentStep === 3">
+                      <div class="mb-3">
+                          <label for="documentoIdentidad" class="form-label">Documento de Identidad</label>
+                          <input type="file" name="documentoIdentidad" class="form-control">
+                      </div>
+                      <div class="mb-3">
+                          <label for="certificadoNacimiento" class="form-label">Certificado de Nacimiento</label>
+                          <input type="file" name="certificadoNacimiento" class="form-control">
+                      </div>
+                  </div>
               </div>
-            <!-- Campo direccion -->
-            <div class="d-flex align-items-center mb-3">
-                <label for="direccion" class="form-label me-3" style="min-width: 100px">Direccion</label>
-                <div class="col-sm-9">
-                  <input type="text" id="direccion" name="direccion" class="form-control" required
-                  [(ngModel)]="alumno.direccion" #direccion="ngModel"/>
-          
-                </div>
+
+              <!-- Footer del modal con botones de navegación -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-info" (click)="prevStep()" [disabled]="currentStep === 1">Atrás</button>
+                  <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < 3">Siguiente</button>
+                  <button type="submit" class="btn btn-success" *ngIf="currentStep === 3">Guardar</button>
               </div>
-          </div>
- 
-          
-          <!-- Footer del modal con el botón de guardar -->
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-        </form>
+          </form>
       </div>
-    </div>
   </div>
-         
+</div>

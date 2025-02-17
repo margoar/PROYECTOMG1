@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { Alumno } from '../../modelo/alumno.modelo';
 import { AlumnoService } from '../../core/services/alumno.service';
 import Swal from 'sweetalert2';
+import { Apoderado } from '../../modelo/apoderado.modelo';
 
 @Component({
   selector: 'app-alumnos',
@@ -16,14 +17,22 @@ import Swal from 'sweetalert2';
 export class AlumnosComponent {
     alumnos: Alumno[] | null = null;
     alumno: Alumno = {
-      nombre: '',
+      nombres: '',
       email: '',
       password: '',
       rut: '',
-      fechaNacimiento: ''
+      fechaNacimiento: '',
+      estadoEstudiante:''
     };
+    apoderado: Apoderado = {
+      nombre: '',
+      email: '',
+      rut: '',
+      telefono:''
+    }
     isPanelOpen: boolean  = false;
     isModalOpen: boolean = false;
+    currentStep:number =1;
 
     @ViewChild('botonCerrar') botonCerrar!: ElementRef;
     
@@ -79,6 +88,22 @@ export class AlumnosComponent {
    cerrarModal(){
     this.isModalOpen = false;
     this.botonCerrar.nativeElement.click();
+  }
+
+    setStep(step: number) {
+      this.currentStep = step;
+  }
+
+  nextStep() {
+      if (this.currentStep < 3) {
+          this.currentStep++;
+      }
+  }
+
+  prevStep() {
+      if (this.currentStep > 1) {
+          this.currentStep--;
+      }
   }
 
 }
