@@ -35,7 +35,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="text"  name="nombre" class="form-control" 
-                            required minlength="2"  [(ngModel)]="profesor.nombre" #nombre="ngModel" />                         
+                            required minlength="2"  [(ngModel)]="profesor.usuario.nombres" #nombre="ngModel" />                         
                             <div class="text-danger">
                                 Nombre es requerido y debe tener al menos 2 caracteres
                             </div>                          
@@ -63,7 +63,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="text"  name="email" class="form-control" 
-                            required minlength="2"  [(ngModel)]="profesor.email" #email="ngModel"
+                            required minlength="2"  [(ngModel)]="profesor.usuario.email" #email="ngModel"
                             />
                             <div class="text-danger">
                                 rut es requerido y debe tener al menos 2 caracteres.

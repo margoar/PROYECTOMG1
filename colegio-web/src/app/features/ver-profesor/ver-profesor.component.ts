@@ -8,17 +8,23 @@ import { Profesor } from '../../modelo/profesor.modelo';
   selector: 'app-ver-profesor',
     standalone: true,
     imports: [FormsModule, RouterModule],
-  templateUrl: './ver-profesor.component.html',
-  styleUrl: './ver-profesor.component.css'
+    templateUrl: './ver-profesor.component.html',
+    styleUrl: './ver-profesor.component.css'
 })
 export class VerProfesorComponent {
     profesor :Profesor = {
-      nombre: '',
-      email: '',
-      password: '',
       rut: '',
       fechaNacimiento:  '',
-      tipoContrato: 0
+      tipoContrato: 0,
+      telefono:'',
+      nacionalidad:0,
+      usuario :{
+        nombres: '',
+        apellidoPaterno:'',
+        apellidoMaterno:'',
+        email: '',
+        passwordHash: ''
+      }
     }
     id: string | null = null;
   

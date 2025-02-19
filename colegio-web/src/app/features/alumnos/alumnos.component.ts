@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { Alumno } from '../../modelo/alumno.modelo';
 import { AlumnoService } from '../../core/services/alumno.service';
 import Swal from 'sweetalert2';
-import { Apoderado } from '../../modelo/apoderado.modelo';
+import { Nivel } from '../../modelo/nivel.modelo';
+import { CursoService } from '../../core/services/curso.service';
 
 @Component({
   selector: 'app-alumnos',
@@ -18,29 +19,60 @@ export class AlumnosComponent {
     alumnos: Alumno[] | null = null;
     alumno: Alumno = {
       nombres: '',
-      email: '',
-      password: '',
+      apellidoPaterno:'',
+      apellidoMaterno:'',
       rut: '',
       fechaNacimiento: '',
-      estadoEstudiante:''
+      estadoEstudiante:'',
+      apoderado: {
+        rut:'',
+        telefono:'',
+        direccion:'',
+        usuario: {
+          email:'',
+          passwordHash:'',
+          nombres:'',
+          apellidoPaterno:'',
+          apellidoMaterno :''
+        },
+
+      },
+      matricula:{
+        alumnoID:0,
+        cursoID:0,
+        anioEscolar:0,
+        estadoID:0,
+        nivelId:0,
+      }
+      
     };
-    apoderado: Apoderado = {
-      nombre: '',
-      email: '',
-      rut: '',
-      telefono:''
-    }
+
+    niveles: Nivel[] | null = null;
+    nivel: Nivel = {
+      descripcion: 'rere'
+      };
     isPanelOpen: boolean  = false;
     isModalOpen: boolean = false;
     currentStep:number =1;
 
     @ViewChild('botonCerrar') botonCerrar!: ElementRef;
     
-  constructor(private alumnoService: AlumnoService) {}
+  constructor(private alumnoService: AlumnoService, private cursoService: CursoService) {}
 
   ngOnInit(): void {
     this.cargarAlumnos(); 
+    this.cargarNiveles(); 
 
+  }
+  cargarNiveles(): void {
+    this.cursoService.obtenerNiveles().subscribe({
+      next: (response) => {
+        this.niveles = response; 
+      },
+      error: (error) => {
+        console.error('Error al cargar niveles:', error);
+      }
+    });
   }
 
 
@@ -56,11 +88,10 @@ export class AlumnosComponent {
   }
 
   agregar(alumnoForm: NgForm) {
-    const {value, valid} = alumnoForm;
-    if(valid){
+    if(alumnoForm.valid){
       this.alumno.fechaNacimiento = new Date().toISOString();  // Formato ISO
 
-      this.alumnoService.agregarAlumno(value).subscribe({
+      this.alumnoService.agregarAlumno(this.alumno).subscribe({
         next: (response) => {
           console.log("Alumno agregado exitosamente:", response);
           Swal.fire({
@@ -76,7 +107,12 @@ export class AlumnosComponent {
         },
         error: (error) => {
           console.error("Error al agregar el alumno:", error);
-          alert('Hubo un error al agregar el alumno.');
+          Swal.fire({
+            title: 'Error',
+            text: error.error?.message || 'Hubo un error al agregar el alumno.',
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+          });
         }
       });      
     }
@@ -89,9 +125,8 @@ export class AlumnosComponent {
     this.isModalOpen = false;
     this.botonCerrar.nativeElement.click();
   }
-
-    setStep(step: number) {
-      this.currentStep = step;
+  setStep(step: number) {
+    this.currentStep = step;
   }
 
   nextStep() {
@@ -105,5 +140,6 @@ export class AlumnosComponent {
           this.currentStep--;
       }
   }
+ 
 
 }

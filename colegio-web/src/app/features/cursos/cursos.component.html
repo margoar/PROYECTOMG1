@@ -45,7 +45,7 @@
 
             <div class="mb-3">
               <label for="nivel" class="form-label">Nivel</label>
-              <select class="form-select" id="nivelId" name="nivelId" [(ngModel)]="curso.nivelId" #nivelId="ngModel" >
+              <select class="form-select" name="nivelId" [(ngModel)]="curso.nivelId" #nivelId="ngModel" >
                 @for(nivel of niveles; track nivel){
                 <option [value]="nivel.nivelId" >{{nivel.descripcion}}</option>
               }
@@ -56,7 +56,7 @@
               <label for="profesor" class="form-label">Profesor Jefe</label>
               <select class="form-select" name="profesorId" id="profesorId" [(ngModel)]="curso.profesorId" #idPorfesor="ngModel" >
                 @for(profesor of profesores; track profesor){
-                <option [value]="profesor.idProfesor" > {{profesor.nombre}}</option>
+                <option [value]="profesor.idProfesor" > {{profesor.usuario.nombres}}</option>
                 }
               </select>
             </div>

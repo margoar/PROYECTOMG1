@@ -34,4 +34,12 @@ export class ProfesoresService {
   eliminarProfesor(id: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/eliminar-profesor/${id}`, {});
   }
+
+  obtenerNacionalidades(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/nacionalidades`);
+  }
+
+  obtenerTiposContratos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/tiposContratos`);
+  }
 }

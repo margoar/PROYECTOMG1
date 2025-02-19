@@ -23,12 +23,18 @@ nivel: Nivel = {
   };
   profesores: Profesor[] | null = null;
   profesor: Profesor = {
-    nombre: '',
-    email: '',
-    password: '',
     rut: '',
     fechaNacimiento: '',
-    tipoContrato: 1
+    tipoContrato: 1,
+    telefono:'',
+    nacionalidad:0,
+    usuario: {
+      nombres: '',
+      apellidoPaterno:'',
+      apellidoMaterno:'',
+      email: '',
+      passwordHash: ''
+    }
   };
 
   curso:Curso = {

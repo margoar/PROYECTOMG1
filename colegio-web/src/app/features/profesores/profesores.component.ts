@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { ProfesoresService } from '../../core/services/profesores.service';
 import { Profesor } from '../../modelo/profesor.modelo';
 import Swal from 'sweetalert2';
+import { Nacionalidad } from '../../modelo/nacionalidad.modelo';
+import { TipoContrato } from '../../modelo/tipoContrato';
 
 @Component({
   selector: 'app-profesores',
@@ -16,15 +18,26 @@ import Swal from 'sweetalert2';
 export class ProfesoresComponent {
   profesores: Profesor[] | null = null;
   profesor: Profesor = {
-    nombre: '',
-    email: '',
-    password: '',
     rut: '',
     fechaNacimiento: '',
-    tipoContrato: 1
+    tipoContrato: 1,
+    telefono:'',
+    nacionalidad:0,
+    genero:0,
+    usuario :{
+      email:'',
+      passwordHash:'',
+      nombres:'',
+      apellidoPaterno:'',
+      apellidoMaterno :''
+    }
   };
   isPanelOpen: boolean  = false;
   isModalOpen: boolean = false;
+  currentStep:number =1;
+  
+  nacionalidades: Nacionalidad[] | null = null;
+  contratos: TipoContrato[] | null = null;
 
 
   @ViewChild('botonCerrar') botonCerrar!: ElementRef;
@@ -33,7 +46,8 @@ export class ProfesoresComponent {
 
   ngOnInit(): void {
     this.cargarProfesores(); // Cargar los profesores al iniciar el componente
-
+    this.getNaciconalidades();
+    this.getTiposContratos();
   }
 
   togglePanel() {
@@ -52,11 +66,10 @@ export class ProfesoresComponent {
   }
 
   agregar(profesorForm: NgForm) {
-    const {value, valid} = profesorForm;
-    if(valid){
+    if(profesorForm.valid){
       this.profesor.fechaNacimiento = new Date().toISOString();  // Formato ISO
 
-      this.profesoresService.agregarProfesor(value).subscribe({
+      this.profesoresService.agregarProfesor(this.profesor).subscribe({
         next: (response) => {
           console.log("Profesor agregado exitosamente:", response);
           Swal.fire({
@@ -82,9 +95,49 @@ export class ProfesoresComponent {
     this.isModalOpen = true;
   }
   
+
+  getNaciconalidades(): void {
+    this.profesoresService.obtenerNacionalidades().subscribe({
+      next: (response) => {
+        this.nacionalidades = response; 
+      },
+      error: (error) => {
+        console.error('Error al cargar nacionalidades:', error);
+      }
+    });
+  }
+
+
+  getTiposContratos(): void {
+    this.profesoresService.obtenerTiposContratos().subscribe({
+      next: (response) => {
+        this.contratos = response; 
+      },
+      error: (error) => {
+        console.error('Error al cargar contratos:', error);
+      }
+    });
+  }
+
    cerrarModal(){
     this.isModalOpen = false;
     this.botonCerrar.nativeElement.click();
+  }
+
+  setStep(step: number) {
+    this.currentStep = step;
+  }
+
+  nextStep() {
+      if (this.currentStep < 3) {
+          this.currentStep++;
+      }
+  }
+
+  prevStep() {
+      if (this.currentStep > 1) {
+          this.currentStep--;
+      }
   }
 
 }

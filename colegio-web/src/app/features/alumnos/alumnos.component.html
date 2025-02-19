@@ -20,7 +20,7 @@
 
                     @for(alumno of alumnos; track alumno){
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{alumno.nombres}} - {{alumno.email}}  <span class="badge bg-dark">{{alumno.estadoEstudiante}}</span>
+                        {{alumno.nombres}} {{alumno.apellidoPaterno}} {{alumno.apellidoMaterno}} <span class="badge bg-dark">{{alumno.estadoEstudiante}}</span>
 
                         <div>
                             <button class="btn btn-outline-primary btn-sm me-2">
@@ -56,7 +56,7 @@
           <!-- Encabezado del modal -->
           <div class="modal-header bg-info text-white">
               <h5 class="modal-title">Agregar Alumno</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
+              <button type="button" #botonCerrar  class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
           </div>
 
           <!-- Formulario con Stepper -->
@@ -71,44 +71,103 @@
                           <button type="button" class="nav-link" [class.active]="currentStep === 2" (click)="setStep(2)" [disabled]="!alumno.nombres">Apoderado</button>
                       </li>
                       <li class="nav-item">
-                          <button type="button" class="nav-link" [class.active]="currentStep === 3" (click)="setStep(3)" [disabled]="!apoderado.nombre">Documentos</button>
+                          <button type="button" class="nav-link" [class.active]="currentStep === 3" (click)="setStep(3)" [disabled]="!alumno.apoderado.usuario.nombres">Documentos</button>
                       </li>
                   </ul>
                   
                   <!-- Paso 1: Datos Personales -->
                   <div *ngIf="currentStep === 1">
-                      <div class="mb-3">
-                          <label for="nombres" class="form-label">Nombres</label>
-                          <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="nombres" class="form-label">Apellido Paterno</label>
-                        <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="nombres" class="form-label">Apellido Materno</label>
-                      <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
-                  </div>
-                      <div class="mb-3">
-                          <label for="email" class="form-label">Email</label>
-                          <input type="email" name="email" class="form-control" [(ngModel)]="alumno.email" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                          <input type="date" name="fechaNacimiento" class="form-control" [(ngModel)]="alumno.fechaNacimiento" required>
-                      </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="rut" class="form-label">Rut</label>
+                                <input type="text" name="rut" class="form-control" [(ngModel)]="alumno.rut" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="nivel" class="form-label">Nivel</label>
+                                <select class="form-select" id="nivelId" name="nivelId" [(ngModel)]="alumno.matricula.nivelId" #nivelId="ngModel" >
+                                  @for(nivel of niveles; track nivel){
+                                  <option [value]="nivel.nivelId" >{{nivel.descripcion}}</option>
+                                }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="nivel" class="form-label">Año Escolar</label>
+                                <select class="form-select" id="anioEscolar" name="anioEscolar" [(ngModel)]="alumno.matricula.anioEscolar" #anioEscolar="ngModel"  >
+                                  <option [value]="2025" selected>2025</option>
+                                  <option [value]="2026" >2026</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombres" class="form-label">Nombres</label>
+                            <input type="text" name="nombres" class="form-control" [(ngModel)]="alumno.nombres" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                            <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+                            <input type="text" name="apellidoPaterno" class="form-control" [(ngModel)]="alumno.apellidoPaterno" required>
+                            </div>
+                        
+                            <div class="col-md-6">
+                            <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+                            <input type="text" name="apellidoMaterno" class="form-control" [(ngModel)]="alumno.apellidoMaterno" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                            <label for="nombres" class="form-label">Genero</label>
+
+                            <select name="genero" class="form-select" [(ngModel)]="alumno.genero" #genero="ngModel">
+                                <option [value]="1">Femenino</option>
+                                <option [value]="2">Masculino</option>
+                                <option [value]="3">Prefiere No decir</option>
+                            </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <input type="date" name="fechaNacimiento" class="form-control" [(ngModel)]="alumno.fechaNacimiento" required>
+                            </div>
+                        </div>
                   </div>
                   
                   <!-- Paso 2: Apoderado -->
                   <div *ngIf="currentStep === 2">
-                      <div class="mb-3">
-                          <label for="apoderadoNombre" class="form-label">Nombre Apoderado</label>
-                          <input type="text" name="apoderadoNombre" class="form-control" [(ngModel)]="apoderado.nombre" required>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="rutApoderado" class="form-label">RUT</label>
+                                <input type="text" name="rutApoderado" class="form-control"  [(ngModel)]="alumno.apoderado.rut" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="correoApoderado" class="form-label">Correo</label>
+                                <input type="email" name="correoApoderado" class="form-control"  [(ngModel)]="alumno.apoderado.usuario.email" required>
+                            </div>
+                        </div>
+                      <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="nombreApoderado" class="form-label">Nombres</label>
+                            <input type="text" name="nombreApoderado" placeholder="Ej: Marcela Paz" class="form-control" [(ngModel)]="alumno.apoderado.usuario.nombres" required> </div>
+                        <div class="col-md-4">
+                            <label for="apellidoPaternoApoderado" class="form-label">Apellido Paterno</label>
+                            <input type="text" name="apellidoPaternoApoderado" class="form-control" [(ngModel)]="alumno.apoderado.usuario.apellidoPaterno" required> </div>
+                        <div class="col-md-4"> 
+                            <label for="apellidoMaternoApoderado" class="form-label">Apellido Materno</label>
+                            <input type="text" name="apellidoMaternoApoderado" class="form-control" [(ngModel)]="alumno.apoderado.usuario.apellidoMaterno" required>
+                        </div>
+                       
                       </div>
+                      <div class="mb-3">
+                        <label for="direccionApoderado" class="form-label">Direccion</label>
+                        <input type="text" name="direccionApoderado" class="form-control" [(ngModel)]="alumno.apoderado.direccion" required>
+                    </div>
                       <div class="mb-3">
                           <label for="apoderadoTelefono" class="form-label">Teléfono</label>
-                          <input type="text" name="apoderadoTelefono" class="form-control" [(ngModel)]="apoderado.telefono" required>
+                          <input type="text" name="apoderadoTelefono" class="form-control" placeholder="+56942009255" [(ngModel)]="alumno.apoderado.telefono" required>
                       </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Contrasena</label>
+                        <input type="password" name="password" class="form-control"  [(ngModel)]="alumno.apoderado.usuario.passwordHash" required>
+                    </div>
                   </div>
                   
                   <!-- Paso 3: Documentos -->

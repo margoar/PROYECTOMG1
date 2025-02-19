@@ -18,7 +18,8 @@
             @for(profesor of profesores; track profesor){
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{profesor.nombre}} - {{profesor.email}}
+                {{profesor.usuario.nombres}} {{profesor.usuario.apellidoPaterno}} -  {{profesor.usuario.email}}
+
                 <div>
                     <button class="btn btn-outline-primary btn-sm me-2" routerLink="/profesor/ver/{{profesor.idProfesor}}" >
                         <i class="fas fa-eye"></i> Ver
@@ -42,97 +43,149 @@
 </div>        
 
 
-<!-- Modal para Agregar Profesor -->
-<div class="modal fade" id="agregarProfesorModal" tabindex="-1" [attr.inert]="isModalOpen ? true : null">
-    <div class="modal-dialog modal-lg">
+<!-- Modal para Agregar Profesor con Stepper -->
+<div class="modal fade" id="agregarProfesorModal" tabindex="-1" aria-labelledby="agregarProfesorModalLabel" aria-hidden="true" [attr.inert]="isModalOpen ? true : null">
+
+
+  <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <!-- Encabezado del modal -->
-        <div class="modal-header bg-info text-white">
-          <h5 class="modal-title">Agregar Profesor</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="cerrarModal()" #botonCerrar></button>
-        </div>
-  
-        <!-- Formulario para agregar el profesor -->
-        <form #profesorForm="ngForm" (ngSubmit)="agregar(profesorForm)">
-          <div class="modal-body">
-            <!-- Campo nombre -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="nombre" class="form-label me-3" style="min-width: 100px">Nombre</label>
-              <div class="col-sm-9">
-                <input type="text"  name="nombre" class="form-control" required minlength="2" [(ngModel)]="profesor.nombre" #nombre="ngModel" 
-                 />
-                @if(nombre.invalid && nombre.touched){
-                    <div class="text-danger">
-                        Nombre es requerido y debe tener al menos 2 caracteres
+          <!-- Encabezado del modal -->
+          <div class="modal-header bg-info text-white">
+              <h5 class="modal-title">Agregar Profesor</h5>
+              <button #botonCerrar  type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Cerrar" aria-label="Close" (click)="cerrarModal()"></button>
+       
+
+            </div>
+
+          <!-- Formulario con Stepper -->
+          <form #profesorForm="ngForm" (ngSubmit)="agregar(profesorForm)">
+              <div class="modal-body">
+                  <!-- Stepper -->
+                  <ul class="nav nav-pills mb-3">
+                      <li class="nav-item">
+                          <button type="button" class="nav-link" [class.active]="currentStep === 1" (click)="setStep(1)">Datos Personales</button>
+                      </li>
+                      <li class="nav-item">
+                          <button type="button" class="nav-link" [class.active]="currentStep === 2" (click)="setStep(2)" >Informacion Laboral</button>
+                      </li>
+                      <li class="nav-item">
+                        <button type="button" class="nav-link" [class.active]="currentStep === 3" (click)="setStep(2)" >Datos Cuenta</button>
+                    </li>
+
+                  </ul>
+                  
+                  <!-- Paso 1: Datos Personales -->
+                  <div *ngIf="currentStep === 1">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="rut" class="form-label">Rut</label>
+                                <input type="text" name="rut" class="form-control" [(ngModel)]="profesor.rut" #rut="ngModel" required>
+                            </div>
+                  
+                            <div class="col-md-4">
+                              <label for="nacionalidad" class="form-label">Nacionalidad</label>
+                              <select class="form-select" name="nacionalidad" [(ngModel)]="profesor.nacionalidad" #nacionalidad="ngModel" >
+                                @for(nacionalidad of nacionalidades; track nacionalidad){
+                                <option [value]="nacionalidad.id" >{{nacionalidad.nombre}}</option>
+                              }
+                              </select>
+                          </div>
+                      
+                        </div>
+            
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="nombres" class="form-label">Nombres</label>
+                            <input type="text" name="nombres" class="form-control" [(ngModel)]="profesor.usuario.nombres" #nombres="ngModel"  required>
+                            </div>
+                            <div class="col-md-4">
+                            <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+                            <input type="text" name="apellidoPaterno" class="form-control" [(ngModel)]="profesor.usuario.apellidoPaterno" #apellidoPaterno="ngModel" required>
+                            </div>
+                        
+                            <div class="col-md-4">
+                            <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+                            <input type="text" name="apellidoMaterno" class="form-control" [(ngModel)]="profesor.usuario.apellidoMaterno" #apellidoMaterno="ngModel" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                            <label for="nombres" class="form-label">Genero</label>
+
+                            <select name="genero" class="form-select"  [(ngModel)]="profesor.genero" #genero="ngModel"  >
+                                <option [value]="1">Femenino</option>
+                                <option [value]="2">Masculino</option>
+                                <option [value]="3">Prefiere No decir</option>
+                            </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                <input type="date" name="fechaNacimiento" class="form-control" [(ngModel)]="profesor.fechaNacimiento" #fechaNacimiento="ngModel" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="direccion" class="form-label">Direccion</label>
+                          <input type="text" name="direccion" class="form-control"  required>
+                      </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" name="telefono" class="form-control" placeholder="+56942009255" [(ngModel)]="profesor.telefono" #telefono="ngModel"  required>
+                        </div>
+                  </div>
+                  
+           
+                  <!-- Paso 2: InformacionLaboral -->
+                  <div *ngIf="currentStep === 2">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                          <label for="tipoContrato" class="form-label">Tipo contrato</label>
+                          <select class="form-select" name="tipoContrato" [(ngModel)]="profesor.tipoContrato" #tipoContrato="ngModel" >
+                            @for(contato of contratos; track contratos){
+                            <option [value]="contato.id" >{{contato.nombre}}</option>
+                          }
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tituloProfesional" class="form-label">Titulo Profesional</label>
+                            <input type="email" name="tituloProfesional" class="form-control" [(ngModel)]="profesor.tituloProfesional" #tituloProfesional="ngModel" required>
+                        </div>
                     </div>
-                }
+      
+       
+        
               </div>
-            </div>
-  
-            <!-- Campo email -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="email" class="form-label me-3" style="min-width: 100px">Email</label>
-              <div class="col-sm-9">
-                <input type="email" name="email" class="form-control" required
-                [(ngModel)]="profesor.email" #email="ngModel"/>
-                @if(email.invalid && email.touched){
-                    <div class="text-danger">
-                        Por favor ingresa un email válido
+
+                  <!-- Paso 3: Datos Cuenta -->
+                  <div *ngIf="currentStep === 3">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="rut" class="form-label">RUT</label>
+                                <input type="text" name="rut" class="form-control"  [(ngModel)]="profesor.rut" #rut="ngModel" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Correo</label>
+                                <input type="email" name="emaul" class="form-control" [(ngModel)]="profesor.usuario.email" #email="ngModel" required>
+                            </div>
+                        </div>
+          
+           
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Contrasena</label>
+                        <input type="password" name="password" class="form-control" [(ngModel)]="profesor.usuario.passwordHash" #passwordHash="ngModel" required>
                     </div>
-                }
+                  </div>
+                  
+ 
               </div>
-            </div>
-  
-            <!-- Campo password -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="password" class="form-label me-3" style="min-width: 100px">Contraseña</label>
-              <div class="col-sm-9">
-                <input type="password"  name="password" class="form-control" required minlength="6" [(ngModel)]="profesor.password" #password="ngModel" />
-                <div class="text-danger">
-                  La contraseña es requerida y debe tener al menos 6 caracteres.
-                </div>
+
+              <!-- Footer del modal con botones de navegación -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-info" (click)="prevStep()" [disabled]="currentStep === 1">Atrás</button>
+                  <button type="button" class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < 3">Siguiente</button>
+                  <button type="submit" class="btn btn-success" *ngIf="currentStep === 3">Guardar</button>
               </div>
-            </div>
-  
-            <!-- Campo RUT -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="rut" class="form-label me-3" style="min-width: 100px">RUT</label>
-              <div class="col-sm-9">
-                <input type="text"  name="rut" class="form-control"  [(ngModel)]="profesor.rut" #rut="ngModel"/>
-                <div class="text-danger">
-                  Ingresa un RUT válido (ej: 12.345.678-9).
-                </div>
-              </div>
-            </div>
-  
-            <!-- Campo fecha de nacimiento -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="fechaNacimiento" class="form-label me-3" style="min-width: 100px">Fecha de Nacimiento</label>
-              <div class="col-sm-9">
-                <input type="date"  name="fechaNacimiento" class="form-control" required [(ngModel)]="profesor.fechaNacimiento" #fechaNacimiento="ngModel"/>
-              </div>
-            </div>
-  
-            <!-- Campo tipo de contrato -->
-            <div class="d-flex align-items-center mb-3">
-              <label for="tipoContrato" class="form-label me-3" style="min-width: 100px">Tipo de Contrato</label>
-              <div class="col-sm-9">
-                <select id="tipoContrato" name="tipoContrato" class="form-select" [(ngModel)]="profesor.tipoContrato" #tipoContrato="ngModel" required>
-                  <option [value]="1">Indefinido</option>
-                  <option [value]="2">Plazo Fijo</option>
-                  <option [value]="3">Honorarios</option>
-                </select>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Footer del modal con el botón de guardar -->
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-        </form>
+          </form>
       </div>
-    </div>
   </div>
-  
+</div>

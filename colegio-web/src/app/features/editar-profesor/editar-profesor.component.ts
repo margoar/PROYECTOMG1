@@ -14,12 +14,21 @@ import Swal from 'sweetalert2';
 })
 export class EditarProfesorComponent {
   profesor :Profesor = {
-    nombre: '',
-    email: '',
-    password: '',
+
     rut: '',
     fechaNacimiento:  '',
-    tipoContrato: 0
+    tipoContrato: 0,
+    telefono: '',
+    nacionalidad:0,
+    usuario:{
+      email:'',
+      passwordHash:'',
+      nombres:'',
+      apellidoPaterno:'',
+      apellidoMaterno :''
+    }    
+
+    
   }
   id: string | null = null;
 

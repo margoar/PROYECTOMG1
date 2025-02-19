@@ -1,9 +1,11 @@
+import { Usuario } from "./usuario.modelo";
+
 export interface Apoderado {
-    apoderadoId?:number;
-    nombre?: string;
-    email?: string;
-    rut?: string;
-    direccion? :string;
-    telefono? :string;
+   
+    rut?:string;
+    telefono?:string;
+    direccion?:string;
+    usuario:Usuario
+
 
 }
