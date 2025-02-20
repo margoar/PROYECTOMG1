@@ -4,13 +4,13 @@ import { CursoService } from '../../core/services/curso.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-resumen-curso',
+  selector: 'app-cursos-por-nivel',
   standalone : true,
   imports: [RouterModule,FormsModule],
-  templateUrl: './resumen-curso.component.html',
-  styleUrl: './resumen-curso.component.css'
+  templateUrl: './cursos-por-nivel.component.html',
+  styleUrl: './cursos-por-nivel.component.css'
 })
-export class ResumenCursoComponent {
+export class CursosPorNivelComponent {
   id: string | null = null;
   anios: number[] = [];
   anioSeleccionado: number = new Date().getFullYear();
@@ -25,7 +25,7 @@ export class ResumenCursoComponent {
       this.cargarAnios();
       this.obtenerCursos();
     }
-  
+
     cargarAnios() {
       this.cursoService.obtenerAnios().subscribe({
         next: (data) => {

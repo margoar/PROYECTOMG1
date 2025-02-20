@@ -1,0 +1,57 @@
+<section id="actions" class="py-2 mb-2">
+    <div class="container d-flex justify-content-between">
+        <button type="button" class="btn btn-primary" routerLink="/cursos/nivel/2">            <i class="bi bi-arrow-left"></i> Atras
+
+        </button>  
+    </div>
+
+   
+</section>
+    <div class="container mt-4">
+        <!-- Cabecera del curso -->
+        <div class="card p-3 mb-3">
+            <h2>Curso: 5° Básico A - 2025</h2>
+            <p><strong>Nivel:</strong> Básico</p>
+            <p><strong>Profesor Jefe:</strong> Juan Pérez</p>
+            <button class="btn btn-primary">Editar Curso</button>
+        </div>
+
+        <!-- Pestañas -->
+        <ul class="nav nav-tabs" id="cursoTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="alumnos-tab" data-bs-toggle="tab" data-bs-target="#alumnos" type="button" role="tab">Alumnos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="asignaturas-tab" data-bs-toggle="tab" data-bs-target="#asignaturas" type="button" role="tab">Asignaturas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="horario-tab" data-bs-toggle="tab" data-bs-target="#horario" type="button" role="tab">Horario</button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3" id="cursoTabsContent">
+            <!-- Lista de alumnos -->
+            <div class="tab-pane fade show active" id="alumnos" role="tabpanel">
+                <ul class="list-group">
+                    <li class="list-group-item">María López</li>
+                    <li class="list-group-item">Carlos Rodríguez</li>
+                    <li class="list-group-item">Ana Martínez</li>
+                </ul>
+            </div>
+            
+            <!-- Lista de asignaturas -->
+            <div class="tab-pane fade" id="asignaturas" role="tabpanel">
+                <ul class="list-group">
+                    <li class="list-group-item">Matemáticas - Prof. Luis Fernández</li>
+                    <li class="list-group-item">Lenguaje - Prof. Marta Ríos</li>
+                    <li class="list-group-item">Historia - Prof. Pedro Gómez</li>
+                </ul>
+            </div>
+
+            <!-- Horario -->
+            <div class="tab-pane fade" id="horario" role="tabpanel">
+                <p>Aquí puedes integrar un calendario interactivo o una tabla con el horario del curso.</p>
+            </div>
+        </div>
+    </div>
+

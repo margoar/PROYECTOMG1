@@ -11,6 +11,11 @@
     </div>
 </section>
 
+
+
+<button type="button" class="btn btn-info" routerLink="/cursos/nivel/{{nivel.nivelId}}"><i class="bi bi-journal-text" ></i>
+    Resumen Cursos
+</button>    
 <div class="container mt-4">
     <div class="mb-3">
         <label for="anio-select" class="form-label">Seleccionar Año</label>
@@ -37,16 +42,13 @@
                      <p><i class="fas fa-user-tie"></i> {{curso.profesorJefe}}</p>
                         <div>
     
-                            <button class='btn btn-sm btn-primary me-1'>Ver Detalle</button>
+                            <button class='btn btn-sm btn-primary me-1'  routerLink="/curso/{{curso.cursoId}}/2025">Ver Detalle</button>
                         </div>
                     </div>
                 </div>
             </div>
     
         }
-
-
-
 
     </div>
 </div>
