@@ -56,7 +56,8 @@ export class AlumnosComponent {
     currentStep:number =1;
 
     @ViewChild('botonCerrar') botonCerrar!: ElementRef;
-    
+    @ViewChild('alumnoForm') alumnoForm!: NgForm;
+
   constructor(private alumnoService: AlumnoService, private cursoService: CursoService) {}
 
   ngOnInit(): void {
@@ -89,7 +90,6 @@ export class AlumnosComponent {
 
   agregar(alumnoForm: NgForm) {
     if(alumnoForm.valid){
-      this.alumno.fechaNacimiento = new Date().toISOString();  // Formato ISO
 
       this.alumnoService.agregarAlumno(this.alumno).subscribe({
         next: (response) => {
@@ -100,8 +100,9 @@ export class AlumnosComponent {
             icon: 'success',
             confirmButtonText: 'Aceptar'
           }).then(() => {
+            alumnoForm.resetForm(); // Resetea el formulario
+
             this.cargarAlumnos();
-            alumnoForm.resetForm(); 
             this.cerrarModal(); 
           });
         },

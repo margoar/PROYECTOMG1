@@ -67,7 +67,7 @@ export class ProfesoresComponent {
 
   agregar(profesorForm: NgForm) {
     if(profesorForm.valid){
-      this.profesor.fechaNacimiento = new Date().toISOString();  // Formato ISO
+      //this.profesor.fechaNacimiento = new Date().toISOString();  // Formato ISO
 
       this.profesoresService.agregarProfesor(this.profesor).subscribe({
         next: (response) => {
