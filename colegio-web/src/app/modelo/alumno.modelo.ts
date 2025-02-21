@@ -12,6 +12,7 @@ export interface Alumno {
     direccion? :string;
     telefono? :string;
     estadoEstudiante:string;
+    estadoID?: number;
     apoderado : Apoderado
     matricula:Matricula
 

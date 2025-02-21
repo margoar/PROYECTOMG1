@@ -81,12 +81,10 @@ constructor(private cursoService: CursoService, private profesorService:Profesor
 
   agregar(cursoForm: NgForm) {
     const {value, valid} = cursoForm;
-    console.log(value);
     if(valid){
 
       this.cursoService.agregarCurso(value).subscribe({
         next: (response) => {
-          console.log("Curso agregado exitosamente:", response);
           Swal.fire({
             title: '¡Éxito!',
             text: 'Curso agregado correctamente.',

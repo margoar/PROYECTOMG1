@@ -78,7 +78,7 @@ export class AlumnosComponent {
 
 
   cargarAlumnos(): void {
-    this.alumnoService.obtenerAlumno().subscribe({
+    this.alumnoService.obtenerAlumnos().subscribe({
       next: (response) => {
         this.alumnos = response; 
       },
@@ -93,7 +93,6 @@ export class AlumnosComponent {
 
       this.alumnoService.agregarAlumno(this.alumno).subscribe({
         next: (response) => {
-          console.log("Alumno agregado exitosamente:", response);
           Swal.fire({
             title: '¡Éxito!',
             text: 'El Alumno ha sido agregado correctamente.',
@@ -107,7 +106,6 @@ export class AlumnosComponent {
           });
         },
         error: (error) => {
-          console.error("Error al agregar el alumno:", error);
           Swal.fire({
             title: 'Error',
             text: error.error?.message || 'Hubo un error al agregar el alumno.',

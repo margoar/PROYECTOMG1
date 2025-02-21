@@ -44,7 +44,6 @@ export class CursosPorNivelComponent {
       this.cursoService.obtenerCursosPorNivel(nivelId, anioMatricula).subscribe({
         next: (data) => {
           this.cursos = data;
-          console.log(this.cursos);
         },
         error: (err) => {
           console.error("Error obteniendo cursos:", err);

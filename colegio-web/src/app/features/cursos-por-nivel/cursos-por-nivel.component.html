@@ -14,7 +14,7 @@
 <div class="container mt-4">
     <div class="mb-3">
         <label for="anio-select" class="form-label">Seleccionar Año</label>
-        <select id="anio-select" class="form-select">
+        <select id="anio-select" class="form-select" [(ngModel)]="anioSeleccionado">
             @for (anio of anios; track anio) {
                 <option [value]="anio">{{ anio }}</option>
             }
@@ -37,7 +37,7 @@
                      <p><i class="fas fa-user-tie"></i> {{curso.profesorJefe}}</p>
                         <div>
     
-                            <button class='btn btn-sm btn-primary me-1'  routerLink="/curso/{{curso.cursoId}}/2025">Ver Detalle</button>
+                            <button class='btn btn-sm btn-primary me-1'  [routerLink]="'/curso/' + curso.cursoId + '/' + anioSeleccionado">Ver Detalle</button>
                         </div>
                     </div>
                 </div>

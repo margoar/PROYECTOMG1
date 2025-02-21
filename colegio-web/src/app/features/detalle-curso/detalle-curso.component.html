@@ -1,7 +1,7 @@
 <section id="actions" class="py-2 mb-2">
     <div class="container d-flex justify-content-between">
-        <button type="button" class="btn btn-primary" routerLink="/cursos/nivel/2">            <i class="bi bi-arrow-left"></i> Atras
-
+        <button type="button" class="btn btn-primary" (click)="volverAtras()">     
+            <i class="bi bi-arrow-left"></i> Atrás
         </button>  
     </div>
 
@@ -10,9 +10,9 @@
     <div class="container mt-4">
         <!-- Cabecera del curso -->
         <div class="card p-3 mb-3">
-            <h2>Curso: 5° Básico A - 2025</h2>
-            <p><strong>Nivel:</strong> Básico</p>
-            <p><strong>Profesor Jefe:</strong> Juan Pérez</p>
+            <h2>Curso: {{curso.nombreNivel}} {{curso.nombreCurso}}  - 2025</h2>
+            <p><strong>Nivel:</strong> {{curso.nombreNivel}}</p>
+            <p><strong>Profesor Jefe:</strong> {{curso.profesorJefe}}</p>
             <button class="btn btn-primary">Editar Curso</button>
         </div>
 
@@ -33,10 +33,17 @@
             <!-- Lista de alumnos -->
             <div class="tab-pane fade show active" id="alumnos" role="tabpanel">
                 <ul class="list-group">
-                    <li class="list-group-item">María López</li>
-                    <li class="list-group-item">Carlos Rodríguez</li>
-                    <li class="list-group-item">Ana Martínez</li>
+                    @for(alumno of curso.alumnos; track alumno){
+                    <li class="list-group-item">{{alumno.nombres}} {{alumno.apellidoPaterno}} {{alumno.apellidoMaterno}}</li>
+          
+                    }
                 </ul>
+               <br>
+               <br>
+                <!-- slo perfil admin deberia ver esto -->
+   
+              <app-listado-postulantes></app-listado-postulantes>
+  
             </div>
             
             <!-- Lista de asignaturas -->

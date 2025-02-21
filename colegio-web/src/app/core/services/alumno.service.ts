@@ -14,7 +14,7 @@ export class AlumnoService {
   constructor(private http: HttpClient, private loginServices : AuthService
   ) {}
 
-  obtenerAlumno(): Observable<Alumno[]> {
+  obtenerAlumnos(): Observable<Alumno[]> {
     const tipoUsuarioId = this.loginServices.getUserInfo().tipoUsuarioId; // Obtiene el tipoUsuario
 
     return this.http.get<Alumno[]>(`${this.apiUrl}/obtener-alumnos?tipoUsuarioId=${tipoUsuarioId}`);
@@ -35,4 +35,10 @@ export class AlumnoService {
   eliminarAlumno(id: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/eliminar-alumno/${id}`, {});
   }
+
+
+  obtenerPostulantesPorNivelyAnio(nivelId: number, anioMatricula: number): Observable<Alumno[]> {
+    return this.http.get<Alumno[]>(`${this.apiUrl}/obtener-postulantes?nivelId=${nivelId}&anioMatricula=${anioMatricula}`);
+  }
+  
 }

@@ -4,4 +4,5 @@ export interface Matricula{
     anioEscolar?:number;
     estadoID?:number;
     nivelId?:number;
+    estadoMatricula?:string;
 }

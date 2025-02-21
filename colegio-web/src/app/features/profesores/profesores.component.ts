@@ -71,7 +71,6 @@ export class ProfesoresComponent {
 
       this.profesoresService.agregarProfesor(this.profesor).subscribe({
         next: (response) => {
-          console.log("Profesor agregado exitosamente:", response);
           Swal.fire({
             title: '¡Éxito!',
             text: 'El profesor ha sido agregado correctamente.',
@@ -84,7 +83,6 @@ export class ProfesoresComponent {
           });
         },
         error: (error) => {
-          console.error("Error al agregar el profesor:", error);
           alert('Hubo un error al agregar el profesor.');
         }
       });      

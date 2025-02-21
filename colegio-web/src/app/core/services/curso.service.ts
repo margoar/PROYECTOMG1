@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Nivel } from "../../modelo/nivel.modelo";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { Curso } from "../../modelo/curso.modelo";
 
 @Injectable({
@@ -31,7 +31,15 @@ export class CursoService {
   agregarCurso(curso: Curso): Observable<Curso> {
     return this.http.post<Curso>(`${this.apiUrl}/crear-curso`, curso);
   }
-
+  obtenerCursoPorId(cursoID: number, anioMatricula: number): Observable<Curso> {
+    return this.http.get<Curso>(`${this.apiUrl}/obtener-curso/${cursoID}`, {
+      params: {
+        anioMatricula: anioMatricula
+      }
+    }).pipe(
+      tap(data => console.log('Datos recibidos:', data))  // Verifica los datos aquí
+    );
+  }
   
   
 }
