@@ -11,7 +11,7 @@ export class AsignaturaService {
   constructor(private http: HttpClient
   ) {}
 
-  obtenerAsignaturas(): Observable<Asignatura[]> {
-    return this.http.get<Asignatura[]>(`${this.apiUrl}/obtener-asignaturas`);
+  obtenerAsignaturas(cursoId?:  number): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.apiUrl}/obtener-asignaturas?nivelId=${cursoId}`);
   }
 }

@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <!-- Cabecera del curso -->
         <div class="card p-3 mb-3">
-            <h2>Curso: {{curso.nombreNivel}} {{curso.nombreCurso}} - {{curso.cursoId}}  - 2025</h2>
+            <h2>Curso: {{curso.nombreNivel}} {{curso.nombreCurso}}  - 2025</h2>
             <p><strong>Nivel:</strong> {{curso.nombreNivel}}</p>
             <p><strong>Profesor Jefe:</strong> {{curso.profesorJefe}}</p>
             <button class="btn btn-primary">Editar Curso</button>
@@ -37,8 +37,7 @@
                 </app-listado-inscritos>
                <br>
                <br>
-                <!-- slo perfil admin deberia ver esto -->
-   
+
               <app-listado-postulantes>
               </app-listado-postulantes>
               
@@ -47,16 +46,12 @@
             
             <!-- Lista de asignaturas -->
             <div class="tab-pane fade" id="asignaturas" role="tabpanel">
-                <ul class="list-group">
-                    <li class="list-group-item">Matemáticas - Prof. Luis Fernández</li>
-                    <li class="list-group-item">Lenguaje - Prof. Marta Ríos</li>
-                    <li class="list-group-item">Historia - Prof. Pedro Gómez</li>
-                </ul>
+            <app-asignaturas-por-curso></app-asignaturas-por-curso>
             </div>
 
             <!-- Horario -->
             <div class="tab-pane fade" id="horario" role="tabpanel">
-                <p>Aquí puedes integrar un calendario interactivo o una tabla con el horario del curso.</p>
+              <app-horario-curso></app-horario-curso>
             </div>
         </div>
     </div>

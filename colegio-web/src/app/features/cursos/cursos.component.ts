@@ -44,6 +44,7 @@ nivel: Nivel = {
     nombreNivel:'',
     profesorId:0,
     vacantes:0,
+    anioEscolar:0
   }
 
   isPanelOpen: boolean  = false;

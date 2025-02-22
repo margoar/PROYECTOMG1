@@ -51,6 +51,7 @@ export class EditarAlumnoComponent {
       inscritos: 0,
       disponibilidad: 0,
       vacantes: 0,
+      anioEscolar:0,
       asignaturas: [],  
       alumnos: [],  
     }

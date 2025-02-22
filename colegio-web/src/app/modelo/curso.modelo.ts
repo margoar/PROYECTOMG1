@@ -8,6 +8,7 @@ export interface Curso {
     inscritos?: number;
     disponibilidad?: number;
     vacantes?: number;
+    anioEscolar?:number;
     asignaturas?: any[];  // Si AsignaturaDTO tiene un modelo, usa su interfaz
     alumnos?: any[];  // Si Alumno tiene un modelo, usa su interfaz
 }

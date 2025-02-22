@@ -43,15 +43,28 @@
         <form #cursoForm="ngForm" (ngSubmit)="agregar(cursoForm)">
         <div class="modal-body">
 
-            <div class="mb-3">
-              <label for="nivel" class="form-label">Nivel</label>
-              <select class="form-select" name="nivelId" [(ngModel)]="curso.nivelId" #nivelId="ngModel" >
-                @for(nivel of niveles; track nivel){
-                <option [value]="nivel.nivelId" >{{nivel.descripcion}}</option>
-              }
-              </select>
-              <button type="button" class="btn btn-link p-0" >+ Agregar Nivel</button>
+            <div class="row mb-3">
+              <div class="col-md-6">
+
+                <label for="nivel" class="form-label">Nivel</label>
+                <select class="form-select" name="nivelId" [(ngModel)]="curso.nivelId" #nivelId="ngModel" >
+                  @for(nivel of niveles; track nivel){
+                  <option [value]="nivel.nivelId" >{{nivel.descripcion}}</option>
+                }
+                </select>
+                <button type="button" class="btn btn-link p-0" >+ Agregar Nivel</button>
+              </div>
+              <div class="col-md-6">
+                <label for="nivel" class="form-label">Año Escolar</label>
+                <select class="form-select" id="anioEscolar" name="anioEscolar" [(ngModel)]="curso.anioEscolar" #anioEscolar="ngModel"  >
+                  <option [value]="2025" selected>2025</option>
+                  <option [value]="2026" >2026</option>
+  
+                </select>
+              </div>
+
             </div>
+   
             <div class="mb-3">
               <label for="profesor" class="form-label">Profesor Jefe</label>
               <select class="form-select" name="profesorId" id="profesorId" [(ngModel)]="curso.profesorId" #idPorfesor="ngModel" >

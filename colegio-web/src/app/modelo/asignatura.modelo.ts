@@ -1,5 +1,5 @@
 export interface Asignatura {
     asignaturaID?:number;
-    nivelID?:number;
+    cursoID?:number;
     nombreAsignatura: string;
 }

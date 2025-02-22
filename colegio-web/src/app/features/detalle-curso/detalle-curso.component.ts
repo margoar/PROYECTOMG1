@@ -8,12 +8,14 @@ import { ListadoPostulantesComponent } from '../listado-postulantes/listado-post
 import { Alumno } from '../../modelo/alumno.modelo';
 import { AlumnoService } from '../../core/services/alumno.service';
 import { ListadoInscritosComponent } from '../listado-inscritos/listado-inscritos.component';
+import { AsignaturasPorCursoComponent } from '../asignaturas-por-curso/asignaturas-por-curso.component';
+import { HorarioCursoComponent } from '../horario-curso/horario-curso.component';
 
 
 @Component({
   selector: 'app-detalle-curso',
   standalone: true,
-  imports: [CommonModule,RouterModule, ListadoPostulantesComponent, ListadoInscritosComponent],
+  imports: [CommonModule,RouterModule, ListadoPostulantesComponent, ListadoInscritosComponent,AsignaturasPorCursoComponent,HorarioCursoComponent],
   templateUrl: './detalle-curso.component.html',
   styleUrl: './detalle-curso.component.css'
 })
@@ -30,6 +32,7 @@ export class DetalleCursoComponent {
     inscritos: 0,  // Agregado
     disponibilidad: 0,  // Agregado
     vacantes: 0,
+    anioEscolar:0,
     asignaturas: [],  // Agregado, si tienes asignaturas
     alumnos: []  // Agregado, si tienes alumnos
   }

@@ -30,6 +30,7 @@ export class ListadoPostulantesComponent {
     nombreNivel:'',
     profesorId:0,
     vacantes:0,
+    anioEscolar:0
   }
   matricula: Matricula ={
     alumnoID:0,
