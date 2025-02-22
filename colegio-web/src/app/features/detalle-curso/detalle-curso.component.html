@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <!-- Cabecera del curso -->
         <div class="card p-3 mb-3">
-            <h2>Curso: {{curso.nombreNivel}} {{curso.nombreCurso}}  - 2025</h2>
+            <h2>Curso: {{curso.nombreNivel}} {{curso.nombreCurso}} - {{curso.cursoId}}  - 2025</h2>
             <p><strong>Nivel:</strong> {{curso.nombreNivel}}</p>
             <p><strong>Profesor Jefe:</strong> {{curso.profesorJefe}}</p>
             <button class="btn btn-primary">Editar Curso</button>
@@ -32,18 +32,17 @@
         <div class="tab-content mt-3" id="cursoTabsContent">
             <!-- Lista de alumnos -->
             <div class="tab-pane fade show active" id="alumnos" role="tabpanel">
-                <ul class="list-group">
-                    @for(alumno of curso.alumnos; track alumno){
-                    <li class="list-group-item">{{alumno.nombres}} {{alumno.apellidoPaterno}} {{alumno.apellidoMaterno}}</li>
-          
-                    }
-                </ul>
+
+                <app-listado-inscritos [cursoId]="curso.cursoId">
+                </app-listado-inscritos>
                <br>
                <br>
                 <!-- slo perfil admin deberia ver esto -->
    
-              <app-listado-postulantes></app-listado-postulantes>
-  
+              <app-listado-postulantes>
+              </app-listado-postulantes>
+              
+                
             </div>
             
             <!-- Lista de asignaturas -->

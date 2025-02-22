@@ -1,4 +1,5 @@
 import { Apoderado } from "./apoderado.modelo";
+import { Curso } from "./curso.modelo";
 import { Matricula } from "./matricula.modelo";
 
 export interface Alumno {
@@ -13,7 +14,8 @@ export interface Alumno {
     telefono? :string;
     estadoEstudiante:string;
     estadoID?: number;
-    apoderado : Apoderado
-    matricula:Matricula
+    apoderado : Apoderado;
+    matricula:Matricula;
+    curso: Curso;
 
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Alumno } from '../../modelo/alumno.modelo';
+import { Matricula } from '../../modelo/matricula.modelo';
 
 
 @Injectable({
@@ -36,9 +37,18 @@ export class AlumnoService {
     return this.http.put<any>(`${this.apiUrl}/eliminar-alumno/${id}`, {});
   }
 
-
-  obtenerPostulantesPorNivelyAnio(nivelId: number, anioMatricula: number): Observable<Alumno[]> {
+  obtenerPostulantesPorNivelyAnio(nivelId?: number, anioMatricula?: number): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(`${this.apiUrl}/obtener-postulantes?nivelId=${nivelId}&anioMatricula=${anioMatricula}`);
   }
-  
-}
+  inscribirAlumno(alumno: Matricula): Observable<Matricula> {
+    return this.http.put<Matricula>(`${this.apiUrl}/inscribir-alumno`, alumno);
+  }
+
+  obtenerInscritosPorCursoYAnio(cursoID: number, anioMatricula: number): Observable<Alumno[]> {
+    return this.http.get<Alumno[]>(`${this.apiUrl}/obtener-inscritos/${cursoID}`, {
+      params: {
+        anioMatricula: anioMatricula
+        }
+      });
+    }
+  }

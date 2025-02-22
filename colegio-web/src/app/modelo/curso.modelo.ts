@@ -1,6 +1,6 @@
 export interface Curso {
-    cursoId?: number;
-    nivelId?: number;
+    cursoId: number;
+    nivelId: number;
     nombreNivel?: string;
     nombreCurso?: string;
     profesorId?: number;

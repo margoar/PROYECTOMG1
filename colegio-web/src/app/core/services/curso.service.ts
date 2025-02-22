@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Nivel } from "../../modelo/nivel.modelo";
-import { Observable, tap } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Curso } from "../../modelo/curso.modelo";
 
 @Injectable({
@@ -10,6 +10,11 @@ import { Curso } from "../../modelo/curso.modelo";
 export class CursoService {
   private apiUrl = 'https://localhost:7041/api/curso';
   private apiMatriculaUrl = 'https://localhost:7041/api/matricula'; 
+
+
+    // Estado del curso seleccionado
+  private cursoSeleccionado = new BehaviorSubject<Curso | null>(null);
+  cursoSeleccionado$ = this.cursoSeleccionado.asObservable();
 
   constructor(private http: HttpClient
   ) {}
@@ -36,10 +41,7 @@ export class CursoService {
       params: {
         anioMatricula: anioMatricula
       }
-    }).pipe(
-      tap(data => console.log('Datos recibidos:', data))  // Verifica los datos aquí
-    );
+    });
   }
-  
-  
+
 }

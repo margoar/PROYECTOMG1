@@ -39,7 +39,20 @@ export class EditarAlumnoComponent {
       cursoID:0,
       anioEscolar:0,
       estadoID:0,
-      nivelId:0,
+      nivelID:0,
+    },
+    curso : {
+      cursoId: 0,
+      nivelId: 0,
+      nombreNivel: '',
+      nombreCurso: '',
+      profesorId: 0,
+      profesorJefe: '',
+      inscritos: 0,
+      disponibilidad: 0,
+      vacantes: 0,
+      asignaturas: [],  
+      alumnos: [],  
     }
   }
   id: string | null = null;
