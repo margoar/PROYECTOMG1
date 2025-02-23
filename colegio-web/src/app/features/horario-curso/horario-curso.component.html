@@ -1,77 +1,56 @@
-<div class="container my-4">
-  <h2 class="text-center">Horario Escolar</h2>
 
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th class="time-slot">Horario</th>
-          <th class="day-header">Lunes</th>
-          <th class="day-header">Martes</th>
-          <th class="day-header">Miércoles</th>
-          <th class="day-header">Jueves</th>
-          <th class="day-header">Viernes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Row for each time slot -->
-        <tr>
-          <td class="time-slot">9:00 - 10:00</td>
-          <td class="time-slot">
-            <div class="course">Matemáticas</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Lenguaje</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Ciencias</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Historia</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Arte</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="time-slot">10:00 - 11:00</td>
-          <td class="time-slot">
-            <div class="course">Física</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Matemáticas</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Lenguaje</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Ciencias</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Historia</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="time-slot">11:00 - 12:00</td>
-          <td class="time-slot">
-            <div class="course">Química</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Física</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Matemáticas</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Lenguaje</div>
-          </td>
-          <td class="time-slot">
-            <div class="course">Ciencias</div>
-          </td>
-        </tr>
-        <!-- Add more rows for other time slots as needed -->
-      </tbody>
-    </table>
-  </div>
+<div class="container mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-clock"></i> Horario Escolar</h2>
+    <div class="schedule">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08:00 - 09:00</td>
+                    <td class="subject math">Matemáticas</td>
+                    <td class="subject science">Ciencias</td>
+                    <td class="subject history">Historia</td>
+                    <td class="subject english">Inglés</td>
+                    <td class="subject pe">Educación Física</td>
+                </tr>
+                <tr>
+                    <td>09:00 - 10:00</td>
+                    <td class="subject science">Ciencias</td>
+                    <td class="subject math">Matemáticas</td>
+                    <td class="subject english">Inglés</td>
+                    <td class="subject history">Historia</td>
+                    <td class="subject math">Matemáticas</td>
+                </tr>
+                <tr>
+                    <td>10:00 - 11:00</td>
+                    <td colspan="5" class="table-warning text-center">Recreo</td>
+                </tr>
+                <tr>
+                    <td>11:00 - 12:00</td>
+                    <td class="subject pe">Educación Física</td>
+                    <td class="subject history">Historia</td>
+                    <td class="subject math">Matemáticas</td>
+                    <td class="subject science">Ciencias</td>
+                    <td class="subject english">Inglés</td>
+                </tr>
+                <tr>
+                    <td>12:00 - 13:00</td>
+                    <td class="subject english">Inglés</td>
+                    <td class="subject pe">Educación Física</td>
+                    <td class="subject history">Historia</td>
+                    <td class="subject math">Matemáticas</td>
+                    <td class="subject science">Ciencias</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-

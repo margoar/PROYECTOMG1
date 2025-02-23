@@ -10,6 +10,7 @@ import { EditarAlumnoComponent } from './features/editar-alumno/editar-alumno/ed
 import { VerProfesorComponent } from './features/ver-profesor/ver-profesor.component';
 import { CursosPorNivelComponent } from './features/cursos-por-nivel/cursos-por-nivel.component';
 import { DetalleCursoComponent } from './features/detalle-curso/detalle-curso.component';
+import { DetalleAsignaturaComponent } from './features/detalle-asignatura/detalle-asignatura.component';
 
 export const routes: Routes = [
     {path: '', component: TableroComponent, canActivate :[AuthGuard]}, //localhost:4200/
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: 'alumnos', component: AlumnosComponent, canActivate :[AuthGuard] },
     { path: 'cursos/nivel/:id', component: CursosPorNivelComponent , canActivate :[AuthGuard]},
     { path: 'curso/:id/:anio', component: DetalleCursoComponent, canActivate :[AuthGuard] },
+    { path: 'asignatura/:id/:anio', component: DetalleAsignaturaComponent, canActivate :[AuthGuard] },
 
   { path: '**', redirectTo: '' },
 ];

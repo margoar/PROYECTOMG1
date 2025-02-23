@@ -1,0 +1,9 @@
+.container {
+    max-width: 900px;
+    margin-top: 20px;
+}
+.card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}

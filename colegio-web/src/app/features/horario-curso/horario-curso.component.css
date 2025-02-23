@@ -1,18 +1,22 @@
-.day-header {
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    padding: 10px;
-  }
-  .time-slot {
-    height: 60px;
-    text-align: center;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  .course {
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    padding: 5px;
-  }
+body {
+  background-color: #f8f9fa;
+}
+.schedule {
+  max-width: 900px;
+  margin: auto;
+}
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+.subject {
+  padding: 8px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+.math { background-color: #ff6b6b; } 
+.science { background-color: #4dabf7; } 
+.history { background-color: #f9c74f; } 
+.english { background-color: #9b59b6; } 
+.pe { background-color: #43aa8b; } 
