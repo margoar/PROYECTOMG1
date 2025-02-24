@@ -6,11 +6,11 @@
             <thead class="table-dark">
                 <tr>
                     <th>Hora</th>
-                    <th>Lunes</th>
-                    <th>Martes</th>
-                    <th>Miércoles</th>
-                    <th>Jueves</th>
-                    <th>Viernes</th>
+                    @for(dia of diasSemana; track dia){
+                        <th>{{dia}}</th>
+
+                    }
+      
                 </tr>
             </thead>
             <tbody>
@@ -52,5 +52,37 @@
                 </tr>
             </tbody>
         </table>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Hora</th>
+                <th *ngFor="let dia of diasSemana">{{ dia }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let horario of horarios['Lunes']">
+                <td>{{ horario.horaInicio }} - {{ horario.horaFin }}</td>
+                <td  class="subject" 
+                [ngStyle]="{'background-color': horario.colorAsignatura,
+                'color': horario.tipo !== 'Clase' ? 'black' : 'white'}">
+               {{ horario.nombreAsignatura }}</td>
+
+    
+                <td colspan="3"></td> <!-- Para los otros días -->
+              </tr>
+              <tr *ngFor="let horario of horarios['Martes']">
+                <td>{{ horario.horaInicio }} - {{ horario.horaFin }}</td>
+                <td>{{ horario.nombreAsignatura }}</td>
+                
+                <td colspan="3"></td>
+              </tr>
+              <!-- Repetir para los demás días de la semana -->
+            </tbody>
+          </table>
+          
+
+          
+          
     </div>
 </div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Asignatura } from '../../modelo/asignatura.modelo';
 import { AsignaturaService } from '../../core/services/asignatura.service';
 import { RouterModule } from '@angular/router';
+import { CursoAsignatura } from '../../modelo/cursoAsignatura.modelo';
 
 @Component({
   selector: 'app-asignaturas',
