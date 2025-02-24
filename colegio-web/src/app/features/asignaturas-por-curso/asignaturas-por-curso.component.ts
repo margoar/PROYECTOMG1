@@ -67,7 +67,7 @@ export class AsignaturasPorCursoComponent {
               confirmButtonText: 'Aceptar'
             }).then(() => {
               this.asignaturaForm.reset(); // Resetea el formulario
-              this.cargarAsignaturas();
+              this.obtenerAsignaturasPorCursoId();
             });
           },
           error: (error) => {
@@ -77,7 +77,9 @@ export class AsignaturasPorCursoComponent {
               text: error.error?.message || 'Hubo un error al agregar la asignatura.',
               icon: 'error',
               confirmButtonText: 'Cerrar'
-            });
+            }).then(() => {
+              this.asignaturaForm.reset(); // Resetea el formulario
+            });;
           }
         });
     
