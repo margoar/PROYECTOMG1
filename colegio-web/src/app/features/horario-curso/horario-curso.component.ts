@@ -2,22 +2,27 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HorarioCursoService } from '../../core/services/horarioCurso.service';
 import { CommonModule } from '@angular/common';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { HorarioCurso } from '../../modelo/horarioCurso.modelo';
 
 @Component({
   selector: 'app-horario-curso',
-  imports: [CommonModule],
+  imports: [CommonModule,DragDropModule],
   templateUrl: './horario-curso.component.html',
   styleUrl: './horario-curso.component.css'
 })
 export class HorarioCursoComponent {
 
- id: string | null = null;
+  id: string | null = null;
   diasSemana: string[] = [];
   anioSeleccionado: number = new Date().getFullYear();
   cursos: any[] = [];
   horario: any[] = []; // Para almacenar el horario procesado
-  
   horarios: any = {}; // Aquí se almacenarán los horarios agrupados por día
+  tramos: any[] = [];
+  tramosCurso?: any[] = [];
+  asignaturas: any[] = [];
+
 
   constructor(
       private route : ActivatedRoute,private horarioService: HorarioCursoService){}
@@ -28,6 +33,7 @@ export class HorarioCursoComponent {
       if (this.id) {
         this.cargarHorario(this.id);
       }
+
     }
 
     cargarSemana() {
@@ -41,11 +47,32 @@ export class HorarioCursoComponent {
     });
   }
 
+agregarTramo(){
+  console.log("agregando tramo")
+}
+
+  onDrop(event: CdkDragDrop<any>, diaDestino: string, indexDestino: number) {
+    // Lógica para mover la asignatura entre celdas
+    // Por ejemplo:
+    const asignatura = this.tramos[indexDestino].asignaturas[diaDestino];
+    // Realiza aquí la lógica de intercambio o reubicación
+    // Ejemplo simple (ajusta según tu lógica):
+    this.tramos[indexDestino].asignaturas[diaDestino] = event.item.data;
+  }
   cargarHorario(cursoId: string) {
     this.horarioService.obtenerHorarioPorCursoId(parseInt(cursoId!, 10)).subscribe({
       next: (data) => {
         console.log(data); // Ver la estructura de los datos
         this.procesarHorario(data);
+        // Crear el arreglo `tramosCurso`
+             this.tramosCurso = data.map((item :HorarioCurso) => ({
+              tramoHorarioId: item.tramoHorarioId,
+              horaInicio: this.formatearHora(item.horaInicio),
+              horaFin: this.formatearHora(item.horaFin),
+              asignaturas: {} // Inicializa como un objeto vacío
+            }));
+
+            console.log(this.tramosCurso);
       },
       error: (err) => {
         console.error("Error obteniendo horario:", err);
@@ -54,6 +81,38 @@ export class HorarioCursoComponent {
   }
 
 
+
+  
+    // Eliminar asignatura de un tramo
+    eliminarAsignatura(dia: string, tramo: any) {
+      delete tramo.asignaturas[dia];
+    }
+
+    editarCelda(dia: string, tramo: any) {
+      const nuevaAsignatura = prompt("Ingrese el nombre de la asignatura:");
+      const colorAsignatura = prompt("Ingrese el color de la asignatura:");
+    
+      if (nuevaAsignatura && colorAsignatura) {
+        tramo.asignaturas[dia] = { nombre: nuevaAsignatura, color: colorAsignatura };
+      }
+    }
+    
+    // Función para agregar asignaturas si no hay ninguna asignada
+    agregarAsignatura(dia: string, tramo: any) {
+      const nuevaAsignatura = prompt("Ingrese el nombre de la asignatura:");
+      const colorAsignatura = prompt("Ingrese el color de la asignatura:");
+    
+      if (nuevaAsignatura && colorAsignatura) {
+        tramo.asignaturas[dia] = { nombre: nuevaAsignatura, color: colorAsignatura };
+      }
+    }
+
+    confirmarCambios() {
+      console.log('Cambios confirmados:', this.tramos);
+      // Aquí se enviaría la información al backend
+    }
+
+    
   procesarHorario(data: any[]) {
     const horariosAgrupados: any = {
       "Lunes": [],

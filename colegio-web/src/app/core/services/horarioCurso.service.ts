@@ -21,4 +21,9 @@ export class HorarioCursoService {
   obtenerHorarioPorCursoId(cursoID: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/obtener-horario/${cursoID}`);
   }
+
+  obtenerTramos() :Observable <any []>{
+    return this.http.get<any[]>(`${this.apiUrl}/tramos`);
+
+  }
 }

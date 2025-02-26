@@ -20,3 +20,24 @@ body {
 .history { background-color: #f9c74f; } 
 .english { background-color: #9b59b6; } 
 .pe { background-color: #43aa8b; } 
+
+.schedule {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 5px;
+}
+
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table {
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+}

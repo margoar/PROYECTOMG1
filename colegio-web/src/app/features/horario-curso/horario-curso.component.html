@@ -2,56 +2,6 @@
 <div class="container mt-4">
     <h2 class="text-center mb-4"><i class="bi bi-clock"></i> Horario Escolar</h2>
     <div class="schedule">
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Hora</th>
-                    @for(dia of diasSemana; track dia){
-                        <th>{{dia}}</th>
-
-                    }
-      
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>08:00 - 09:00</td>
-                    <td class="subject math">Matemáticas</td>
-                    <td class="subject science">Ciencias</td>
-                    <td class="subject history">Historia</td>
-                    <td class="subject english">Inglés</td>
-                    <td class="subject pe">Educación Física</td>
-                </tr>
-                <tr>
-                    <td>09:00 - 10:00</td>
-                    <td class="subject science">Ciencias</td>
-                    <td class="subject math">Matemáticas</td>
-                    <td class="subject english">Inglés</td>
-                    <td class="subject history">Historia</td>
-                    <td class="subject math">Matemáticas</td>
-                </tr>
-                <tr>
-                    <td>10:00 - 11:00</td>
-                    <td colspan="5" class="table-warning text-center">Recreo</td>
-                </tr>
-                <tr>
-                    <td>11:00 - 12:00</td>
-                    <td class="subject pe">Educación Física</td>
-                    <td class="subject history">Historia</td>
-                    <td class="subject math">Matemáticas</td>
-                    <td class="subject science">Ciencias</td>
-                    <td class="subject english">Inglés</td>
-                </tr>
-                <tr>
-                    <td>12:00 - 13:00</td>
-                    <td class="subject english">Inglés</td>
-                    <td class="subject pe">Educación Física</td>
-                    <td class="subject history">Historia</td>
-                    <td class="subject math">Matemáticas</td>
-                    <td class="subject science">Ciencias</td>
-                </tr>
-            </tbody>
-        </table>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -81,7 +31,41 @@
             </tbody>
           </table>
           
+          <div class="container mt-4">          
+            <div class="schedule">
+        
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>Hora</th>
+                        <th *ngFor="let dia of diasSemana">{{ dia }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let tramo of tramosCurso">
+                        <td>{{ tramo.horaInicio }} - {{ tramo.horaFin }}</td>
+                        <td *ngFor="let dia of diasSemana">
+                      <!-- Asignaturas arrastrables -->
+                      <div *ngIf="tramo.asignaturas[dia]">
+                        {{ tramo.asignaturas[dia].nombre }}
+                      </div>
+                      <div *ngIf="!tramo.asignaturas[dia]">
+                        <button class="btn btn-primary btn-sm" >Agregar Asignatura</button>
+                      </div>
+                    </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button class="btn btn-success" (click)="agregarTramo()">Agregar Tramo</button>
+                  <button class="btn btn-primary" (click)="confirmarCambios()">Confirmar Cambios</button>
+               
 
+            </div>
+
+
+
+          </div>
+          
           
           
     </div>
