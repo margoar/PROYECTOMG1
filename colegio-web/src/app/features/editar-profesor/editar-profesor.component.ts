@@ -17,7 +17,7 @@ export class EditarProfesorComponent {
 
     rut: '',
     fechaNacimiento:  '',
-    tipoContrato: 0,
+    tipoContrato: '',
     telefono: '',
     nacionalidad:0,
     usuario:{

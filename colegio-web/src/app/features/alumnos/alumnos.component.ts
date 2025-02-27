@@ -16,7 +16,11 @@ import { CursoService } from '../../core/services/curso.service';
   styleUrls: ['./alumnos.component.css']
 })
 export class AlumnosComponent {
-    alumnos: Alumno[] | null = null;
+  pageAlumnos: number = 1;
+  // Número de alumnos por página
+  itemsPerPageAlumnos: number = 5;
+
+    alumnos: Alumno[] = []
     alumno: Alumno = {
       nombres: '',
       apellidoPaterno:'',
@@ -152,6 +156,23 @@ export class AlumnosComponent {
           this.currentStep--;
       }
   }
- 
+   // Calcula el total de páginas
+   totalPages(): number {
+    return Math.ceil(this.alumnos.length / this.itemsPerPageAlumnos);
+  }
+
+  // Método para retroceder una página
+  prevPageAlumnos(): void {
+    if (this.pageAlumnos > 1) {
+      this.pageAlumnos--;
+    }
+  }
+
+  // Método para avanzar una página
+  nextPageAlumnos(): void {
+    if (this.pageAlumnos < this.totalPages()) {
+      this.pageAlumnos++;
+    }
+  }
 
 }

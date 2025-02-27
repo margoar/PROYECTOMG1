@@ -25,7 +25,7 @@ nivel: Nivel = {
   profesor: Profesor = {
     rut: '',
     fechaNacimiento: '',
-    tipoContrato: 1,
+    tipoContrato: '',
     telefono:'',
     nacionalidad:0,
     usuario: {

@@ -42,4 +42,9 @@ export class ProfesoresService {
   obtenerTiposContratos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/tiposContratos`);
   }
+
+  getCursosPorProfesorId(idProfesor:number) :Observable<any | null>{
+    const cursos =  this.http.get<any>(`${this.apiUrl}/obtener-cursos/${idProfesor}`);
+    return cursos;
+  }
 }

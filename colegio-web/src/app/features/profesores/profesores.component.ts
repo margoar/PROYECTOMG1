@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Nacionalidad } from '../../modelo/nacionalidad.modelo';
 import { TipoContrato } from '../../modelo/tipoContrato';
 
+
 @Component({
   selector: 'app-profesores',
   standalone: true, // Esto es lo que hace que sea standalone
@@ -16,11 +17,15 @@ import { TipoContrato } from '../../modelo/tipoContrato';
   styleUrls: ['./profesores.component.css']
 })
 export class ProfesoresComponent {
-  profesores: Profesor[] | null = null;
+  pageProfesores: number = 1;
+  // Número de alumnos por página
+  itemsPerPageProfesores: number = 5;
+
+  profesores: Profesor[]  = [];
   profesor: Profesor = {
     rut: '',
     fechaNacimiento: '',
-    tipoContrato: 1,
+    tipoContrato: '',
     telefono:'',
     nacionalidad:0,
     genero:0,
@@ -136,6 +141,25 @@ export class ProfesoresComponent {
       if (this.currentStep > 1) {
           this.currentStep--;
       }
+  }
+
+   // Calcula el total de páginas
+   totalPages(): number {
+    return Math.ceil(this.profesores.length / this.itemsPerPageProfesores);
+  }
+
+  // Método para retroceder una página
+  prevPageProfesores(): void {
+    if (this.pageProfesores > 1) {
+      this.pageProfesores--;
+    }
+  }
+
+  // Método para avanzar una página
+  nextPageProfesores(): void {
+    if (this.pageProfesores < this.totalPages()) {
+      this.pageProfesores++;
+    }
   }
 
 }

@@ -2,9 +2,10 @@ import { Usuario } from "./usuario.modelo";
 
 export interface Profesor {
     idProfesor?:number;
+    nombreProfesor?: string;
     rut?: string;
     fechaNacimiento:  string;
-    tipoContrato?: number;
+    tipoContrato?: string;
     tituloProfesional? :string;
     telefono:string;
     nacionalidad? : number;

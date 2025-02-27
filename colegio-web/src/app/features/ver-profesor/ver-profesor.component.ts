@@ -15,7 +15,7 @@ export class VerProfesorComponent {
     profesor :Profesor = {
       rut: '',
       fechaNacimiento:  '',
-      tipoContrato: 0,
+      tipoContrato: '',
       telefono:'',
       nacionalidad:0,
       usuario :{
@@ -27,12 +27,10 @@ export class VerProfesorComponent {
       }
     }
     id: string | null = null;
-  
-      constructor(
-        private profesorServicio :  ProfesoresService,
-        private router: Router,
-        private route : ActivatedRoute
-      ){}
+    cursos: any[] = [];
+
+
+    constructor( private profesorServicio :  ProfesoresService, private router: Router, private route : ActivatedRoute){}
   
       ngOnInit(){
         this.id = this.route.snapshot.paramMap.get('id');
@@ -40,6 +38,7 @@ export class VerProfesorComponent {
           this.profesorServicio.getProfesorPorId(this.id).subscribe((profesor: Profesor | null) =>{
             if(profesor){
               this.profesor = profesor;
+              console.log(this.profesor);
             }else{
               this.router.navigate(['/']);
             }
@@ -47,6 +46,16 @@ export class VerProfesorComponent {
         }else{
           this.router.navigate(['/']);
         }
+
+        this.cargarCursosPorProfesorId();
+      }
+
+
+      cargarCursosPorProfesorId() {
+        const profesorId = this.id ? parseInt(this.id, 10) : 0;
+        this.profesorServicio.getCursosPorProfesorId(profesorId).subscribe(data => {
+          this.cursos = data;
+        });
       }
 
 }
