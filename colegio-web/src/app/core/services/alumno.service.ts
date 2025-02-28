@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Alumno } from '../../modelo/alumno.modelo';
 import { Matricula } from '../../modelo/matricula.modelo';
+import { Apoderado } from '../../modelo/apoderado.modelo';
 
 
 @Injectable({
@@ -51,4 +52,15 @@ export class AlumnoService {
         }
       });
     }
+
+  getApoderadoPorAlumnoid(id:string) :Observable<Apoderado | null>{
+    const apoderadoRef =  this.http.get<Apoderado>(`${this.apiUrl}/obtener-apoderado/${id}`);
+    return apoderadoRef;
   }
+
+  pagarMatricula(id: string): Observable<any> {
+    // Suponiendo que solo estás actualizando el estado del alumno
+    return this.http.put(`${this.apiUrl}/pagar-matricula/${id}`, {});
+  }
+  
+}

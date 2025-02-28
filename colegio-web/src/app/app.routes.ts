@@ -11,6 +11,7 @@ import { VerProfesorComponent } from './features/ver-profesor/ver-profesor.compo
 import { CursosPorNivelComponent } from './features/cursos-por-nivel/cursos-por-nivel.component';
 import { DetalleCursoComponent } from './features/detalle-curso/detalle-curso.component';
 import { DetalleAsignaturaComponent } from './features/detalle-asignatura/detalle-asignatura.component';
+import { VerAlumnoComponent } from './features/ver-alumno/ver-alumno.component';
 
 export const routes: Routes = [
     {path: '', component: TableroComponent, canActivate :[AuthGuard]}, //localhost:4200/
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'profesor/editar/:id', component: EditarProfesorComponent , canActivate :[AuthGuard]},
     { path: 'alumno/editar/:id', component: EditarAlumnoComponent , canActivate :[AuthGuard]},
     { path: 'profesor/ver/:id', component: VerProfesorComponent , canActivate :[AuthGuard]},
+    { path: 'alumno/ver/:id', component: VerAlumnoComponent , canActivate :[AuthGuard]},
     { path: 'alumnos', component: AlumnosComponent, canActivate :[AuthGuard] },
     { path: 'cursos/nivel/:id', component: CursosPorNivelComponent , canActivate :[AuthGuard]},
     { path: 'curso/:id/:anio', component: DetalleCursoComponent, canActivate :[AuthGuard] },

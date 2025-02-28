@@ -1,0 +1,129 @@
+<header id="main-header" class="py-2 bg-info text-white">
+    <div class="container">
+        <h1><i class=""></i> Ver Alumno</h1>
+    </div>
+</header>
+<section id="actions" class="py-4 mb-4">
+    <div class="container d-flex justify-content-between">
+        <a [routerLink]="['/']" class="btn btn-primary">
+            <i class="bi bi-arrow-left"></i> Regresar al Inicio
+        </a>
+
+
+    </div>
+</section>
+    <div class="container my-4">
+        <div class="row g-4">
+            <!-- Teacher Info Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="assets/images/placeholder.svg" alt="Teacher's photo" class="rounded-circle mb-3" style="width: 128px; height: 128px; object-fit: cover;">
+                        <h5 class="card-title">{{alumno.nombreAlumno}}</h5>
+                        <p class="card-text text-muted">        <span class="badge" [ngClass]="{
+                            'custom-success': alumno.estadoID === 3002,
+                            'custom-secondary': alumno.estadoID === 3001
+                        }">{{ alumno.estadoEstudiante }}</span></p>
+            
+                        <div class="text-start mt-3">
+                            <p><strong>Rut:</strong> {{ alumno.rut }}</p>
+                            <p><strong>Fecha Nacimiento:</strong> {{alumno.fechaNacimiento | date:'dd/MM/yyyy'}}</p>
+                        </div>
+            
+                        <!-- Nueva sección para los datos del apoderado -->
+                        <hr>
+                        <h6 class="text-start">Datos del Apoderado</h6>
+                        <div class="text-start">
+                            <p><strong>Nombre:</strong> {{apoderado.nombreApoderado}}</p>
+                            <p><strong>Email:</strong> {{apoderado.usuario.email}}</p>
+                            <p><strong>Teléfono:</strong> {{apoderado.telefono}}</p>
+                            <p><strong>Relación:</strong> {{apoderado.tipoParentesco}}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-calendar me-2"></i> Ver agenda horaria
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Main Content Area -->
+            <div class="col-md-8">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="courses-tab" data-bs-toggle="tab" data-bs-target="#courses" type="button" role="tab" aria-controls="courses" aria-selected="true">Dashboard</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab" aria-controls="students" aria-selected="false">Asistencia</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="grades-tab" data-bs-toggle="tab" data-bs-target="#grades" type="button" role="tab" aria-controls="grades" aria-selected="false">Notas</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                       <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos" type="button" role="tab" aria-controls="pagos" aria-selected="false">  <i class="bi bi-bank"></i> Pago Matricula</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+                        <h4>Cursos</h4>
+                        <p class="text-muted">
+                            Cursos impartidos por </p>
+                        <ul class="list-group">
+
+                            <li class="list-group-item">sgsgfgdsgs</li>
+                  
+                            
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                        <h4>Students</h4>
+                        <p class="text-muted">Students in John Doe's classes</p>
+                        <ul class="list-group">
+                            <li class="list-group-item">Alice Smith - Grade 11</li>
+                            <li class="list-group-item">Bob Johnson - Grade 12</li>
+                            <li class="list-group-item">Charlie Brown - Grade 10</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="grades" role="tabpanel" aria-labelledby="grades-tab">
+                        <h4>Grade Entry</h4>
+                        <p class="text-muted">Enter grades for your courses</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="course" class="form-label">Select Course</label>
+                                <select class="form-select" id="course">
+                                    <option>Advanced Algebra</option>
+                                    <option>Calculus</option>
+                                    <option>Geometry</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="student" class="form-label">Select Student</label>
+                                <select class="form-select" id="student">
+                                    <option>Alice Smith</option>
+                                    <option>Bob Johnson</option>
+                                    <option>Charlie Brown</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="grade" class="form-label">Enter Grade</label>
+                                <input type="number" class="form-control" id="grade" min="0" max="100">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Submit Grade</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
+                        <h4>Pagos</h4>
+                        <br>
+                        <!-- Botón de Pagar Ahora -->
+                        <button class="pay-button" (click)="pagarMatricula()">
+                            <i class="fas fa-credit-card"></i> Pagar Ahora
+                        </button>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

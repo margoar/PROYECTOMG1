@@ -1,0 +1,32 @@
+/* Estilos generales del botón */
+.pay-button {
+    background-color: #4CAF50; /* Color verde */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre el icono y el texto */
+}
+
+.pay-button i {
+    font-size: 24px; /* Aumenta el tamaño del icono */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.pay-button:hover {
+    background-color: #45a049; /* Fondo más oscuro */
+    transform: scale(1.05); /* Efecto de agrandado */
+}
+
+/* Efecto al presionar el botón */
+.pay-button:active {
+    background-color: #388e3c;
+    transform: scale(0.98);
+}

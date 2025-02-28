@@ -8,7 +8,6 @@ import { Curso } from '../../modelo/curso.modelo';
 import { forkJoin, switchMap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Matricula } from '../../modelo/matricula.modelo';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-listado-postulantes',

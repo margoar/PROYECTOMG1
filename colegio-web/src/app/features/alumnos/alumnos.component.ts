@@ -22,46 +22,21 @@ export class AlumnosComponent {
 
     alumnos: Alumno[] = []
     alumno: Alumno = {
-      nombres: '',
+      nombreAlumno: '',
       apellidoPaterno:'',
       apellidoMaterno:'',
       rut: '',
       fechaNacimiento: '',
-      estadoEstudiante:'',
-      apoderado: {
-        rut:'',
-        telefono:'',
-        direccion:'',
-        usuario: {
-          email:'',
-          passwordHash:'',
-          nombres:'',
-          apellidoPaterno:'',
-          apellidoMaterno :''
-        },
+      estadoEstudiante:'' ,
+      apoderado :{
+        usuario : {
+          passwordHash: ''
 
+        }
       },
-      matricula:{
-        alumnoID:0,
-        cursoID:0,
-        anioEscolar:0,
-        estadoID:0,
-        nivelID:0,
-      },
-      curso : {
-        cursoId: 0,
-        nivelId: 0,
-        nombreNivel: '',
-        nombreCurso: '',
-        profesorId: 0,
-        profesorJefe: '',
-        inscritos: 0,
-        disponibilidad: 0,
-        vacantes: 0,
-        asignaturas: [],  
-        alumnos: [],  
-      }
-      
+      matricula :{
+        anioEscolar: 0
+      }     
     };
 
     niveles: Nivel[] | null = null;

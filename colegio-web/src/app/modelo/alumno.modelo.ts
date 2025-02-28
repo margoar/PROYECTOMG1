@@ -7,6 +7,7 @@ export interface Alumno {
     nombres?: string;
     apellidoPaterno?:string;
     apellidoMaterno?:string;
+    nombreAlumno? : string;
     rut?: string;
     fechaNacimiento:  string;
     genero?: string;
@@ -16,6 +17,6 @@ export interface Alumno {
     estadoID?: number;
     apoderado : Apoderado;
     matricula:Matricula;
-    curso: Curso;
+    curso?: Curso;
 
 }
