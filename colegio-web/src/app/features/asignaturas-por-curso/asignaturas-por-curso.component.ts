@@ -66,7 +66,6 @@ export class AsignaturasPorCursoComponent {
               icon: 'success',
               confirmButtonText: 'Aceptar'
             }).then(() => {
-              this.asignaturaForm.reset(); // Resetea el formulario
               this.obtenerAsignaturasPorCursoId();
             });
           },

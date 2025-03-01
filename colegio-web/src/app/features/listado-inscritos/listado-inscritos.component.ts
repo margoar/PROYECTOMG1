@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Alumno } from '../../modelo/alumno.modelo';
 import { ActivatedRoute } from '@angular/router';
 import { AlumnoService } from '../../core/services/alumno.service';
@@ -9,25 +9,34 @@ import { AlumnoService } from '../../core/services/alumno.service';
   templateUrl: './listado-inscritos.component.html',
   styleUrl: './listado-inscritos.component.css'
 })
-export class ListadoInscritosComponent implements OnChanges {
+export class ListadoInscritosComponent  implements OnInit{
   @Input() cursoId!: number; 
   inscritos: Alumno[] = [];
   anioEscolar : number =0;
+  idCurso: string | null = null;
+
   constructor(private alumnoService: AlumnoService, private route : ActivatedRoute) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['cursoId'] && changes['cursoId'].currentValue !== 0) {
-      console.log('Nuevo cursoId en el hijo:', changes['cursoId'].currentValue);
-    }
-    this.anioEscolar = parseInt(this.route.snapshot.paramMap.get('anio')!, 10);
-    console.log(this.anioEscolar);
-    this.cargarInscritos();
-  }
 
-  cargarInscritos() {
-    this.alumnoService.obtenerInscritosPorCursoYAnio(this.cursoId , this.anioEscolar).subscribe(data => {
-      this.inscritos = data;
+  
+  ngOnInit() :void {
+    this.route.paramMap.subscribe(params => {
+      this.idCurso = params.get('id')!;
+      this.anioEscolar = parseInt(params.get('anio')!, 10);
+      this.cargarInscritos();  // Vuelve a cargar los inscritos cuando cambian los parámetros
     });
   }
 
+  cargarInscritos() {
+    this.alumnoService.obtenerInscritosPorCursoYAnio(parseInt(this.idCurso!,10) , this.anioEscolar).subscribe(data => {
+
+      this.inscritos = data;
+    });
+  }
+  actualizarInscritos() {
+    this.cargarInscritos();  // Vuelve a cargar la lista de inscritos
+  }
+
+
+  
 }

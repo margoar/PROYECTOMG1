@@ -37,6 +37,8 @@ export class DetalleCursoComponent {
     alumnos: []  // Agregado, si tienes alumnos
   }
 
+  inscritos: Alumno[] = [];
+
   postulantes?: Alumno[] | null = null;
 
 
@@ -46,10 +48,6 @@ export class DetalleCursoComponent {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id'); // Obtener nivelId desde la URL
     this.obtenerCursoPorId();
-    this.obtenerPostulantes();
-
-
- 
   }
 
   actualizarDatos() {
@@ -72,25 +70,20 @@ export class DetalleCursoComponent {
       }
     });
   }
-
-  obtenerPostulantes() {
-    const cursoId = this.curso.cursoId;
-
-    this.alumnoService.obtenerPostulantesPorNivelyAnio(2,2025).subscribe({
-      next: (data) => {
-        this.postulantes = data;  // Esto actualiza los postulantes
-        console.log("postulantes");
-        console.log(this.postulantes);
-      },
-      error: (err) => {
-        console.error('Error obteniendo postulantes:', err);
-      }
-    });
+  onPostulanteAgregado() {
+    // Llamar a una función que recargue la lista de inscritos
+    // Puedes hacerlo, por ejemplo, llamando a un servicio o actualizando la lista manualmente
+    this.cargarInscritos();  // Este método debe ser el que recargue la lista
   }
 
-  actualizarListas() {
-    this.obtenerCursoPorId();    // Actualiza los inscritos
-    this.obtenerPostulantes();   // Actualiza los postulantes
+  cargarInscritos() {
+  
+      this.alumnoService.obtenerInscritosPorCursoYAnio(parseInt(this.id!,10) , this.anioSeleccionado).subscribe(data => {
+        console.log("data");
+        console.log(data);
+        this.inscritos = data;
+      });
+    
   }
 
 }

@@ -40,8 +40,11 @@ export class ListadoPostulantesComponent {
     matriculaID:0
   }
 
-  @Input() postulantes: Alumno[] = [];  // Recibe los postulantes desde el padre
-  @Output() actualizaPostulantes  = new EventEmitter<void>(); // Evento para pedir actualización de datos
+  postulantes: Alumno[] = [];
+  @Input() nivelId!: number; // Recibe el valor del padre
+
+  @Output() postulanteAgregado: EventEmitter<void> = new EventEmitter();
+
 
 
   constructor(private alumnoService: AlumnoService,private route : ActivatedRoute, private cursoService: CursoService){}
@@ -49,34 +52,20 @@ export class ListadoPostulantesComponent {
   ngOnInit() {
     this.idCurso = this.route.snapshot.paramMap.get('id'); // Obtener cursoId desde la URL
     this.anio = this.route.snapshot.paramMap.get('anio'); // Obtener nivelId desde la URL
+    this.cargarPostulantes(); 
 
-    if (this.idCurso) {
-      this.obtenerDatos(); // Llamamos a una función para obtener el curso y los postulantes en paralelo
-    }
+
   }
 
-  obtenerDatos() {
-    // Usamos forkJoin para realizar las peticiones en paralelo
-    forkJoin({
-      curso: this.cursoService.obtenerCursoPorId(parseInt(this.idCurso!, 10), this.anioSeleccionado),
-      postulantes: this.cursoService.obtenerCursoPorId(parseInt(this.idCurso!, 10), this.anioSeleccionado).pipe(
-        // Usamos el nivelId del curso obtenido dinámicamente para obtener los postulantes
-        switchMap((cursoData) => {
-          this.curso = cursoData; 
-          return this.alumnoService.obtenerPostulantesPorNivelyAnio(cursoData.nivelId, this.anioSeleccionado);
-        })
-      ),
-    }).subscribe({
-      next: (result) => {
-        this.curso = result.curso; 
-        this.postulantes = result.postulantes; 
-      },
-      error: (err) => {
-        console.error('Error en la obtención de datos:', err);
-      },
+    
+  cargarPostulantes() {
+    this.alumnoService.obtenerPostulantesPorNivelyAnio(this.nivelId, this.anioSeleccionado).subscribe(data => {
+      this.postulantes = data;
     });
   }
-    
+
+
+
   
     openModalInscripcion(postulante: Alumno) {
       this.selectedPostulante = postulante;
@@ -88,15 +77,14 @@ export class ListadoPostulantesComponent {
     }
   
     confirmarInscripcion() {
-      // Lógica para confirmar la inscripción
-      console.log('Inscripción confirmada para', this.selectedPostulante);
+    console.log('Inscripción confirmada para', this.selectedPostulante);
    
      
      this.matricula.matriculaID = this.selectedPostulante.matricula.matriculaID;
      this.matricula.alumnoID = this.selectedPostulante.alumnoID;
-     this.matricula.cursoID = this.curso.cursoId;
+     this.matricula.cursoID = this.idCurso ? parseInt(this.idCurso, 10) : undefined;
      this.matricula.anioEscolar = this.selectedPostulante.matricula.anioEscolar;
-     this.matricula.nivelID = this.curso.nivelId;
+     this.matricula.nivelID = this.nivelId;
 
       this.alumnoService.inscribirAlumno(this.matricula).subscribe({
         next: (response) => {
@@ -106,9 +94,9 @@ export class ListadoPostulantesComponent {
             icon: 'success',
             confirmButtonText: 'Aceptar'
           }).then(() => {
+            this.cargarPostulantes();
+            this.postulanteAgregado.emit(); 
            
-            this.actualizaPostulantes.emit(); // Ahora sí actualizará al padre
-
           });
         },
         error: (error) => {
@@ -128,14 +116,15 @@ export class ListadoPostulantesComponent {
     }
 
 
-    cargarAlumnos(): void {
-      this.alumnoService.obtenerAlumnos().subscribe({
-        next: (response) => {
-          this.postulantes = response; 
-        },
-        error: (error) => {
-          console.error('Error al cargar los alumnos:', error);
-        }
+    agregarPostulante(postulante: Alumno) {
+      this.alumnoService.agregarAlumno(postulante).subscribe(() => {
+        this.actualizarInscritos();  // Llamamos para actualizar los inscritos
       });
+    }
+  
+    actualizarInscritos() {
+      // Usamos el servicio de inscritos para actualizar la lista
+      // Puedes llamar al método del componente padre o refrescar directamente aquí
+      console.log("Postulante agregado. Actualizando lista de inscritos.");
     }
 }

@@ -22,7 +22,9 @@ export class VerAlumnoComponent {
     direccion:'',
     estadoEstudiante:'',
    apoderado:{
-    usuario:{}
+    usuario:{
+      email: ''
+    }
    },
    matricula : {
     anioEscolar:0
@@ -35,20 +37,23 @@ export class VerAlumnoComponent {
   
   ngOnInit(){
     this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id){
-      this.alumnoService.getAlumnoPorId(this.id).subscribe((alumno: Alumno | null) =>{
+    if (this.id){    
+      this.getInfoAlumno(this.id);
+      this.getInfoApoderado(this.id);
+    }else{
+      this.router.navigate(['/']);
+    }
+ 
+  }
+
+  getInfoAlumno(id : string ){
+    this.alumnoService.getAlumnoPorId(id).subscribe((alumno: Alumno  | null) =>{
       if(alumno){
         this.alumno = alumno;
         }else{
           this.router.navigate(['/']);
         }
       });
-
-      this.getInfoApoderado(this.id);
-    }else{
-      this.router.navigate(['/']);
-    }
- 
   }
 
   getInfoApoderado(id : string ){
@@ -60,14 +65,17 @@ export class VerAlumnoComponent {
           this.router.navigate(['/']);
         }
       });
-
   }
+
+
 
   pagarMatricula() {
     if (this.id) {  // Comprobamos si id no es null
       this.alumnoService.pagarMatricula(this.id).subscribe(
         response => {
           console.log('Matrícula pagada con éxito:', response);
+         
+
           // Aquí puedes mostrar un mensaje de éxito o redirigir a otra página
         },
         error => {
@@ -75,6 +83,8 @@ export class VerAlumnoComponent {
           // Aquí puedes mostrar un mensaje de error si algo salió mal
         }
       );
+
+      this.getInfoAlumno(this.id);
     } else {
       console.error('ID del alumno no encontrado');
       // Puedes mostrar un mensaje al usuario indicando que no se puede procesar la matrícula sin un ID
