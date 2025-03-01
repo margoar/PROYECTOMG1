@@ -98,7 +98,6 @@ constructor(private cursoService: CursoService, private profesorService:Profesor
         },
         error: (error) => {
           console.error("Error al agregar curso:", error);
-          alert('Hubo un error al agregar curso.');
         }
       });      
     }

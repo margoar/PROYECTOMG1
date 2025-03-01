@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Nivel } from "../../modelo/nivel.modelo";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Curso } from "../../modelo/curso.modelo";
+import { Profesor } from "../../modelo/profesor.modelo";
+import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +18,7 @@ export class CursoService {
   private cursoSeleccionado = new BehaviorSubject<Curso | null>(null);
   cursoSeleccionado$ = this.cursoSeleccionado.asObservable();
 
-  constructor(private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient, private loginServices : AuthService) {}
 
   obtenerNiveles(): Observable<Nivel[]> {
     return this.http.get<Nivel[]>(`${this.apiUrl}/obtener-niveles`);
@@ -43,5 +44,16 @@ export class CursoService {
       }
     });
   }
+  obtenerProfesores(): Observable<Profesor[]> {
+    const tipoUsuarioId = this.loginServices.getUserInfo().tipoUsuarioId; // Obtiene el tipoUsuario
+    return this.http.get<Profesor[]>(`${this.apiUrl}/obtener-profesores?tipoUsuarioId=${tipoUsuarioId}`);
+  }
 
+    // Método para editar el profesor jefe del curso
+    editarProfesorCurso(cursoId: number, profesorId: number): Observable<number> {
+      return this.http.put<number>(`${this.apiUrl}/editar-profesorjefe`, { cursoId, profesorId });
+    }
 }
+
+
+

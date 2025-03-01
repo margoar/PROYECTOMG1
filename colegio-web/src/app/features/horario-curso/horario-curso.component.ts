@@ -62,7 +62,6 @@ agregarTramo(){
   cargarHorario(cursoId: string) {
     this.horarioService.obtenerHorarioPorCursoId(parseInt(cursoId!, 10)).subscribe({
       next: (data) => {
-        console.log(data); // Ver la estructura de los datos
         this.procesarHorario(data);
         // Crear el arreglo `tramosCurso`
              this.tramosCurso = data.map((item :HorarioCurso) => ({
@@ -72,7 +71,6 @@ agregarTramo(){
               asignaturas: {} // Inicializa como un objeto vacío
             }));
 
-            console.log(this.tramosCurso);
       },
       error: (err) => {
         console.error("Error obteniendo horario:", err);

@@ -93,7 +93,6 @@ export class AsignaturasPorCursoComponent {
   
       this.asignaturaService.obtenerAsignaturasPorCursoId(cursoId).subscribe({
         next: (data) => {
-          console.log(data);
           this.cursoAsignaturas = data;
         },
         error: (err) => {
@@ -104,7 +103,6 @@ export class AsignaturasPorCursoComponent {
     cargarAsignaturas() {
       this.asignaturaService.obtenerAsignaturas().subscribe({
         next: (data) => {
-          console.log("asignaturas cargadas", data);
           this.asignaturas = data;
           this.cdr.detectChanges(); // Forzar la actualización de la vista
         },

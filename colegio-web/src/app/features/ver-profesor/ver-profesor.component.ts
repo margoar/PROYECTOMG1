@@ -38,7 +38,6 @@ export class VerProfesorComponent {
           this.profesorServicio.getProfesorPorId(this.id).subscribe((profesor: Profesor | null) =>{
             if(profesor){
               this.profesor = profesor;
-              console.log(this.profesor);
             }else{
               this.router.navigate(['/']);
             }

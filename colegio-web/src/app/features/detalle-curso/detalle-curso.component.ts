@@ -10,12 +10,14 @@ import { AlumnoService } from '../../core/services/alumno.service';
 import { ListadoInscritosComponent } from '../listado-inscritos/listado-inscritos.component';
 import { AsignaturasPorCursoComponent } from '../asignaturas-por-curso/asignaturas-por-curso.component';
 import { HorarioCursoComponent } from '../horario-curso/horario-curso.component';
+import { FormsModule } from '@angular/forms';
+import { Profesor } from '../../modelo/profesor.modelo';
 
 
 @Component({
   selector: 'app-detalle-curso',
   standalone: true,
-  imports: [CommonModule,RouterModule, ListadoPostulantesComponent, ListadoInscritosComponent,AsignaturasPorCursoComponent,HorarioCursoComponent],
+  imports: [CommonModule,RouterModule, ListadoPostulantesComponent, ListadoInscritosComponent,AsignaturasPorCursoComponent,HorarioCursoComponent,FormsModule],
   templateUrl: './detalle-curso.component.html',
   styleUrl: './detalle-curso.component.css'
 })
@@ -36,17 +38,18 @@ export class DetalleCursoComponent {
     asignaturas: [],  // Agregado, si tienes asignaturas
     alumnos: []  // Agregado, si tienes alumnos
   }
-
+  editando = false;
   inscritos: Alumno[] = [];
-
+  profesores: Profesor [] =[]
   postulantes?: Alumno[] | null = null;
+  profesorJefeId: number = 1; // Este es el ID actual del profesor jefe
 
 
   constructor(private location: Location, private cursoService : CursoService, private alumnoService : AlumnoService,private route : ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id'); // Obtener nivelId desde la URL
+    this.id = this.route.snapshot.paramMap.get('id'); // Obtener cursoid desde la URL
     this.obtenerCursoPorId();
   }
 
@@ -77,13 +80,34 @@ export class DetalleCursoComponent {
   }
 
   cargarInscritos() {
-  
-      this.alumnoService.obtenerInscritosPorCursoYAnio(parseInt(this.id!,10) , this.anioSeleccionado).subscribe(data => {
-        console.log("data");
-        console.log(data);
-        this.inscritos = data;
-      });
-    
+    this.alumnoService.obtenerInscritosPorCursoYAnio(parseInt(this.id!,10) , this.anioSeleccionado).subscribe(data => {
+      this.inscritos = data;
+    });
   }
 
+  editarProfesor() {
+    this.getProfesores();
+
+    this.editando = true;
+  }
+  
+  guardarProfesor() :void{
+    if (this.profesorJefeId) {
+      this.cursoService.editarProfesorCurso(parseInt(this.id!,10) , this.curso.profesorId!).subscribe(
+        (response: any) => { // Aquí se soluciona el error TS7006 al proporcionar un tipo explícito
+          console.log('Profesor jefe actualizado:', response);
+          this.editando = false;
+        },
+        error => {
+          console.error('Error al editar el profesor jefe', error);
+        }
+      );
+    }
+  }  
+  getProfesores() {
+    this.cursoService.obtenerProfesores().subscribe(data => {
+      this.profesores = data;
+      console.log(this.profesores);
+    });
+  }
 }
