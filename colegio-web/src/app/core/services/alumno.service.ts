@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { Alumno } from '../../modelo/alumno.modelo';
 import { Matricula } from '../../modelo/matricula.modelo';
 import { Apoderado } from '../../modelo/apoderado.modelo';
+import { Curso } from '../../modelo/curso.modelo';
 
 
 @Injectable({
@@ -61,6 +62,12 @@ export class AlumnoService {
   pagarMatricula(id: string): Observable<any> {
     // Suponiendo que solo estás actualizando el estado del alumno
     return this.http.put(`${this.apiUrl}/pagar-matricula/${id}`, {});
+  }
+  
+  obtenerCursoPorAlumnoId(alumnoId: number, anioMatricula: number): Observable<Curso> {
+    return this.http.get<Curso>(`${this.apiUrl}/obtener-curso/${alumnoId}`, {
+      params: { anioEscolar: anioMatricula.toString() } // 👈 Asegura que sea string
+    });
   }
   
   

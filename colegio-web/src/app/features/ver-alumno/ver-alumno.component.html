@@ -67,51 +67,120 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
-                        <h4>Cursos</h4>
-                        <p class="text-muted">
-                            Cursos impartidos por </p>
-                        <ul class="list-group">
+                        <br>
+                        <h4 class="mb-3">Resumen del Curso</h4>
+                        <div class="card p-3 shadow-sm">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5>{{curso.nombreNivel}}  {{curso.nombreCurso}}</h5>
+                                    <p><strong>Profesor:</strong> {{curso.profesorJefe}}</p>
+                                    <p><strong>Estado: </strong> <span class="badge bg-success"> Activo </span></p>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <i class="bi bi-book-half" style="font-size: 3rem; color: #0d6efd;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4">Estadísticas</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card p-3">
+                                    <h6>Asistencia</h6>
+                                    <canvas #asistenciaChart></canvas>
 
-                            <li class="list-group-item">sgsgfgdsgs</li>
-                  
-                            
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card p-3">
+                                    <h6>Promedio de Notas</h6>
+                                    <canvas #notasChart></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4">Pruebas Próximas</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Matemáticas - 10/03/2025
+                                <span class="badge bg-warning text-dark">Pendiente</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Historia - 15/03/2025
+                                <span class="badge bg-warning text-dark">Pendiente</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
-                        <h4>Students</h4>
-                        <p class="text-muted">Students in John Doe's classes</p>
-                        <ul class="list-group">
-                            <li class="list-group-item">Alice Smith - Grade 11</li>
-                            <li class="list-group-item">Bob Johnson - Grade 12</li>
-                            <li class="list-group-item">Charlie Brown - Grade 10</li>
-                        </ul>
+                        <h4 class="mb-3">Registro de Asistencia</h4>
+                        <div class="card p-3 shadow-sm">
+                            <label for="fechaAsistencia">Seleccionar Fecha:</label>
+                            <input type="date" id="fechaAsistencia" class="form-control w-25 mb-3" (change)="cambiarFecha($event)" [value]="fechaHoy">
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Día</th>
+                                            <th>Hora</th>
+                                            <th>Asignatura</th>
+                                            <th>Estado</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let horario of horarios()">
+                                            <td>{{ horario.diaSemana }}</td>
+                                            <td>{{ horario.horaInicio }} - {{ horario.horaFin }}</td>
+                                            <td>{{ horario.asignatura }}</td>
+                                            <td>
+                                                <button *ngIf="puedeEditar" class="btn btn-success btn-sm me-2" (click)="marcarAsistencia(horario, true)">
+                                                    ✅
+                                                </button>
+                                                <button *ngIf="puedeEditar" class="btn btn-danger btn-sm" (click)="marcarAsistencia(horario, false)">
+                                                    ❌
+                                                </button>
+                                                <span *ngIf="!puedeEditar">{{ horario.asistencia ? '✅ Presente' : '❌ Ausente' }}</span>
+                                            </td>
+                                            <td>
+                                                <input *ngIf="puedeEditar" type="text" class="form-control" [(ngModel)]="horario.observacion" placeholder="Opcional">
+                                                <span *ngIf="!puedeEditar">{{ horario.observacion || '-' }}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="grades" role="tabpanel" aria-labelledby="grades-tab">
-                        <h4>Grade Entry</h4>
-                        <p class="text-muted">Enter grades for your courses</p>
-                        <form>
-                            <div class="mb-3">
-                                <label for="course" class="form-label">Select Course</label>
-                                <select class="form-select" id="course">
-                                    <option>Advanced Algebra</option>
-                                    <option>Calculus</option>
-                                    <option>Geometry</option>
-                                </select>
+                        <h4 class="mb-3">Gestión de Notas</h4>
+                        <div class="card p-3 shadow-sm">
+                            <label for="anioSeleccionado">Seleccionar Año:</label>
+                            <select id="anioSeleccionado" class="form-control w-25 mb-3" (change)="cambiarAnio($event)">
+                                <option *ngFor="let anio of aniosDisponibles" [value]="anio">{{ anio }}</option>
+                            </select>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Asignatura</th>
+                                            <th *ngFor="let i of [1,2,3,4,5,6,7]">Nota {{ i }}</th>
+                                            <th>Promedio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let materia of materias()">
+                                            <td>{{ materia.nombre }}</td>
+                                            <td *ngFor="let nota of materia.notas; let index = index">
+                                                <input *ngIf="puedeEditar" type="number" class="form-control" [(ngModel)]="materia.notas[index]" min="1" max="7" step="0.1">
+                                                <span *ngIf="!puedeEditar">{{ nota || '-' }}</span>
+                                            </td>
+                                            <td><strong>{{ calcularPromedio(materia.notas) }}</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="mb-3">
-                                <label for="student" class="form-label">Select Student</label>
-                                <select class="form-select" id="student">
-                                    <option>Alice Smith</option>
-                                    <option>Bob Johnson</option>
-                                    <option>Charlie Brown</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="grade" class="form-label">Enter Grade</label>
-                                <input type="number" class="form-control" id="grade" min="0" max="100">
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Submit Grade</button>
-                        </form>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
                         <h4>Pagos</h4>
@@ -127,3 +196,5 @@
             </div>
         </div>
     </div>
+
+
