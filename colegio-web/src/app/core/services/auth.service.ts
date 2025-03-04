@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7041/api/auth'; // Cambia la URL a la de tu API
+  private apiUrl = 'https://colegiowebapi.somee.com/api/auth'; // Cambia la URL a la de tu API
   private jwtHelper = new JwtHelperService();
   private tokenKey = 'auth-token';
   constructor(private http: HttpClient

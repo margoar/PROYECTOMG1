@@ -10,8 +10,8 @@ import { AuthService } from "./auth.service";
   providedIn: 'root',
 })
 export class CursoService {
-  private apiUrl = 'https://localhost:7041/api/curso';
-  private apiMatriculaUrl = 'https://localhost:7041/api/matricula'; 
+  private apiUrl = 'https://colegiowebapi.somee.com/api/curso';
+  private apiMatriculaUrl = 'https://colegiowebapi.somee.com/api/matricula'; 
 
 
     // Estado del curso seleccionado

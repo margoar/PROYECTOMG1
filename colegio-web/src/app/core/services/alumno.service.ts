@@ -12,7 +12,7 @@ import { Curso } from '../../modelo/curso.modelo';
   providedIn: 'root',
 })
 export class AlumnoService {
-  private apiUrl = 'https://localhost:7041/api/alumno'; // Reemplaza con la URL de tu API
+  private apiUrl = 'https://colegiowebapi.somee.com/api/alumno'; // Reemplaza con la URL de tu API
   private alumnoRef: any;
   constructor(private http: HttpClient, private loginServices : AuthService
   ) {}

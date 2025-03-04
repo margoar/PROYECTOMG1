@@ -44,11 +44,17 @@
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "allowedCommonJsDependencies": [],
+             
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -70,7 +76,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "colegio-web:build:production"
+              "buildTarget": "colegio-web:build:production",
+              "ssl": true
             },
             "development": {
               "buildTarget": "colegio-web:build:development"

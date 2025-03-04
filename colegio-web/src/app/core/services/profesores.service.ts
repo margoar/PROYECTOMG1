@@ -9,7 +9,7 @@ import { Profesor } from '../../modelo/profesor.modelo';
   providedIn: 'root',
 })
 export class ProfesoresService {
-  private apiUrl = 'https://localhost:7041/api/profesor'; // Reemplaza con la URL de tu API
+  private apiUrl = 'https://colegiowebapi.somee.com/api/profesor'; // Reemplaza con la URL de tu API
   private profesorRef: any;
   constructor(private http: HttpClient, private loginServices : AuthService
   ) {}

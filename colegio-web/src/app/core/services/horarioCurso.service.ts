@@ -9,7 +9,7 @@ import { HorarioCurso } from "../../modelo/horarioCurso.modelo";
   providedIn: 'root',
 })
 export class HorarioCursoService {
-  private apiUrl = 'https://localhost:7041/api/horarioCurso';
+  private apiUrl = 'https://colegiowebapi.somee.com/api/horarioCurso';
 
 
   constructor(private http: HttpClient) {}

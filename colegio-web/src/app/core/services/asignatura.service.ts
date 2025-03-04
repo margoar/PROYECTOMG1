@@ -8,7 +8,7 @@ import { Asignatura } from "../../modelo/asignatura.modelo";
   providedIn: 'root',
 })
 export class AsignaturaService {
-  private apiUrl = 'https://localhost:7041/api/asignatura'; // Reemplaza con la URL de tu API
+  private apiUrl = 'https://colegiowebapi.somee.com/api/asignatura'; // Reemplaza con la URL de tu API
   constructor(private http: HttpClient
   ) {}
 
