@@ -4,14 +4,15 @@ import { Nivel } from "../../modelo/nivel.modelo";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Curso } from "../../modelo/curso.modelo";
 import { HorarioCurso } from "../../modelo/horarioCurso.modelo";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class HorarioCursoService {
-  private apiUrl = 'https://colegiowebapi.somee.com/api/horarioCurso';
-
-
+  
+  private apiUrl = `${environment.apiUrl}/api/horarioCurso`; 
+  
   constructor(private http: HttpClient) {}
 
   semana(): Observable<any[]> {

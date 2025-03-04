@@ -1,41 +1,39 @@
-<header id="main-header" class="py-2 bg-info text-white">
-  <div class="container">
-      <div class="row">
-          <div class="col-md-6">
-              <h1><i class="bi bi-person"></i> Login</h1>
-          </div>
-      </div>
-  </div>
-</header>
-
-<section id="login">
-  <div class="container my-5">
-      <div class="row">
-          <div class="col-md-6 mx-auto">
-              <div class="card">
-                  <div class="card-header">
-                      <h4>Login</h4>
-                  </div>
-                  <div class="card-body">                    
-                      <form (submit)="login()">
-                          <div class="mb-3">
-                              <label for="email" class="form-label">Email</label>
-                              <input type="email" class="form-control" name="email" 
-                                  [(ngModel)]="email" required/>
-                          </div>
-                          <div class="mb-3">
-                              <label for="password" class="form-label">Password</label>
-                              <input type="password" class="form-control" name="password"
-                                  [(ngModel)]="password" required />
-                          </div>
-                          <input type="submit" value="Login" class="btn btn-primary w-100"/>
-                      </form>
-                      <div *ngIf="mensaje" class="alert alert-danger">
-                        {{ mensaje }}
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+<header id="main-header" class="py-3 bg-primary text-white shadow-sm">
+    <div class="container text-center">
+        <h1 class="fw-bold"><i class="bi bi-person-circle"></i> Iniciar Sesión</h1>
+    </div>
+  </header>
+  
+  <section id="login">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-header bg-white border-0 text-center">
+                        <h4 class="fw-bold text-primary">Bienvenido</h4>
+                        <p class="text-muted">Por favor, ingresa tus credenciales</p>
+                    </div>
+                    <div class="card-body px-4">
+                        <form (submit)="login()">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control rounded-pill" name="email"
+                                    [(ngModel)]="email" required/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control rounded-pill" name="password"
+                                    [(ngModel)]="password" required />
+                            </div>
+                            <input type="submit" value="Ingresar" class="btn btn-primary w-100 rounded-pill fw-bold"/>
+                        </form>
+                        <div *ngIf="mensaje" class="alert alert-danger mt-3 text-center">
+                          {{ mensaje }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  

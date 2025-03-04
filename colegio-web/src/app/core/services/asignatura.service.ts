@@ -3,12 +3,14 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { CursoAsignatura } from "../../modelo/cursoAsignatura.modelo";
 import { Asignatura } from "../../modelo/asignatura.modelo";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AsignaturaService {
-  private apiUrl = 'https://colegiowebapi.somee.com/api/asignatura'; // Reemplaza con la URL de tu API
+  private apiUrl = `${environment.apiUrl}/api/asignatura`; // Ahora la ruta específica se agrega aquí  
+  
   constructor(private http: HttpClient
   ) {}
 

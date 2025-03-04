@@ -5,14 +5,15 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { Curso } from "../../modelo/curso.modelo";
 import { Profesor } from "../../modelo/profesor.modelo";
 import { AuthService } from "./auth.service";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CursoService {
-  private apiUrl = 'https://colegiowebapi.somee.com/api/curso';
-  private apiMatriculaUrl = 'https://colegiowebapi.somee.com/api/matricula'; 
 
+  private apiUrl = `${environment.apiUrl}/api/curso`; 
+  private apiMatriculaUrl = `${environment.apiUrl}/api/matricula`; 
 
     // Estado del curso seleccionado
   private cursoSeleccionado = new BehaviorSubject<Curso | null>(null);

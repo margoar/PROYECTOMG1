@@ -1,46 +1,48 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg bg-primary text-white shadow-sm">
     <div class="container">
         <!-- Enlace a la página principal -->
-        <a [routerLink]="['/']" class="navbar-brand">Escuela App</a>
-        <!-- Botón para colapsar la barra de navegacion -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+        <a [routerLink]="['/']" class="navbar-brand text-white fw-bold">Escuela App</a>
+        
+        <!-- Botón para colapsar la barra de navegación -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" 
             data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <!-- Contenido de la barra de navegación -->
-         <div class="collapse navbar-collapse" id="navbarCollapse">
-                @if(isLoggedIn){    
-                <ul  class="navbar-nav me-auto">
-                    <li class="nav-item px-2">
-                        <a [routerLink]="['/']" class="nav-link">Inicio</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            @if(isLoggedIn){    
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item px-3">
+                        <a [routerLink]="['/']" class="nav-link text-white fw-bold">Inicio</a>
                     </li>
                 </ul>
-                }
+            }
 
-                <ul class="navbar-nav">
-                    @if(isLoggedIn){
-                    <li class="nav-item px-2">
-                        <a [routerLink]="['/']" class="nav-link">
-                            <i class="bi bi-person-circle"></i> Bienvenido, {{ loggedInUser }}
+            <ul class="navbar-nav">
+                @if(isLoggedIn){
+                    <li class="nav-item px-3">
+                        <a [routerLink]="['/']" class="nav-link text-white fw-bold">
+                            <i class="bi bi-person-circle"></i> {{ loggedInUser }}
                         </a>
                     </li>
-                    }   
-                    @if(!isLoggedIn){
-                    <li class="nav-item px-2">
-                        <a [routerLink]="['/login']" class="nav-link">
+                }   
+                @if(!isLoggedIn){
+                    <li class="nav-item px-3">
+                        <a [routerLink]="['/login']" class="nav-link text-white fw-bold">
                             <i class="bi bi-person"></i> Login
                         </a>
                     </li>
-                     }
-                    @if(isLoggedIn){
-                        <li class="nav-item px-2">
-                            <a style="cursor: pointer" (click)="logout()" class="nav-link">
-                                <i class="bi bi-box-arrow-rigth"></i> Salir
-                            </a>
-                        </li>
-                    }
+                }
+                @if(isLoggedIn){
+                    <li class="nav-item px-3">
+                        <a style="cursor: pointer" (click)="logout()" class="nav-link text-white fw-bold">
+                            <i class="bi bi-box-arrow-right"></i> Salir
+                        </a>
+                    </li>
+                }
             </ul>
-         </div>
+        </div>
     </div>
 </nav>

@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://colegiowebapi.somee.com/api/auth'; // Cambia la URL a la de tu API
+  private apiUrl = `${environment.apiUrl}/api/auth`; // Ahora la ruta específica se agrega aquí
   private jwtHelper = new JwtHelperService();
   private tokenKey = 'auth-token';
   constructor(private http: HttpClient

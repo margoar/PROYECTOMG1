@@ -6,13 +6,14 @@ import { Alumno } from '../../modelo/alumno.modelo';
 import { Matricula } from '../../modelo/matricula.modelo';
 import { Apoderado } from '../../modelo/apoderado.modelo';
 import { Curso } from '../../modelo/curso.modelo';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlumnoService {
-  private apiUrl = 'https://colegiowebapi.somee.com/api/alumno'; // Reemplaza con la URL de tu API
+  private apiUrl = `${environment.apiUrl}/api/alumno`; // Ahora la ruta específica se agrega aquí  
   private alumnoRef: any;
   constructor(private http: HttpClient, private loginServices : AuthService
   ) {}
