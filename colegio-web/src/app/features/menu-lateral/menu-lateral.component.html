@@ -1,0 +1,25 @@
+<nav id="sidebar" class="bg-dark text-white p-3 d-none d-md-flex flex-column" style="width: 250px; min-height: 100vh;">
+    <h3 class="text-center">Panel Admin</h3>
+    <ul class="nav flex-column flex-grow-1">
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white"><i class="bi bi-house-door"></i> Inicio</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white"  [routerLink]="['/profesores']"><i class="bi bi-people"></i> Profesores</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white" [routerLink]="['/alumnos']"><i class="bi bi-mortarboard"></i> Alumnos</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white" [routerLink]="['/cursos']"><i class="bi bi-book"></i> Cursos</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white" [routerLink]="['/asignaturas']"><i class="bi bi-journal"></i> Asignaturas</a>
+        </li>
+        <hr>
+        <h5 class="text-center">Configuración</h5>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-white" [routerLink]="['/configuraciones']"><i class="bi bi-gear"></i> Configuraciones</a>
+        </li>
+    </ul>
+</nav>

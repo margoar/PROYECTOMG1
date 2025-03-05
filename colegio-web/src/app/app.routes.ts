@@ -12,19 +12,33 @@ import { CursosPorNivelComponent } from './features/cursos-por-nivel/cursos-por-
 import { DetalleCursoComponent } from './features/detalle-curso/detalle-curso.component';
 import { DetalleAsignaturaComponent } from './features/detalle-asignatura/detalle-asignatura.component';
 import { VerAlumnoComponent } from './features/ver-alumno/ver-alumno.component';
+import { TableroInicioComponent } from './features/tablero-inicio/tablero-inicio.component';
+import { CursosComponent } from './features/cursos/cursos.component';
+import { AsignaturasComponent } from './features/asignaturas/asignaturas.component';
+import { ConfiguracionesComponent } from './features/configuraciones/configuraciones.component';
+
 
 export const routes: Routes = [
-    {path: '', component: TableroComponent, canActivate :[AuthGuard]}, //localhost:4200/
+    {path: '', component: TableroComponent, canActivate :[AuthGuard],
+      children:[
+        {path: '', component: TableroInicioComponent, canActivate :[AuthGuard]},
+        { path: 'profesores', component: ProfesoresComponent , canActivate :[AuthGuard]},
+        { path: 'alumnos', component: AlumnosComponent, canActivate :[AuthGuard] },
+        { path: 'cursos', component: CursosComponent, canActivate :[AuthGuard] },
+        { path: 'asignaturas', component: AsignaturasComponent, canActivate :[AuthGuard] },
+        { path: 'alumno/ver/:id', component: VerAlumnoComponent , canActivate :[AuthGuard]},
+        { path: 'profesor/editar/:id', component: EditarProfesorComponent , canActivate :[AuthGuard]},
+        { path: 'alumno/editar/:id', component: EditarAlumnoComponent , canActivate :[AuthGuard]},
+        { path: 'profesor/ver/:id', component: VerProfesorComponent , canActivate :[AuthGuard]},
+        { path: 'cursos/nivel/:id', component: CursosPorNivelComponent , canActivate :[AuthGuard]},
+        { path: 'curso/:id/:anio', component: DetalleCursoComponent, canActivate :[AuthGuard] },
+        { path: 'asignatura/:id/:anio', component: DetalleAsignaturaComponent, canActivate :[AuthGuard] },
+        { path: 'configuraciones', component: ConfiguracionesComponent, canActivate :[AuthGuard] }
+
+      ]
+    }, //localhost:4200/
     { path: 'login', component: LoginComponent },
-    { path: 'profesores', component: ProfesoresComponent , canActivate :[AuthGuard]},
-    { path: 'profesor/editar/:id', component: EditarProfesorComponent , canActivate :[AuthGuard]},
-    { path: 'alumno/editar/:id', component: EditarAlumnoComponent , canActivate :[AuthGuard]},
-    { path: 'profesor/ver/:id', component: VerProfesorComponent , canActivate :[AuthGuard]},
-    { path: 'alumno/ver/:id', component: VerAlumnoComponent , canActivate :[AuthGuard]},
-    { path: 'alumnos', component: AlumnosComponent, canActivate :[AuthGuard] },
-    { path: 'cursos/nivel/:id', component: CursosPorNivelComponent , canActivate :[AuthGuard]},
-    { path: 'curso/:id/:anio', component: DetalleCursoComponent, canActivate :[AuthGuard] },
-    { path: 'asignatura/:id/:anio', component: DetalleAsignaturaComponent, canActivate :[AuthGuard] },
+
 
   { path: '**', redirectTo: '' },
 ];

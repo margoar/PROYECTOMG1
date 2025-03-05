@@ -1,32 +1,23 @@
-<header id="main-header" class="py-2 header text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <h1>
-                    <i class="bi bi-gear-fill"></i> Administrador de Recursos
-                </h1>
-            </div>
-        </div>
-    </div>
-</header>
+<!-- Contenedor principal con ajuste de altura -->
+<div class="d-flex vh-100">
+    <!-- Sidebar fijo en altura para escritorio -->
+    <app-menu-lateral/>    
+    <!-- Contenido principal -->
+    <div class="container-fluid d-flex flex-column flex-grow-1 p-0">
+        <!-- Navbar fijo arriba -->
+   
+        <app-cabecero/>
 
+        <!-- Header de la página -->
+        <header id="main-header" class="py-3 bg-light text-dark text-center shadow-sm mt-5">
+        </header>
+        <div class="container mt-4 flex-grow-1">
+            <router-outlet/>
+        </div>
 
+ <app-pie-pagina/>   <!-- Pie de página fijo abajo -->
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <app-profesores/>
-        </div>
-        <div class="col-md-6 mb-4">
-            <app-alumnos/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <app-cursos/>
-        </div>
-        <div class="col-md-6 mb-4">
-            <app-asignaturas/>
-        </div>
-    </div>
+    </div>       
+    
 </div>
+<app-menu-movil/> 

@@ -8,7 +8,12 @@
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionProfesores">
         <div class="accordion-body">
-
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-dark"></h2>
+            <button class="btn btn-outline-primary btn-sm d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#agregarProfesorModal">
+                <i class="bi bi-plus-circle me-2"></i> Agregar Profesor
+            </button>
+        </div>
 
             <ul class="list-group">
                 <li *ngFor="let profesor of profesores.slice((pageProfesores-1) * itemsPerPageProfesores, pageProfesores * itemsPerPageProfesores)" 
@@ -35,13 +40,6 @@
                     </button>
                 </div>
               
-
-            <br>
-            <a href="#" class="btn btn-primary w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#agregarProfesorModal">
-            <i class="bi bi-plus-circle"></i> Agregar Profesor
-            </a>
         </div>
       </div>
     </div>

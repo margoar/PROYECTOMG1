@@ -1,0 +1,6 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    background-color: #212529; /* Color del sidebar */
+    min-height: 100vh;
+}

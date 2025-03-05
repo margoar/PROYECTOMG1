@@ -6,7 +6,7 @@ import { PiePaginaComponent } from './features/pie-pagina/pie-pagina.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CabeceroComponent, PiePaginaComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

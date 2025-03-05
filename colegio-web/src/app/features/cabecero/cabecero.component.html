@@ -1,41 +1,20 @@
-<nav class="navbar navbar-expand-lg bg-primary text-white shadow-sm">
+<nav class="navbar navbar-expand-lg bg-black text-white shadow-sm fixed-top">
     <div class="container">
-        <!-- Enlace a la página principal -->
+        <button class="btn btn-light d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+            ☰
+        </button>
         <a [routerLink]="['/']" class="navbar-brand text-white fw-bold">Escuela App</a>
-        
-        <!-- Botón para colapsar la barra de navegación -->
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" 
-            data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <!-- Contenido de la barra de navegación -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            @if(isLoggedIn){    
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item px-3">
-                        <a [routerLink]="['/']" class="nav-link text-white fw-bold">Inicio</a>
-                    </li>
-                </ul>
-            }
-
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 @if(isLoggedIn){
                     <li class="nav-item px-3">
                         <a [routerLink]="['/']" class="nav-link text-white fw-bold">
                             <i class="bi bi-person-circle"></i> {{ loggedInUser }}
                         </a>
                     </li>
-                }   
-                @if(!isLoggedIn){
-                    <li class="nav-item px-3">
-                        <a [routerLink]="['/login']" class="nav-link text-white fw-bold">
-                            <i class="bi bi-person"></i> Login
-                        </a>
-                    </li>
-                }
-                @if(isLoggedIn){
                     <li class="nav-item px-3">
                         <a style="cursor: pointer" (click)="logout()" class="nav-link text-white fw-bold">
                             <i class="bi bi-box-arrow-right"></i> Salir

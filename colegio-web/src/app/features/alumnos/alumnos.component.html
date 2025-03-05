@@ -7,7 +7,12 @@
       </h2>
       <div id="collapseDos" class="accordion-collapse collapse show" data-bs-parent="#accordionAlumnos">
         <div class="accordion-body">
-
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-dark"></h2>
+            <button class="btn btn-outline-primary btn-sm d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#agregarAlumnoModal">
+                <i class="bi bi-plus-circle me-2"></i> Agregar Alumno
+            </button>
+        </div>
             <ul class="list-group">
                 <ng-container *ngIf="(alumnos || []).length > 0; else noAlumnos">
                   <!-- Mostramos solo los alumnos de la página actual -->
@@ -45,14 +50,7 @@
                   Siguiente <i class="fas fa-chevron-right ms-1"></i>
                 </button>
               </div>
-              
-              
-            <br>
-            <a href="#" class="btn btn-primary w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#agregarAlumnoModal">
-            <i class="bi bi-plus-circle"></i> Agregar Alumno
-            </a>
+
         </div>
       </div>
     </div>

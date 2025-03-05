@@ -18,7 +18,7 @@ import { CursoService } from '../../core/services/curso.service';
 export class AlumnosComponent {
   pageAlumnos: number = 1;
   // Número de alumnos por página
-  itemsPerPageAlumnos: number = 5;
+  itemsPerPageAlumnos: number = 7;
 
     alumnos: Alumno[] = []
     alumno: Alumno = {
