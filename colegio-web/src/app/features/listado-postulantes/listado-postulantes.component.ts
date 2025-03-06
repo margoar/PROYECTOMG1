@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CursoService } from '../../core/services/curso.service';
 import { Curso } from '../../modelo/curso.modelo';
-import { forkJoin, switchMap } from 'rxjs';
+import { NgxPaginationModule } from 'ngx-pagination';
 import Swal from 'sweetalert2';
 import { Matricula } from '../../modelo/matricula.modelo';
 
 @Component({
   selector: 'app-listado-postulantes',
-  imports: [CommonModule],
+  imports: [CommonModule ,NgxPaginationModule],
   templateUrl: './listado-postulantes.component.html',
   styleUrl: './listado-postulantes.component.css'
 })
@@ -44,6 +44,7 @@ export class ListadoPostulantesComponent {
   @Input() nivelId!: number; // Recibe el valor del padre
 
   @Output() postulanteAgregado: EventEmitter<void> = new EventEmitter();
+  page = 1; // Página actual
 
 
 

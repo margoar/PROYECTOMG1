@@ -7,27 +7,64 @@
       </h2>
       <div id="collapseCuatro" class="accordion-collapse collapse show" data-bs-parent="#accordionAsignatura">
         <div class="accordion-body">
-
-          <ul class="list-group">
-            @for(asignatura of asignaturas; track asignatura){
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{asignatura.nombreAsignatura}}
-                  <div>
-                      <button type="button" class="btn btn-info" routerLink="/asignatura/{{asignatura.asignaturaID}}/2025"><i class="bi bi-journal-text" ></i>
-                          Resumen
-                      </button>    
-                  </div>
-              </li>    
-            }               
-          </ul>
-
-          <br>
-          <a href="#" class="btn btn-primary w-100"
-          data-bs-toggle="modal"
-          data-bs-target="#agregarProfesorModal">
-          <i class="bi bi-plus-circle"></i> Crear Asignatura
-          </a>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-dark"></h2>
+            <button class="btn btn-outline-primary btn-sm d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#agregarAsignaturaModal">
+                <i class="bi bi-plus-circle me-2"></i> Agregar Asignatura
+            </button>
+        </div>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col" class="small">Asignatura</th>
+              <th scope="col" class="small text-end"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let asignatura of asignaturas; track asignatura">
+              <td class="w-auto">{{ asignatura.nombreAsignatura }}</td>
+              <td class="text-end">
+                <button type="button" class="btn btn-primary btn-sm" 
+                        routerLink="/asignatura/{{asignatura.asignaturaID}}/2025">
+                  <i class="bi bi-journal-text"></i> Resumen
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
         </div>
       </div>
     </div>
   </div>
+
+
+  <!-- Modal para agregar asignatura -->
+<div class="modal fade" id="agregarAsignaturaModal" tabindex="-1" aria-labelledby="agregarAsignaturaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="agregarAsignaturaLabel">
+          <i class="bi bi-book me-2"></i> Agregar Nueva Asignatura
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <i class="bi bi-info-circle me-2"></i>
+          Está agregando una nueva asignatura. Si desea asignarla a un nivel o curso específico, debe hacerlo desde los módulos correspondientes.
+        </div>
+        <form>
+          <div class="mb-3">
+            <label for="nombreAsignatura" class="form-label">Nombre de la Asignatura</label>
+            <input type="text" class="form-control" id="nombreAsignatura" placeholder="Ej. Matemáticas, Historia...">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary"><i class="bi bi-save me-2"></i>Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

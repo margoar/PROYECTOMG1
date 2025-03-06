@@ -1,29 +1,42 @@
 
-<div class="postulantes" *ngIf="postulantes.length > 0" >
-    <h5>Postulantes</h5>
-    <ul class="list-group">
-      @for(postulante of postulantes; track postulante) {
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span class="w-50">{{ postulante.nombres }} {{ postulante.apellidoPaterno }} {{ postulante.apellidoMaterno }}</span>
-          <span class="badge w-25 text-center"
-            [ngClass]="{
-              'bg-success': postulante.matricula.estadoID === 4002,
-              'bg-danger': postulante.matricula.estadoID === 4001
-            }">
-            <i class="bi"
-              [ngClass]="{
-                'bi-check-circle-fill': postulante.matricula.estadoID === 4002,
-                'bi-exclamation-triangle-fill': postulante.matricula.estadoID === 4001
-              }">
-            </i>
-            {{ postulante.matricula.estadoMatricula }}
-          </span>
-          <button class="btn btn-primary" (click)="openModalInscripcion(postulante)"> <i class="bi bi-plus-circle"  ></i> Inscribir</button>
+<table class="table table-sm" *ngIf="postulantes.length > 0" >
+  <thead>
+    <tr>
+      <th scope="col"  class="small">Nombre</th>
+      <th scope="col"  class="small">Pago Matricula</th>
+      <th scope="col"  class="small"></th>
 
-        </li>
-      }
-    </ul>
-  </div>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let postulante of postulantes | paginate: { itemsPerPage: 7, currentPage: page }">
+      <td>{{postulante.nombres}} {{postulante.apellidoPaterno}} {{postulante.apellidoMaterno}}</td>
+     <td>          <span class="badge  text-center"
+      [ngClass]="{
+        'bg-success': postulante.matricula.estadoID === 4002,
+        'bg-danger': postulante.matricula.estadoID === 4001
+      }">
+      <i class="bi"
+        [ngClass]="{
+          'bi-check-circle-fill': postulante.matricula.estadoID === 4002,
+          'bi-exclamation-triangle-fill': postulante.matricula.estadoID === 4001
+        }">
+      </i>
+      {{ postulante.matricula.estadoMatricula }}
+    </span></td>
+    <td>
+      <button type="button" class="btn btn-primary btn-sm" (click)="openModalInscripcion(postulante)"> 
+        Inscribir
+      </button>
+
+    </td>
+    </tr>
+  
+  </tbody>
+</table>
+<pagination-controls (pageChange)="page = $event"></pagination-controls>
+
 
 
   <!-- Modal -->

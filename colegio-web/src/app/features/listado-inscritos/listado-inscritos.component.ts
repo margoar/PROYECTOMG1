@@ -2,10 +2,12 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Alumno } from '../../modelo/alumno.modelo';
 import { ActivatedRoute } from '@angular/router';
 import { AlumnoService } from '../../core/services/alumno.service';
+import { CommonModule } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-listado-inscritos',
-  imports: [],
+  imports: [CommonModule,NgxPaginationModule],
   templateUrl: './listado-inscritos.component.html',
   styleUrl: './listado-inscritos.component.css'
 })
@@ -14,6 +16,7 @@ export class ListadoInscritosComponent  implements OnInit{
   inscritos: Alumno[] = [];
   anioEscolar : number =0;
   idCurso: string | null = null;
+  page = 1; // Página actual
 
   constructor(private alumnoService: AlumnoService, private route : ActivatedRoute) {}
 
@@ -37,6 +40,9 @@ export class ListadoInscritosComponent  implements OnInit{
     this.cargarInscritos();  // Vuelve a cargar la lista de inscritos
   }
 
-
+  trackByFn(index: number, item: any): number {
+    return index; // Usa un identificador único si lo tienes
+  }
+  
   
 }

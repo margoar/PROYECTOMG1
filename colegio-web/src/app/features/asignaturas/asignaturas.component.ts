@@ -3,11 +3,12 @@ import { Asignatura } from '../../modelo/asignatura.modelo';
 import { AsignaturaService } from '../../core/services/asignatura.service';
 import { RouterModule } from '@angular/router';
 import { CursoAsignatura } from '../../modelo/cursoAsignatura.modelo';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-asignaturas',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './asignaturas.component.html',
   styleUrl: './asignaturas.component.css'
 })
