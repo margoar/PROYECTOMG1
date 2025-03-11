@@ -1,23 +1,22 @@
-<!-- Contenedor principal con ajuste de altura -->
-<div class="d-flex vh-100">
+  
+<app-menu-lateral/>
+    <!-- Contenedor principal con ajuste de altura -->
+<div class="main-content" id="main-content">
     <!-- Sidebar fijo en altura para escritorio -->
-    <app-menu-lateral/>    
+<app-cabecero/>
     <!-- Contenido principal -->
-    <div class="container-fluid d-flex flex-column flex-grow-1 p-0">
         <!-- Navbar fijo arriba -->
-   
         <app-cabecero/>
 
-        <!-- Header de la página -->
-        <header id="main-header" class="py-3 bg-light text-dark text-center shadow-sm mt-5">
-        </header>
-        <div class="container mt-4 flex-grow-1">
-            <router-outlet/>
-        </div>
 
- <app-pie-pagina/>   <!-- Pie de página fijo abajo -->
+            
+ <div class="content-container">
 
-    </div>       
+         
+ <router-outlet/>
+ </div>
+       
+    
     
 </div>
 <app-menu-movil/> 

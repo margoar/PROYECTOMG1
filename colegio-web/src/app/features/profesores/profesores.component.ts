@@ -19,7 +19,7 @@ import { TipoContrato } from '../../modelo/tipoContrato';
 export class ProfesoresComponent {
   pageProfesores: number = 1;
   // Número de profesores por página
-  itemsPerPageProfesores: number = 7;
+  itemsPerPageProfesores: number = 15;
 
   profesores: Profesor[]  = [];
   profesor: Profesor = {

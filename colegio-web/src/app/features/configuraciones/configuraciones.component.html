@@ -1,15 +1,17 @@
-  
-    <div class="row g-4">
-        <!-- Elementos Configurables con Paginación -->
-        <div *ngFor="let categoria of categorias" class="col-md-3">
-            <div class="card shadow-sm p-3">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h6 class="text-primary mb-0">{{ categoria.titulo }}</h6>
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalGenero">
-                        <i class="bi bi-plus"></i>
-                    </button>
-                </div>
-                <ul class="list-group mb-2">
+<div class="row g-4">
+    <!-- Elementos Configurables con Paginación -->
+    <div *ngFor="let categoria of categorias" class="col-md-3">
+        <div class="card shadow-sm p-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="text-primary mb-0">{{ categoria.titulo }}</h6>
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalAgregar" 
+        (click)="seleccionarCategoria(categoria)">
+    <i class="bi bi-plus"></i>
+</button>
+
+            </div>
+            <ul class="list-group mb-2">
+                <ng-container *ngIf="categoria.lista.length > 0; else emptyList">
                     <li *ngFor="let item of categoria.lista.slice((categoria.pagina-1) * 3, categoria.pagina * 3)" 
                         class="list-group-item d-flex justify-content-between align-items-center small">
                         {{ item.nombre }}
@@ -17,22 +19,52 @@
                             <i class="bi bi-trash"></i>
                         </button>
                     </li>
-                </ul>
-                <!-- Paginación -->
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-outline-secondary btn-sm" 
-                        (click)="categoria.pagina = Math.max(1, categoria.pagina - 1)"
-                        [disabled]="categoria.pagina === 1">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <span class="small">Página {{ categoria.pagina }} / {{ Math.ceil(categoria.lista.length / 3) }}</span>
-                    <button class="btn btn-outline-secondary btn-sm" 
-                        (click)="categoria.pagina = Math.min(Math.ceil(categoria.lista.length / 3), categoria.pagina + 1)"
-                        [disabled]="categoria.pagina >= Math.ceil(categoria.lista.length / 3)">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                </div>
+                </ng-container>
+            </ul>
+            <!-- Plantilla para cuando la lista está vacía -->
+            <ng-template #emptyList>
+                <li class="list-group-item text-muted text-center">No hay datos disponibles</li>
+            </ng-template>
+            <!-- Paginación -->
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-secondary btn-sm" 
+                    (click)="categoria.pagina = Math.max(1, categoria.pagina - 1)"
+                    [disabled]="categoria.pagina === 1 || categoria.lista.length === 0">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <span class="small">Página {{ categoria.pagina }} / {{ Math.ceil((categoria.lista.length || 1) / 3) }}</span>
+                <button class="btn btn-outline-secondary btn-sm" 
+                    (click)="categoria.pagina = Math.min(Math.ceil((categoria.lista.length || 1) / 3), categoria.pagina + 1)"
+                    [disabled]="categoria.pagina >= Math.ceil((categoria.lista.length || 1) / 3)">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
             </div>
         </div>
     </div>
+</div>
 
+
+<!-- Modal para agregar un elemento -->
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAgregarLabel">Agregar {{ categoriaSeleccionada?.titulo }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formulario">
+            <div class="mb-3">
+              <label for="nombreElemento" class="form-label">Nombre:</label>
+              <input type="text" id="nombreElemento" class="form-control" formControlName="nombre">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="agregarElementoModal()" [disabled]="formulario.invalid">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

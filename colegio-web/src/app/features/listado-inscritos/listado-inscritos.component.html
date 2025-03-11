@@ -6,7 +6,7 @@
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let inscrito of inscritos  | paginate: { itemsPerPage: 8, currentPage: page }; let i = index; trackBy: trackByFn">
+        <tr *ngFor="let inscrito of inscritos  | paginate: { itemsPerPage: 15, currentPage: page }; let i = index; trackBy: trackByFn">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{inscrito.nombres}} {{inscrito.apellidoPaterno}} {{inscrito.apellidoMaterno}}</td>
         </tr>

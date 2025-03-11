@@ -18,7 +18,7 @@ import { CursoService } from '../../core/services/curso.service';
 export class AlumnosComponent {
   pageAlumnos: number = 1;
   // Número de alumnos por página
-  itemsPerPageAlumnos: number = 7;
+  itemsPerPageAlumnos: number = 15;
 
     alumnos: Alumno[] = []
     alumno: Alumno = {
@@ -35,7 +35,9 @@ export class AlumnosComponent {
         }
       },
       matricula :{
-        anioEscolar: 0
+        anioEscolar: 0,
+        estadoID : 0,
+        estadoMatricula : ''
       }     
     };
 

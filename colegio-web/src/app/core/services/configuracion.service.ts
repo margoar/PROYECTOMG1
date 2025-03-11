@@ -41,6 +41,37 @@ export class ConfiguracionService {
     return this.http.get<Nacionalidad[]>(`${this.apiUrl}/obtener-nacionalidades`);
   }
 
+  insertarElemento(categoria: string, descripcion: string): Observable<number> {
+    let endpoint = '';
+  
+    switch (categoria) {
+      case 'Niveles':
+        endpoint = 'insertar-nivel';
+        break;
+      case 'Parentesco':
+        endpoint = 'insertar-parentesco';
+        break;
+      case 'Géneros':
+        endpoint = 'insertar-genero';
+        break;
+      case 'Tipos de Contrato':
+        endpoint = 'insertar-tipo-contrato';
+        break;
+      case 'Nacionalidades':
+        endpoint = 'insertar-nacionalidad';
+        break;
+      default:
+        throw new Error('Categoría no reconocida');
+    }
+  
+    // Enviar JSON correctamente
+    return this.http.post<number>(`${this.apiUrl}/${endpoint}`, JSON.stringify(descripcion), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+  
+  
+
 }
 
 

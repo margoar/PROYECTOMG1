@@ -63,42 +63,37 @@
                         <div class="card p-3 shadow-sm">
                             <label for="cursoSeleccionado">Seleccionar Curso:</label>
                             <select id="cursoSeleccionado" class="form-control w-50 mb-3" (change)="cambiarCurso($event)">
-                                <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nombreCurso }}</option>
+                                <option *ngFor="let curso of cursos" [value]="curso.cursoId">{{ curso.nombreCurso }}</option>
                             </select>
                             
                             <label for="fechaAsistencia">Seleccionar Fecha:</label>
                             <input type="date" id="fechaAsistencia" class="form-control w-50 mb-3" (change)="cambiarFecha($event)" [value]="fechaHoy">
                             
                             <div class="table-responsive">
-                                <table class="table table-bordered text-center">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Estudiante</th>
-                                            <th>Asistencia</th>
-                                            <th>Observaciones</th>
-                                        </tr>
+                                <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>Alumno</th>
+                                        <th>Estado</th>
+                                        <th>Observaciones</th>
+                                      </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let estudiante of estudiantes()">
-                                            <td>
-                                                <i class="bi bi-person-circle text-primary me-2"></i>{{ estudiante.nombre }}
-                                            </td>
-                                            <td>
-                                                <button *ngIf="puedeEditar" class="btn btn-success btn-sm me-2" (click)="marcarAsistencia(estudiante, true)">
-                                                    ✅
-                                                </button>
-                                                <button *ngIf="puedeEditar" class="btn btn-danger btn-sm" (click)="marcarAsistencia(estudiante, false)">
-                                                    ❌
-                                                </button>
-                                                <span *ngIf="!puedeEditar">{{ estudiante.asistencia ? '✅ Presente' : '❌ Ausente' }}</span>
-                                            </td>
-                                            <td>
-                                                <input *ngIf="puedeEditar" type="text" class="form-control" [(ngModel)]="estudiante.observacion" placeholder="Opcional">
-                                                <span *ngIf="!puedeEditar">{{ estudiante.observacion || '-' }}</span>
-                                            </td>
-                                        </tr>
+                                      <tr *ngFor="let alumno of alumnos">
+                                        <td>{{ alumno.nombres }}</td>
+                                        <td>
+                                          <select [(ngModel)]="asistencia.estadoAsistencia" class="form-select" (change)="guardarAsistencia(alumno)">
+                                            <option value="Presente">Presente</option>
+                                            <option value="Ausente">Ausente</option>
+                                            <option value="Justificado">Justificado</option>
+                                          </select>
+                                        </td>
+                                        <td>
+                                          <input type="text" [(ngModel)]="asistencia.observaciones" class="form-control" (blur)="guardarAsistencia(alumno)">
+                                        </td>
+                                      </tr>
                                     </tbody>
-                                </table>
+                                  </table>
                             </div>
                         </div>
                     </div>

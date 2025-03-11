@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {  RouterOutlet } from '@angular/router';
 import { CabeceroComponent } from './features/cabecero/cabecero.component';
-import { PiePaginaComponent } from './features/pie-pagina/pie-pagina.component';
+
 
 @Component({
   selector: 'app-root',

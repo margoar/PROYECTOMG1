@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProfesoresService } from '../../core/services/profesores.service';
 import { Profesor } from '../../modelo/profesor.modelo';
 import { CommonModule } from '@angular/common';
+import { Alumno } from '../../modelo/alumno.modelo';
 interface Cursox {
   id: number;
   nombreCurso: string;
@@ -56,13 +57,14 @@ export class VerProfesorComponent {
     id: string | null = null;
     cursos: any[] = [];
     puedeEditar = true; // Cambiar según el perfil del usuario
-
-
+    alumnos : Alumno[] = [];
+    asistencia : any =[];
     constructor( private profesorServicio :  ProfesoresService, private router: Router, private route : ActivatedRoute){}
   
     ngOnInit(){
         this.id = this.route.snapshot.paramMap.get('id');
         if (this.id){
+          this.cargarCursosPorProfesorId();
           this.profesorServicio.getProfesorPorId(this.id).subscribe((profesor: Profesor | null) =>{
             if(profesor){
               this.profesor = profesor;
@@ -74,7 +76,6 @@ export class VerProfesorComponent {
           this.router.navigate(['/']);
         }
 
-        this.cargarCursosPorProfesorId();
       }
 
 
@@ -100,26 +101,26 @@ export class VerProfesorComponent {
 
     estudiantesn = signal<EstudianteN[]>([]); // Se llenará dinámicamente
     contenidosNotas = signal<string[]>(['Prueba 1', 'Prueba 2', 'Prueba 3', 'Prueba 4', 'Prueba 5', 'Prueba 6', 'Prueba 7']); // Contenidos iniciales
-
+    
     cambiarCurso(event: Event) {
       const selectElement = event.target as HTMLSelectElement;
       const cursoId = Number(selectElement.value);
       console.log('Curso seleccionado:', cursoId);
-  
-      // Aquí podrías hacer una petición a la API para obtener los estudiantes del curso seleccionado
-      if (cursoId === 1) {
-        this.estudiantes.set([
-          { id: 101, nombre: 'Juan Pérez' },
-          { id: 102, nombre: 'María López' },
-          { id: 103, nombre: 'Carlos Díaz' }
-        ]);
-      } else {
-        this.estudiantes.set([
-          { id: 201, nombre: 'Ana Torres' },
-          { id: 202, nombre: 'Luis Fernández' }
-        ]);
+    
+      if (!isNaN(cursoId) && cursoId > 0) {
+        // Llamar al servicio para obtener los alumnos del curso seleccionado
+        this.profesorServicio.obtenerAlumnosPorCursoId(cursoId).subscribe({
+          next: (alumnos) => {
+            this.alumnos = alumnos; // Actualiza la lista de estudiantes
+          },
+          error: (error) => {
+            console.error('Error al obtener alumnos:', error);
+            this.alumnos = []; // Si hay error, deja la lista vacía
+          }
+        });
       }
     }
+    
   
     cambiarFecha(event: Event) {
       const inputElement = event.target as HTMLInputElement;
@@ -137,6 +138,26 @@ export class VerProfesorComponent {
         console.log(`Estudiante: ${estudiante.nombre}, Asistencia: ${presente ? 'Presente' : 'Ausente'}`);
       }
     }
+
+    guardarAsistencia(alumno: any) {
+      const asistencia = {
+        alumnoId: alumno.id,
+        profesorId: 13,
+        asignaturaId:1,
+        horarioId: 1,
+        fecha: this.fechaHoy,
+        estadoAsistencia: alumno.estadoAsistencia,
+        observaciones: alumno.observaciones || null
+      };
+  
+      this.profesorServicio.registrarActualizarAsistencia(asistencia).subscribe({
+        next: () => console.log(`Asistencia de ${alumno.nombre} guardada.`),
+        error: (error) => console.error(`Error al guardar asistencia de ${alumno.nombre}:`, error)
+      });
+    }
+
+
+
 
     cursoSeleccionado = signal<number | null>(null);
     asignaturaSeleccionada = signal<number | null>(null);

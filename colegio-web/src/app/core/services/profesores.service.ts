@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Profesor } from '../../modelo/profesor.modelo';
 import { environment } from '../../../environments/environment';
+import { Alumno } from '../../modelo/alumno.modelo';
 
 
 @Injectable({
@@ -49,5 +50,16 @@ export class ProfesoresService {
   getCursosPorProfesorId(idProfesor:number) :Observable<any | null>{
     const cursos =  this.http.get<any>(`${this.apiUrl}/obtener-cursos/${idProfesor}`);
     return cursos;
+  }
+
+  obtenerCantidadAlumnosPorCurso(cursoId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/cantidad-alumnos/${cursoId}`);
+  }
+  obtenerAlumnosPorCursoId(cursoID: number): Observable<Alumno[]> {
+      return this.http.get<Alumno[]>(`${this.apiUrl}/obtener-alumnos/${cursoID}`);
+    }
+
+  registrarActualizarAsistencia(asistencia: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/registrar-actualizar-asistencia`, asistencia);
   }
 }

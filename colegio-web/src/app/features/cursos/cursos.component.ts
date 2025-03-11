@@ -79,29 +79,37 @@ constructor(private cursoService: CursoService, private profesorService:Profesor
       }
     });
   }
-
   agregar(cursoForm: NgForm) {
-    const {value, valid} = cursoForm;
-    if(valid){
-
+    const { value, valid } = cursoForm;
+    if (valid) {
       this.cursoService.agregarCurso(value).subscribe({
-        next: (response) => {
+        next: () => {
+          // SweetAlert de éxito
           Swal.fire({
             title: '¡Éxito!',
             text: 'Curso agregado correctamente.',
             icon: 'success',
             confirmButtonText: 'Aceptar'
           }).then(() => {
-            cursoForm.resetForm(); 
-            this.cerrarModal(); 
+            cursoForm.resetForm();
+            this.cerrarModal();
           });
         },
         error: (error) => {
-          console.error("Error al agregar curso:", error);
+          // SweetAlert de error
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.message || 'Hubo un problema al agregar el curso.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            this.cerrarModal(); // Cierra el modal incluso si hay error
+          });
         }
-      });      
+      });
     }
   }
+  
 
   abrirModal() {
     this.isModalOpen = true;
