@@ -51,9 +51,11 @@ export class CursoService {
   }
 
     // Método para editar el profesor jefe del curso
-    editarProfesorCurso(cursoId: number, profesorId: number): Observable<number> {
-      return this.http.put<number>(`${this.apiUrl}/editar-profesorjefe`, { cursoId, profesorId });
+    editarProfesorCurso(cursoId: number, profesorJefeId: number): Observable<number> {
+      return this.http.put<number>(`${this.apiUrl}/editar-profesorjefe/${cursoId}/${profesorJefeId}`, {  });
     }
+
+    
 }
 
 

@@ -91,10 +91,7 @@ export class ConfiguracionesComponent implements OnInit {
     if (this.formulario.valid && this.categoriaSeleccionada) {
       const descripcion = this.formulario.value.nombre;
       const categoria = this.categoriaSeleccionada.titulo;
-       console.log("descripocion");
-       console.log(descripcion);
-       console.log("categopria")
-       console.log(categoria);
+
       this.configuracionService.insertarElemento(categoria, descripcion).subscribe(
         (nuevoId) => {
           // Agregar el nuevo elemento a la lista con el ID devuelto por el backend

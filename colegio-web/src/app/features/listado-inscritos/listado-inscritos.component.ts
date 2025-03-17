@@ -3,11 +3,10 @@ import { Alumno } from '../../modelo/alumno.modelo';
 import { ActivatedRoute } from '@angular/router';
 import { AlumnoService } from '../../core/services/alumno.service';
 import { CommonModule } from '@angular/common';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-listado-inscritos',
-  imports: [CommonModule,NgxPaginationModule],
+  imports: [CommonModule],
   templateUrl: './listado-inscritos.component.html',
   styleUrl: './listado-inscritos.component.css'
 })
@@ -38,11 +37,5 @@ export class ListadoInscritosComponent  implements OnInit{
   }
   actualizarInscritos() {
     this.cargarInscritos();  // Vuelve a cargar la lista de inscritos
-  }
-
-  trackByFn(index: number, item: any): number {
-    return index; // Usa un identificador único si lo tienes
-  }
-  
-  
+  }  
 }

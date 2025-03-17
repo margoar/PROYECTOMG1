@@ -10,8 +10,8 @@
                 <span *ngIf="!editando" (click)="editarProfesor()" class="editable text-primary cursor-pointer">
                     {{ curso.profesorJefe || 'Sin asignar' }}
                 </span>
-                <select *ngIf="editando" [(ngModel)]="curso.profesorJefe" class="form-select form-select-sm w-auto d-inline" (change)="guardarProfesor()" (blur)="guardarProfesor()">
-                    <option *ngFor="let profesor of profesores" [value]="profesor.nombreProfesor">
+                <select *ngIf="editando" [(ngModel)]="curso.profesorId" class="form-select form-select-sm w-auto d-inline" (change)="guardarProfesor()" (blur)="guardarProfesor()">
+                    <option *ngFor="let profesor of profesores" [value]="curso.profesorJefe">
                         {{ profesor.nombreProfesor }}
                     </option>
                 </select>

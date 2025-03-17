@@ -42,7 +42,6 @@ export class DetalleCursoComponent {
   inscritos: Alumno[] = [];
   profesores: Profesor [] =[]
   postulantes?: Alumno[] | null = null;
-  profesorJefeId: number = 1; // Este es el ID actual del profesor jefe
 
 
   constructor(private location: Location, private cursoService : CursoService, private alumnoService : AlumnoService,private route : ActivatedRoute) {
@@ -91,11 +90,18 @@ export class DetalleCursoComponent {
     this.editando = true;
   }
   
-  guardarProfesor() :void{
-    if (this.profesorJefeId) {
-      this.cursoService.editarProfesorCurso(parseInt(this.id!,10) , this.curso.profesorId!).subscribe(
-        (response: any) => { // Aquí se soluciona el error TS7006 al proporcionar un tipo explícito
+  guardarProfesor(): void {
+    if (this.curso.profesorId) {
+      const cursoId = parseInt(this.id!, 10);
+  
+      this.cursoService.editarProfesorCurso(cursoId, this.curso.profesorId).subscribe(
+        (response: any) => { 
           console.log('Profesor jefe actualizado:', response);
+  
+          // 🔹 Actualiza curso.profesorJefe con el nombre del profesor seleccionado
+          const profesorSeleccionado = this.profesores.find(p => p.idProfesor === this.curso.profesorId);
+          this.curso.profesorJefe = profesorSeleccionado ? profesorSeleccionado.nombreProfesor : 'Sin asignar';
+  
           this.editando = false;
         },
         error => {
@@ -103,7 +109,8 @@ export class DetalleCursoComponent {
         }
       );
     }
-  }  
+  }
+  
   getProfesores() {
     this.cursoService.obtenerProfesores().subscribe(data => {
       this.profesores = data;
